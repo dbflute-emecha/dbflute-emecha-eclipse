@@ -1,7 +1,7 @@
 /*
  *
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql.template;
+package org.dbflute.emecha.eclipse.emsql.template;
 
 public interface ISqlTemplateProcessor {
 

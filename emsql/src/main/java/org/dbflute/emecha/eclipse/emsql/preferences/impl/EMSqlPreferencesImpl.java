@@ -1,15 +1,15 @@
 /*
  *
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.impl;
+package org.dbflute.emecha.eclipse.emsql.preferences.impl;
 
 import java.io.IOException;
 
+import org.dbflute.emecha.eclipse.core.util.LogUtil;
+import org.dbflute.emecha.eclipse.emsql.EMSqlPlugin;
+import org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferenceStore;
+import org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences;
 import org.eclipse.core.resources.IProject;
-import org.seasar.dbflute.emecha.eclipse.plugin.core.util.LogUtil;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.EMSqlPlugin;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferenceStore;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences;
 
 /**
  * @author schatten
@@ -39,7 +39,7 @@ public class EMSqlPreferencesImpl implements EMSqlPreferences {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences#getSqlDirectory()
+     * @see org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences#getSqlDirectory()
      */
     public String getSqlDirectory() {
         String outputDir = preferenceStore.getString(OUTPUT_DIRECTORY_KEY);
@@ -51,7 +51,7 @@ public class EMSqlPreferencesImpl implements EMSqlPreferences {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences#getSqlDirectory(java.lang.String)
+     * @see org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences#getSqlDirectory(java.lang.String)
      */
     public String getSqlDirectory(String packageName) {
         String outputDir = preferenceStore.getRecursivePackagePreference(OUTPUT_DIRECTORY_KEY, packageName);
@@ -63,7 +63,7 @@ public class EMSqlPreferencesImpl implements EMSqlPreferences {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences#setSqlDirectory(java.lang.String, java.lang.String)
+     * @see org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences#setSqlDirectory(java.lang.String, java.lang.String)
      */
     public void setSqlDirectory(String packageName, String value) {
         preferenceStore.setPreferenceValue(OUTPUT_DIRECTORY_KEY, packageName, value);
@@ -71,7 +71,7 @@ public class EMSqlPreferencesImpl implements EMSqlPreferences {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences#setSqlDirectory(java.lang.String)
+     * @see org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences#setSqlDirectory(java.lang.String)
      */
     public void setSqlDirectory(String value) {
         preferenceStore.setPreferenceValue(OUTPUT_DIRECTORY_KEY, null, value);
@@ -79,7 +79,7 @@ public class EMSqlPreferencesImpl implements EMSqlPreferences {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences#getDatabaseName()
+     * @see org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences#getDatabaseName()
      */
     public String getDatabaseName() {
         return preferenceStore.getString(DATABASE_TYPE_KEY);
@@ -87,7 +87,7 @@ public class EMSqlPreferencesImpl implements EMSqlPreferences {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences#getDatabaseName(java.lang.String)
+     * @see org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences#getDatabaseName(java.lang.String)
      */
     public String getDatabaseName(String packageName) {
         String databaseName = preferenceStore.getRecursivePackagePreference(DATABASE_TYPE_KEY, packageName);
@@ -103,7 +103,7 @@ public class EMSqlPreferencesImpl implements EMSqlPreferences {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences#setDatabaseName(java.lang.String)
+     * @see org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences#setDatabaseName(java.lang.String)
      */
     public void setDatabaseName(String value) {
         preferenceStore.setPreferenceValue(DATABASE_TYPE_KEY, null, value);
@@ -111,7 +111,7 @@ public class EMSqlPreferencesImpl implements EMSqlPreferences {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences#setDatabaseName(java.lang.String, java.lang.String)
+     * @see org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences#setDatabaseName(java.lang.String, java.lang.String)
      */
     public void setDatabaseName(String packageName, String value) {
         preferenceStore.setPreferenceValue(DATABASE_TYPE_KEY, packageName, value);
@@ -119,7 +119,7 @@ public class EMSqlPreferencesImpl implements EMSqlPreferences {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences#save()
+     * @see org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences#save()
      */
     public void save() {
         try {

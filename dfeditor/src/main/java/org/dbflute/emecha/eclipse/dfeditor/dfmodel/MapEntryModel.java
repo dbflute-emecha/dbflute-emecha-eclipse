@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel;
+package org.dbflute.emecha.eclipse.dfeditor.dfmodel;
 
 /**
  * Map entry model.
@@ -47,7 +47,7 @@ public class MapEntryModel extends AbstractModel implements NamedModel {
     }
 
     /**
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropModel#getLength()
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel#getLength()
      */
     public int getLength() {
         return _length;

@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfassist.link;
+package org.dbflute.emecha.eclipse.dfassist.link;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import org.eclipse.jdt.ui.actions.SelectionDispatchAction;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 
-import friend.org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkDetector;
+import org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkDetector;
 
 /**
  *

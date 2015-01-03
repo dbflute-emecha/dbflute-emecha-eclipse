@@ -8,10 +8,10 @@
             name="DFProp Editor"
             icon="icons/dfeditor2.gif"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
-            class="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DFPropEditor"
-            id="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DFPropEditor">
+            class="org.dbflute.emecha.eclipse.dfeditor.DFPropEditor"
+            id="org.dbflute.emecha.eclipse.dfeditor.DFPropEditor">
             <contentTypeBinding
-                  contentTypeId="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfprop">
+                  contentTypeId="org.dbflute.emecha.eclipse.dfeditor.dfprop">
             </contentTypeBinding>
       </editor>
    </extension>
@@ -25,8 +25,8 @@
           </content-type>
     </extension>
     <extension point="org.eclipse.ui.editors.documentProviders">
-        <provider id="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.documentProviders"
-               class="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DFPropDocumentProvider"
+        <provider id="org.dbflute.emecha.eclipse.dfeditor.documentProviders"
+               class="org.dbflute.emecha.eclipse.dfeditor.DFPropDocumentProvider"
           extensions="dfprop,dataprop,diffmap">
       </provider>
     </extension>
@@ -36,7 +36,7 @@
         <menuContribution
               locationURI="popup:#TextEditorContext?after=group.edit">
             <command
-                  commandId="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.ToggleCommentAction" style="push">
+                  commandId="org.dbflute.emecha.eclipse.dfeditor.ToggleCommentAction" style="push">
                   <visibleWhen
                         checkEnabled="false">
                         <reference
@@ -53,7 +53,7 @@
             <with
                   variable="activeEditorId">
                 <equals
-                      value="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DFPropEditor">
+                      value="org.dbflute.emecha.eclipse.dfeditor.DFPropEditor">
                 </equals>
             </with>
         </definition>
@@ -61,7 +61,7 @@
     <extension
           point="org.eclipse.ui.contexts">
        <context
-             id="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DFPropEditorScope"
+             id="org.dbflute.emecha.eclipse.dfeditor.DFPropEditorScope"
              name="Editing DFPropEditor Source"
              description="Editing DFPropEditor Source Context"
              parentId="org.eclipse.ui.textEditorScope">
@@ -72,11 +72,11 @@
         <command
             name="Toggle Comment"
             description="Toggle Comment"
-            categoryId="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.category.DFPropEditor"
-            id="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.ToggleCommentAction">
+            categoryId="org.dbflute.emecha.eclipse.dfeditor.category.DFPropEditor"
+            id="org.dbflute.emecha.eclipse.dfeditor.ToggleCommentAction">
         </command>
         <category
-              id="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.category.DFPropEditor"
+              id="org.dbflute.emecha.eclipse.dfeditor.category.DFPropEditor"
               description="Editing Commands"
               name="Editing">
         </category>
@@ -84,8 +84,8 @@
     <extension
           point="org.eclipse.ui.bindings">
         <key sequence="M1+/"
-             commandId="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.ToggleCommentAction"
-             contextId="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DFPropEditorScope"
+             commandId="org.dbflute.emecha.eclipse.dfeditor.ToggleCommentAction"
+             contextId="org.dbflute.emecha.eclipse.dfeditor.DFPropEditorScope"
              schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
               />
     </extension>
@@ -102,14 +102,14 @@
          point="org.eclipse.ui.preferencePages">
       <page
             name="DFProp Configuration"
-            class="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.preferences.DFPropPreferencePage"
+            class="org.dbflute.emecha.eclipse.dfeditor.preferences.DFPropPreferencePage"
             id="org.seaser.dbflute.emecha.eclipse.plugin.dfeditor.preferences.DFPropPreferencePage">
       </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.preferences.PreferenceInitializer">
+            class="org.dbflute.emecha.eclipse.dfeditor.preferences.PreferenceInitializer">
       </initializer>
    </extension>
 -->

@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.synchronizer;
+package org.dbflute.emecha.eclipse.synchronizer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -21,8 +21,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.dbflute.emecha.synchronizer.handler.RefreshHandler;
-import org.dbflute.emecha.synchronizer.preferences.PreferenceConstants;
+import org.dbflute.emecha.eclipse.synchronizer.handler.RefreshHandler;
+import org.dbflute.emecha.eclipse.synchronizer.preferences.PreferenceConstants;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -38,7 +38,7 @@ import com.sun.net.httpserver.HttpServer;
 public class EMSynchronizer extends AbstractUIPlugin implements IStartup {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.dbflute.emecha.synchronizer"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.dbflute.emecha.eclipse.synchronizer"; //$NON-NLS-1$
 
     // The shared instance
     private static EMSynchronizer plugin;

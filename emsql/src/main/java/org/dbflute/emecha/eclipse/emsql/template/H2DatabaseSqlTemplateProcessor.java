@@ -1,7 +1,7 @@
 /*
  *
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql.template;
+package org.dbflute.emecha.eclipse.emsql.template;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class H2DatabaseSqlTemplateProcessor extends DefaultSqlTemplateProcessor {
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.ISqlTemplateProcessor#getSelectPagingSqlTemplate()
+     * @see org.dbflute.emecha.eclipse.emsql.template.ISqlTemplateProcessor#getSelectPagingSqlTemplate()
      */
     public String getSelectPagingSqlTemplate() {
         List<String> list = new ArrayList<String>();

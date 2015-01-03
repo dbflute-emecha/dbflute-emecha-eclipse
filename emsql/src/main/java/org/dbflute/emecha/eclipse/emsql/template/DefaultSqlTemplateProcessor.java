@@ -1,7 +1,7 @@
 /*
  *
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql.template;
+package org.dbflute.emecha.eclipse.emsql.template;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class DefaultSqlTemplateProcessor implements ISqlTemplateProcessor {
     }
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.ISqlTemplateProcessor#setLineSeparator(java.lang.String)
+     * @see org.dbflute.emecha.eclipse.emsql.template.ISqlTemplateProcessor#setLineSeparator(java.lang.String)
      */
     public void setLineSeparator(String lineSeparator) {
         this.lineSeparator = lineSeparator;
@@ -30,7 +30,7 @@ public class DefaultSqlTemplateProcessor implements ISqlTemplateProcessor {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.ISqlTemplateProcessor#getSelectSqlTemplate()
+     * @see org.dbflute.emecha.eclipse.emsql.template.ISqlTemplateProcessor#getSelectSqlTemplate()
      */
     public String getSelectSqlTemplate() {
         StringBuilder sql = new StringBuilder();
@@ -46,7 +46,7 @@ public class DefaultSqlTemplateProcessor implements ISqlTemplateProcessor {
     }
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.ISqlTemplateProcessor#getSelectPagingSqlTemplate()
+     * @see org.dbflute.emecha.eclipse.emsql.template.ISqlTemplateProcessor#getSelectPagingSqlTemplate()
      */
     public String getSelectPagingSqlTemplate() {
         StringBuilder sql = new StringBuilder();
@@ -73,7 +73,7 @@ public class DefaultSqlTemplateProcessor implements ISqlTemplateProcessor {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.ISqlTemplateProcessor#getInsertSqlTemplate()
+     * @see org.dbflute.emecha.eclipse.emsql.template.ISqlTemplateProcessor#getInsertSqlTemplate()
      */
     public String getInsertSqlTemplate() {
         StringBuilder sql = new StringBuilder();
@@ -84,7 +84,7 @@ public class DefaultSqlTemplateProcessor implements ISqlTemplateProcessor {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.ISqlTemplateProcessor#getDeleteSqlTemplate()
+     * @see org.dbflute.emecha.eclipse.emsql.template.ISqlTemplateProcessor#getDeleteSqlTemplate()
      */
     public String getDeleteSqlTemplate() {
         StringBuilder sql = new StringBuilder();
@@ -97,7 +97,7 @@ public class DefaultSqlTemplateProcessor implements ISqlTemplateProcessor {
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.ISqlTemplateProcessor#getUpdateSqlTemplate()
+     * @see org.dbflute.emecha.eclipse.emsql.template.ISqlTemplateProcessor#getUpdateSqlTemplate()
      */
     public String getUpdateSqlTemplate() {
         StringBuilder sql = new StringBuilder();

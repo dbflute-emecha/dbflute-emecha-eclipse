@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel;
+package org.dbflute.emecha.eclipse.dfeditor.dfmodel;
 
 /**
  * Multi line comment model.
@@ -31,7 +31,7 @@ public class MultiLineCommentModel extends DefaultModel implements FoldingModel 
     }
 
     /**
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.AbstractModel#addChild(org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.AbstractModel)
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.AbstractModel#addChild(org.dbflute.emecha.eclipse.dfeditor.dfmodel.AbstractModel)
      */
     public void addChild(CommentModel child) {
         super.addChild(child);
@@ -46,7 +46,7 @@ public class MultiLineCommentModel extends DefaultModel implements FoldingModel 
     }
 
     /**
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropModel#getLength()
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel#getLength()
      */
     public int getLength() {
         return _length;
@@ -54,7 +54,7 @@ public class MultiLineCommentModel extends DefaultModel implements FoldingModel 
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.FoldingModel#canFolding()
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.FoldingModel#canFolding()
      */
     public boolean canFolding() {
         return getChild().length > 1;
@@ -62,7 +62,7 @@ public class MultiLineCommentModel extends DefaultModel implements FoldingModel 
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.FoldingModel#getFoldingStart()
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.FoldingModel#getFoldingStart()
      */
     public int getFoldingStart() {
         if (!canFolding()) {
@@ -73,7 +73,7 @@ public class MultiLineCommentModel extends DefaultModel implements FoldingModel 
 
     /**
      * {@inheritDoc}
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.FoldingModel#getFoldingLength()
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.FoldingModel#getFoldingLength()
      */
     public int getFoldingLength() {
         return getLength();

@@ -1,11 +1,11 @@
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql;
+package org.dbflute.emecha.eclipse.emsql;
 
+import org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences;
+import org.dbflute.emecha.eclipse.emsql.preferences.impl.EMSqlPreferencesImpl;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.impl.EMSqlPreferencesImpl;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -13,7 +13,7 @@ import org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.impl.EMSqlPref
 public class EMSqlPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.seasar.dbflute.emecha.eclipse.plugin.emsql";
+	public static final String PLUGIN_ID = "org.dbflute.emecha.eclipse.emsql";
 
 	// The shared instance
 	private static EMSqlPlugin plugin;

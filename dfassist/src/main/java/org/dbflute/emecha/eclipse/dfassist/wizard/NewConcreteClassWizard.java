@@ -13,10 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfassist.wizard;
+package org.dbflute.emecha.eclipse.dfassist.wizard;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.dbflute.emecha.eclipse.dfassist.DfAssistPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -32,7 +33,6 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyDelegatingOperation;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfassist.DfAssistPlugin;
 
 /**
  * Wizard to create a new concrete class.

@@ -13,8 +13,9 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfassist.command;
+package org.dbflute.emecha.eclipse.dfassist.command;
 
+import org.dbflute.emecha.eclipse.dfassist.wizard.NewConcreteClassWizard;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -33,7 +34,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.part.FileEditorInput;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfassist.wizard.NewConcreteClassWizard;
 
 /**
  * Command handler to create a new concrete class.

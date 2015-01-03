@@ -1,7 +1,7 @@
 /*
  *
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences;
+package org.dbflute.emecha.eclipse.emsql.preferences;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;

@@ -1,8 +1,9 @@
 /*
  *
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql.dialog;
+package org.dbflute.emecha.eclipse.emsql.dialog;
 
+import org.dbflute.emecha.eclipse.emsql.EMSqlPlugin;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -20,7 +21,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.EMSqlPlugin;
 
 /**
  * @author schatten

@@ -1,7 +1,7 @@
 /*
  *
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql;
+package org.dbflute.emecha.eclipse.emsql;
 
 import java.util.HashMap;
 import java.util.Map;

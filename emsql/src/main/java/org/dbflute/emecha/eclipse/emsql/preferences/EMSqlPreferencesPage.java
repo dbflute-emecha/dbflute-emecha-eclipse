@@ -1,10 +1,13 @@
 /*
  *
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences;
+package org.dbflute.emecha.eclipse.emsql.preferences;
 
 import java.util.ArrayList;
 
+import org.dbflute.emecha.eclipse.emsql.EMSqlPlugin;
+import org.dbflute.emecha.eclipse.emsql.SupportDatabase;
+import org.dbflute.emecha.eclipse.emsql.dialog.SourceContainerDialog;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -26,9 +29,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPropertyPage;
 import org.eclipse.ui.dialogs.PropertyPage;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.EMSqlPlugin;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.SupportDatabase;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.dialog.SourceContainerDialog;
 
 /**
  * EMSQLの設定画面ページ

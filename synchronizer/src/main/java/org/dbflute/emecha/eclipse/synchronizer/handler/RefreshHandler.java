@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.synchronizer.handler;
+package org.dbflute.emecha.eclipse.synchronizer.handler;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.dbflute.emecha.synchronizer.nls.Messages;
+import org.dbflute.emecha.eclipse.synchronizer.nls.Messages;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;

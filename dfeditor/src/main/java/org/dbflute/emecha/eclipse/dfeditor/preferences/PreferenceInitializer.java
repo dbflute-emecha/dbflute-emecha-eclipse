@@ -1,4 +1,4 @@
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.preferences;
+package org.dbflute.emecha.eclipse.dfeditor.preferences;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 

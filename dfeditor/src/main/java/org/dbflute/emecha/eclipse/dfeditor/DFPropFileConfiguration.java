@@ -13,8 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor;
+package org.dbflute.emecha.eclipse.dfeditor;
 
+import org.dbflute.emecha.eclipse.dfeditor.action.DFPropDoubleClickStrategy;
+import org.dbflute.emecha.eclipse.dfeditor.scanner.BsDFPropScanner;
+import org.dbflute.emecha.eclipse.dfeditor.scanner.DFPropCommentScanner;
+import org.dbflute.emecha.eclipse.dfeditor.scanner.DefaultTokenScanner;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.DefaultTextHover;
 import org.eclipse.jface.text.IDocument;
@@ -29,10 +33,6 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.ui.editors.text.TextSourceViewerConfiguration;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.MarkerAnnotation;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.action.DFPropDoubleClickStrategy;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.scanner.BsDFPropScanner;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.scanner.DFPropCommentScanner;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.scanner.DefaultTokenScanner;
 
 /**
  * DBFlute Property File Source View Configuration.

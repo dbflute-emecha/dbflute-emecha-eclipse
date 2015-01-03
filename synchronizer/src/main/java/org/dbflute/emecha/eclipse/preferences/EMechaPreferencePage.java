@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.preferences;
+package org.dbflute.emecha.eclipse.preferences;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;

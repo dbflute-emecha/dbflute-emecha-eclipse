@@ -1,4 +1,4 @@
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences;
+package org.dbflute.emecha.eclipse.emsql.preferences;
 
 
 public interface EMSqlPreferences {

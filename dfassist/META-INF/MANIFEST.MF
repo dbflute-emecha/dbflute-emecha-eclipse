@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: DBFlute Assist Plugin
 Bundle-SymbolicName: org.seasar.dbflute.emecha.eclipse.plugin.dfassist;singleton:=true
 Bundle-Version: 0.0.3.1
-Bundle-Activator: org.seasar.dbflute.emecha.eclipse.plugin.dfassist.DfAssistPlugin
+Bundle-Activator: org.dbflute.emecha.eclipse.dfassist.DfAssistPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,

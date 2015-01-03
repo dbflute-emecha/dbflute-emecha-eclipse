@@ -8,7 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.rule;
+package org.dbflute.emecha.eclipse.dfeditor.rule;
 
 import java.util.ArrayList;
 import java.util.HashMap;

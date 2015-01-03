@@ -13,12 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.synchronizer.preferences;
+package org.dbflute.emecha.eclipse.synchronizer.preferences;
 
 import org.eclipse.jface.preference.*;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.IWorkbench;
-import org.dbflute.emecha.synchronizer.EMSynchronizer;
+import org.dbflute.emecha.eclipse.synchronizer.EMSynchronizer;
 
 /**
  * This class represents a preference page that is contributed to the Preferences dialog. By subclassing

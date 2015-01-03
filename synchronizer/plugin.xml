@@ -6,20 +6,20 @@
          point="org.eclipse.ui.preferencePages">
       <page
             name="EMSynchronizer"
-            class="org.dbflute.emecha.synchronizer.preferences.EMSynchronizerPreferencePage"
-            id="org.dbflute.emecha.synchronizer.preferences.EMSynchronizerPreferencePage">
+            class="org.dbflute.emecha.eclipse.synchronizer.preferences.EMSynchronizerPreferencePage"
+            id="org.dbflute.emecha.eclipse.synchronizer.preferences.EMSynchronizerPreferencePage">
       </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="org.dbflute.emecha.synchronizer.preferences.PreferenceInitializer">
+            class="org.dbflute.emecha.eclipse.synchronizer.preferences.PreferenceInitializer">
       </initializer>
    </extension>
    <extension
          point="org.eclipse.ui.startup">
       <startup
-            class="org.dbflute.emecha.synchronizer.EMSynchronizer">
+            class="org.dbflute.emecha.eclipse.synchronizer.EMSynchronizer">
       </startup>
    </extension>
 

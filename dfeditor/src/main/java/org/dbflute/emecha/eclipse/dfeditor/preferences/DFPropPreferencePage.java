@@ -1,9 +1,9 @@
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.preferences;
+package org.dbflute.emecha.eclipse.dfeditor.preferences;
 
+import org.dbflute.emecha.eclipse.dfeditor.DFEditorActivator;
 import org.eclipse.jface.preference.*;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.IWorkbench;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DFEditorActivator;
 
 /**
  * This class represents a preference page that

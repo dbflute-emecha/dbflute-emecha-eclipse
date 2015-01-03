@@ -13,11 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfassist.action;
+package org.dbflute.emecha.eclipse.dfassist.action;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.dbflute.emecha.eclipse.dfassist.DfAssistPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -38,7 +39,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfassist.DfAssistPlugin;
 
 /**
  * SQLからJavaクラスを開くアクションのベースクラス。

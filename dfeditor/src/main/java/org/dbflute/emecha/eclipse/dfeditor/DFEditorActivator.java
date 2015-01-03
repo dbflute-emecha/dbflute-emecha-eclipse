@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor;
+package org.dbflute.emecha.eclipse.dfeditor;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -25,7 +25,7 @@ import org.osgi.framework.BundleContext;
 public class DFEditorActivator extends AbstractUIPlugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.seasar.dbflute.emecha.eclipse.plugin.dfeditor";
+    public static final String PLUGIN_ID = "org.dbflute.emecha.eclipse.dfeditor";
 
     // The shared instance
     private static DFEditorActivator plugin;

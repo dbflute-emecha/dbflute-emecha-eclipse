@@ -19,7 +19,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.action;
+package org.dbflute.emecha.eclipse.dfeditor.action;
 
 import java.util.HashMap;
 import java.util.Map;

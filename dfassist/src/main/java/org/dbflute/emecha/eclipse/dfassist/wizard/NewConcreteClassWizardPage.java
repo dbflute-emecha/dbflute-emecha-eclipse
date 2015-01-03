@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfassist.wizard;
+package org.dbflute.emecha.eclipse.dfassist.wizard;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dbflute.emecha.eclipse.dfassist.DfAssistPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -33,7 +34,6 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.eclipse.swt.widgets.Composite;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfassist.DfAssistPlugin;
 
 /**
  * Wizard page to create a new concrete class.

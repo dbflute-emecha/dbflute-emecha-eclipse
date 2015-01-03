@@ -13,8 +13,10 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfassist.link;
+package org.dbflute.emecha.eclipse.dfassist.link;
 
+import org.dbflute.emecha.eclipse.dfassist.DfAssistPlugin;
+import org.dbflute.emecha.eclipse.dfassist.nls.Messages;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IType;
@@ -23,8 +25,6 @@ import org.eclipse.jdt.ui.actions.SelectionDispatchAction;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfassist.DfAssistPlugin;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfassist.nls.Messages;
 
 /**
  * Hyperlink to ParameterBean.

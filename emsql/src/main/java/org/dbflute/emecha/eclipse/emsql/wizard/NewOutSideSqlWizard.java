@@ -1,10 +1,12 @@
 /**
  *
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql.wizard;
+package org.dbflute.emecha.eclipse.emsql.wizard;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.dbflute.emecha.eclipse.core.util.LogUtil;
+import org.dbflute.emecha.eclipse.emsql.EMSqlPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -21,8 +23,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyDelegatingOperation;
 import org.eclipse.ui.ide.IDE;
-import org.seasar.dbflute.emecha.eclipse.plugin.core.util.LogUtil;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.EMSqlPlugin;
 
 /**
  * @author Schatten

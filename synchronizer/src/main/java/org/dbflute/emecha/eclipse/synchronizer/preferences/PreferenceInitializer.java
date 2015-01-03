@@ -13,13 +13,13 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.synchronizer.preferences;
+package org.dbflute.emecha.eclipse.synchronizer.preferences;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.dbflute.emecha.synchronizer.EMSynchronizer;
+import org.dbflute.emecha.eclipse.synchronizer.EMSynchronizer;
 
 /**
  * Class used to initialize default preference values.

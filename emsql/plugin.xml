@@ -5,11 +5,11 @@
          point="org.eclipse.ui.popupMenus">
          <objectContribution
                adaptable="true"
-               id="org.seasar.dbflute.emecha.eclipse.plugin.emsql.java.objectContribution"
+               id="org.dbflute.emecha.eclipse.emsql.java.objectContribution"
                nameFilter="*.java"
                objectClass="org.eclipse.core.resources.IFile">
                <menu
-                     id="org.seasar.dbflute.emecha.eclipse.plugin.menu"
+                     id="org.dbflute.emecha.eclipse.menu"
                      label="EMecha"
                      path="additions">
                      <groupMarker name="additions"/>
@@ -34,20 +34,20 @@
                    </and>
                </visibility>
                <action
-                     class="org.seasar.dbflute.emecha.eclipse.plugin.emsql.action.NewOutSideSqlWizardAction"
-                     id="org.seasar.dbflute.emecha.eclipse.plugin.emsql.NewOutSideSql"
-                     menubarPath="org.seasar.dbflute.emecha.eclipse.plugin.menu/additions2"
+                     class="org.dbflute.emecha.eclipse.emsql.action.NewOutSideSqlWizardAction"
+                     id="org.dbflute.emecha.eclipse.emsql.NewOutSideSql"
+                     menubarPath="org.dbflute.emecha.eclipse.menu/additions2"
                      enablesFor="1"
                      label="New Outside Sql">
                </action>
          </objectContribution>
          <objectContribution
                adaptable="true"
-               id="org.seasar.dbflute.emecha.eclipse.plugin.emsql.scala.objectContribution"
+               id="org.dbflute.emecha.eclipse.emsql.scala.objectContribution"
                nameFilter="*.scala"
                objectClass="org.eclipse.core.resources.IFile">
                <menu
-                     id="org.seasar.dbflute.emecha.eclipse.plugin.menu"
+                     id="org.dbflute.emecha.eclipse.menu"
                      label="EMecha"
                      path="additions">
                      <groupMarker name="additions2"/>
@@ -65,9 +65,9 @@
                    </and>
                </visibility>
                <action
-                     class="org.seasar.dbflute.emecha.eclipse.plugin.emsql.action.NewOutSideSqlWizardAction"
-                     id="org.seasar.dbflute.emecha.eclipse.plugin.emsql.NewOutSideSql"
-                     menubarPath="org.seasar.dbflute.emecha.eclipse.plugin.menu/additions2"
+                     class="org.dbflute.emecha.eclipse.emsql.action.NewOutSideSqlWizardAction"
+                     id="org.dbflute.emecha.eclipse.emsql.NewOutSideSql"
+                     menubarPath="org.dbflute.emecha.eclipse.menu/additions2"
                      enablesFor="1"
                      label="New Outside Sql">
                </action>
@@ -76,8 +76,8 @@
    <extension
        point="org.eclipse.ui.propertyPages">
         <page
-            class="org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferencesPage"
-            id="org.seasar.dbflute.emecha.eclipse.plugin.emsql.PreferencesPage"
+            class="org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferencesPage"
+            id="org.dbflute.emecha.eclipse.emsql.PreferencesPage"
             name="EMSql">
         <enabledWhen>
             <or>

@@ -14,7 +14,7 @@
  * governing permissions and limitations under the License.
  */
 
-package org.dbflute.emecha.synchronizer.nls;
+package org.dbflute.emecha.eclipse.synchronizer.nls;
 
 import org.eclipse.osgi.util.NLS;
 

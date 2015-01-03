@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql.wizard;
+package org.dbflute.emecha.eclipse.emsql.wizard;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -13,6 +13,19 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.dbflute.emecha.eclipse.core.util.LogUtil;
+import org.dbflute.emecha.eclipse.emsql.EMSqlPlugin;
+import org.dbflute.emecha.eclipse.emsql.SupportDatabase;
+import org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences;
+import org.dbflute.emecha.eclipse.emsql.template.ApacheDerbySqlTemplateProcessor;
+import org.dbflute.emecha.eclipse.emsql.template.DB2SqlTemplateProcessor;
+import org.dbflute.emecha.eclipse.emsql.template.DefaultSqlTemplateProcessor;
+import org.dbflute.emecha.eclipse.emsql.template.H2DatabaseSqlTemplateProcessor;
+import org.dbflute.emecha.eclipse.emsql.template.ISqlTemplateProcessor;
+import org.dbflute.emecha.eclipse.emsql.template.MySQLSqlTemplateProcessor;
+import org.dbflute.emecha.eclipse.emsql.template.OracleSqlTemplateProcessor;
+import org.dbflute.emecha.eclipse.emsql.template.PostgreSQLSqlTemplateProcessor;
+import org.dbflute.emecha.eclipse.emsql.template.SQLServerSqlTemplateProcessor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -44,19 +57,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.seasar.dbflute.emecha.eclipse.plugin.core.util.LogUtil;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.EMSqlPlugin;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.SupportDatabase;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.preferences.EMSqlPreferences;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.ApacheDerbySqlTemplateProcessor;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.DB2SqlTemplateProcessor;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.DefaultSqlTemplateProcessor;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.H2DatabaseSqlTemplateProcessor;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.ISqlTemplateProcessor;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.MySQLSqlTemplateProcessor;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.OracleSqlTemplateProcessor;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.PostgreSQLSqlTemplateProcessor;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.template.SQLServerSqlTemplateProcessor;
 
 /**
  * @author Schatten

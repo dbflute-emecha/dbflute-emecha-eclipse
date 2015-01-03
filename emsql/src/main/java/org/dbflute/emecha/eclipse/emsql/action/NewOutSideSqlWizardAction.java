@@ -1,8 +1,10 @@
 /**
  *
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.emsql.action;
+package org.dbflute.emecha.eclipse.emsql.action;
 
+import org.dbflute.emecha.eclipse.core.util.WorkbenchUtil;
+import org.dbflute.emecha.eclipse.emsql.wizard.NewOutSideSqlWizard;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.IJavaProject;
@@ -12,8 +14,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.PlatformUI;
-import org.seasar.dbflute.emecha.eclipse.plugin.core.util.WorkbenchUtil;
-import org.seasar.dbflute.emecha.eclipse.plugin.emsql.wizard.NewOutSideSqlWizard;
 
 /**
  * @author schatten

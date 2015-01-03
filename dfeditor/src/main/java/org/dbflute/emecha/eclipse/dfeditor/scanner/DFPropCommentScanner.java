@@ -13,16 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.scanner;
+package org.dbflute.emecha.eclipse.dfeditor.scanner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dbflute.emecha.eclipse.dfeditor.DfColor;
+import org.dbflute.emecha.eclipse.dfeditor.DfColorManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.rules.EndOfLineRule;
 import org.eclipse.jface.text.rules.IRule;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DfColor;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DfColorManager;
 
 public class DFPropCommentScanner extends BsDFPropScanner {
 

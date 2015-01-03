@@ -4,8 +4,8 @@
    <extension
          point="org.eclipse.jdt.ui.quickFixProcessors">
       <quickFixProcessor
-            id="org.seasar.dbflute.emecha.eclipse.plugin.dfassist.jdt.QuickFixProcessor"
-            class="org.seasar.dbflute.emecha.eclipse.plugin.dfassist.jdt.QuickFixProcessor"
+            id="org.dbflute.emecha.eclipse.dfassist.jdt.QuickFixProcessor"
+            class="org.dbflute.emecha.eclipse.dfassist.jdt.QuickFixProcessor"
             name="DfAssistFixProcessor">
       </quickFixProcessor>
    </extension>
@@ -14,7 +14,7 @@
     <wizard id="org.dbflute.emecha.assist.newConcreteWizard"
             name="%newConcreteWizard.name"
             category="org.eclipse.jdt.ui.java"
-            class="org.seasar.dbflute.emecha.eclipse.plugin.dfassist.wizard.NewConcreteClassWizard"
+            class="org.dbflute.emecha.eclipse.dfassist.wizard.NewConcreteClassWizard"
             icon="icons/newclass_wiz.gif">
       <description>Create a new Concrete Class</description>
       <selection class="org.eclipse.core.resources.IFile"/>
@@ -31,7 +31,7 @@
     <command
           name="%newConcreteCommand.name"
           categoryId="org.dbflute.emecha.category"
-          defaultHandler="org.seasar.dbflute.emecha.eclipse.plugin.dfassist.command.NewConcreteWizardCommand"
+          defaultHandler="org.dbflute.emecha.eclipse.dfassist.command.NewConcreteWizardCommand"
           id="org.dbflute.emecha.assist.newConcreteActionCommand">
     </command>
   </extension>
@@ -80,14 +80,14 @@
          point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
       <hyperlinkDetector
             activate="true"
-            class="org.seasar.dbflute.emecha.eclipse.plugin.dfassist.link.OutsideSqlHyperlinkDetector"
+            class="org.dbflute.emecha.eclipse.dfassist.link.OutsideSqlHyperlinkDetector"
             id="org.dbflute.emecha.assist.outsideSqlHyperlink"
             name="OutsideSQL Link"
             targetId="org.eclipse.jdt.ui.javaCode">
       </hyperlinkDetector>
       <hyperlinkDetector
             activate="true"
-            class="org.seasar.dbflute.emecha.eclipse.plugin.dfassist.link.OutsideSqlFileHyperlinkDetector"
+            class="org.dbflute.emecha.eclipse.dfassist.link.OutsideSqlFileHyperlinkDetector"
             id="org.dbflute.emecha.assist.outsideSqlHyperlink_File"
             name="OutsideSQL File Link"
             modifierKeys="M3"
@@ -95,7 +95,7 @@
       </hyperlinkDetector>
       <hyperlinkDetector
             activate="true"
-            class="org.seasar.dbflute.emecha.eclipse.plugin.dfassist.link.OutsideSqlEntityHyperlinkDetector"
+            class="org.dbflute.emecha.eclipse.dfassist.link.OutsideSqlEntityHyperlinkDetector"
             id="org.dbflute.emecha.assist.outsideSqlHyperlink_Entity"
             name="OutsideSQL Entity Link"
             modifierKeys="M1+M3"
@@ -129,14 +129,14 @@
       </visibility>
       <action
             id="org.dbflute.emecha.assist.OpenCustomizeEntityAction"
-            class="org.seasar.dbflute.emecha.eclipse.plugin.dfassist.action.OpenCustomizeEntityAction"
+            class="org.dbflute.emecha.eclipse.dfassist.action.OpenCustomizeEntityAction"
             menubarPath="org.seasar.dbflute.emecha.eclipse.plugin.menu/additions2"
             enablesFor="1"
             label="%openCustomizeEntity.label">
       </action>
       <action
             id="org.dbflute.emecha.assist.OpenParameterBeanAction"
-            class="org.seasar.dbflute.emecha.eclipse.plugin.dfassist.action.OpenParameterBeanAction"
+            class="org.dbflute.emecha.eclipse.dfassist.action.OpenParameterBeanAction"
             menubarPath="org.seasar.dbflute.emecha.eclipse.plugin.menu/additions2"
             enablesFor="1"
             label="%openParameterBean.label">

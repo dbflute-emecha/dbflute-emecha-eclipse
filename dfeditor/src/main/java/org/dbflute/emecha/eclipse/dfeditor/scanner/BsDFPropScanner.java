@@ -13,12 +13,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.scanner;
+package org.dbflute.emecha.eclipse.dfeditor.scanner;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.dbflute.emecha.eclipse.dfeditor.DfColor;
+import org.dbflute.emecha.eclipse.dfeditor.DfColorManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.TextAttribute;
@@ -27,8 +29,6 @@ import org.eclipse.jface.text.rules.IPartitionTokenScanner;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.swt.graphics.Color;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DfColor;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DfColorManager;
 
 // TODO
 public abstract class BsDFPropScanner extends BufferedRuleBasedScanner implements IPartitionTokenScanner {

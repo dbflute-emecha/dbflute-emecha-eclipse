@@ -1,4 +1,4 @@
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.preferences;
+package org.dbflute.emecha.eclipse.dfeditor.preferences;
 
 /**
  * Constant definitions for plug-in preferences

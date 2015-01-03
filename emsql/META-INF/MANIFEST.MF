@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EMecha EMSql
 Bundle-SymbolicName: org.seasar.dbflute.emecha.eclipse.plugin.emsql;singleton:=true
 Bundle-Version: 0.0.3.1
-Bundle-Activator: org.seasar.dbflute.emecha.eclipse.plugin.emsql.EMSqlPlugin
+Bundle-Activator: org.dbflute.emecha.eclipse.emsql.EMSqlPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,

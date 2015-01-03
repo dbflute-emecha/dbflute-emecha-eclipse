@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfassist;
+package org.dbflute.emecha.eclipse.dfassist;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -27,7 +27,7 @@ import org.osgi.framework.BundleContext;
  */
 public class DfAssistPlugin extends AbstractUIPlugin {
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.seasar.dbflute.emecha.eclipse.plugin.dfassist";
+    public static final String PLUGIN_ID = "org.dbflute.emecha.eclipse.dfassist";
 
     private static DfAssistPlugin plugin;
     /**

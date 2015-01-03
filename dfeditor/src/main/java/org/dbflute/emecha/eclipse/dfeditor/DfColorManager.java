@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor;
+package org.dbflute.emecha.eclipse.dfeditor;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -13,18 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.scanner;
+package org.dbflute.emecha.eclipse.dfeditor.scanner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dbflute.emecha.eclipse.dfeditor.DFPropPartitions;
 import org.eclipse.jface.text.rules.EndOfLineRule;
 import org.eclipse.jface.text.rules.IPredicateRule;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.RuleBasedPartitionScanner;
 import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.Token;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.DFPropPartitions;
 
 /**
  * dfpropのパーティショニングを行うクラス。

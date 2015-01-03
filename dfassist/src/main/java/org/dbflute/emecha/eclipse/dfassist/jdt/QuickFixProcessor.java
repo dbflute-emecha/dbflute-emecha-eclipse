@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfassist.jdt;
+package org.dbflute.emecha.eclipse.dfassist.jdt;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -24,6 +24,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.dbflute.emecha.eclipse.dfassist.jdt.derived.DerivedFieldInfo;
+import org.dbflute.emecha.eclipse.dfassist.jdt.derived.DerivedFieldPropertyProposal;
+import org.dbflute.emecha.eclipse.dfassist.jdt.derived.DerivedType;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.compiler.IProblem;
@@ -38,9 +41,6 @@ import org.eclipse.jdt.ui.text.java.IInvocationContext;
 import org.eclipse.jdt.ui.text.java.IJavaCompletionProposal;
 import org.eclipse.jdt.ui.text.java.IProblemLocation;
 import org.eclipse.jdt.ui.text.java.IQuickFixProcessor;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfassist.jdt.derived.DerivedFieldInfo;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfassist.jdt.derived.DerivedFieldPropertyProposal;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfassist.jdt.derived.DerivedType;
 
 /**
  * 拡張プロパティ生成プロセッサ

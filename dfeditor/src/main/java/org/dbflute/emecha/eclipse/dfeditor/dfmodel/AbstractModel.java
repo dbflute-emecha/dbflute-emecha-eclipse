@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel;
+package org.dbflute.emecha.eclipse.dfeditor.dfmodel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public abstract class AbstractModel implements DFPropModel {
     }
 
     /**
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropModel#getParent()
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel#getParent()
      */
     public DFPropModel getParent() {
         return _parent;
@@ -50,7 +50,7 @@ public abstract class AbstractModel implements DFPropModel {
     }
 
     /**
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropModel#getChild()
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel#getChild()
      */
     public DFPropModel[] getChild() {
         if (_child == null || _child.size() == 0) {
@@ -64,14 +64,14 @@ public abstract class AbstractModel implements DFPropModel {
     }
 
     /**
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropModel#getOffset()
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel#getOffset()
      */
     public int getOffset() {
         return _offset;
     }
 
     /**
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropModel#getEndPosition()
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel#getEndPosition()
      */
     public int getEndPosition() {
         return getOffset() + getLength();
@@ -82,7 +82,7 @@ public abstract class AbstractModel implements DFPropModel {
     }
 
     /**
-     * @see org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropModel#getLineNumber()
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel#getLineNumber()
      */
     public int getLineNumber() {
         return _lineNumber;

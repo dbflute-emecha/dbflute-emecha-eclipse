@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor;
+package org.dbflute.emecha.eclipse.dfeditor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +24,16 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import org.dbflute.emecha.eclipse.dfeditor.action.ToggleCommentAction;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.BlockModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.CommentModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropFileModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModelParser;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.FoldingModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MapEntryModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MapModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MultiLineCommentModel;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -51,16 +61,6 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.action.ToggleCommentAction;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.BlockModel;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.CommentModel;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropFileModel;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropModel;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropModelParser;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.FoldingModel;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.MapEntryModel;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.MapModel;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.MultiLineCommentModel;
 
 public class DFPropEditor extends TextEditor {
 

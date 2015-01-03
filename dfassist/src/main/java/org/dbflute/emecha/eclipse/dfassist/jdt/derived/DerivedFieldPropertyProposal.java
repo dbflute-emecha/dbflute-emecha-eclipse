@@ -13,10 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfassist.jdt.derived;
+package org.dbflute.emecha.eclipse.dfassist.jdt.derived;
 
 import java.util.List;
 
+import org.dbflute.emecha.eclipse.dfassist.DfAssistPlugin;
+import org.dbflute.emecha.eclipse.dfassist.nls.Messages;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -38,8 +40,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.texteditor.AbstractTextEditor;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfassist.DfAssistPlugin;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfassist.nls.Messages;
 
 /**
  * DerivedReferrer用の定数・変数・Getter/Setterの作成をアシストするプロポーサル。

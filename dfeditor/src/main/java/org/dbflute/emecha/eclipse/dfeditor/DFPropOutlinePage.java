@@ -13,11 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.dbflute.emecha.eclipse.plugin.dfeditor;
+package org.dbflute.emecha.eclipse.dfeditor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropFileModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.ListModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MapModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.NamedModel;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -30,11 +35,6 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropFileModel;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.DFPropModel;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.ListModel;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.MapModel;
-import org.seasar.dbflute.emecha.eclipse.plugin.dfeditor.dfmodel.NamedModel;
 
 /**
  * DFProp Outline Page
