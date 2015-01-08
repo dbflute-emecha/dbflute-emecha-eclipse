@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="kernel/src/main/java"/>
 	<classpathentry kind="src" path="dfassist/src/main/java"/>
 	<classpathentry kind="src" path="dfassist/src/main/resources"/>
 	<classpathentry kind="src" path="dfeditor/src/main/java"/>

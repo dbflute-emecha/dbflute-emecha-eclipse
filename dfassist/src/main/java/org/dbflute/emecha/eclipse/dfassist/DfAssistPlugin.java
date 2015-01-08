@@ -29,7 +29,7 @@ public class DfAssistPlugin extends AbstractUIPlugin {
     // The plug-in ID
     public static final String PLUGIN_ID = "org.dbflute.emecha.eclipse.dfassist";
 
-    private static DfAssistPlugin plugin;
+    private static AbstractUIPlugin plugin;
     /**
      *
      */
@@ -52,13 +52,6 @@ public class DfAssistPlugin extends AbstractUIPlugin {
     public void stop(BundleContext context) throws Exception {
         plugin = null;
         super.stop(context);
-    }
-
-    /**
-     * @return plugin
-     */
-    public static DfAssistPlugin getPlugin() {
-        return plugin;
     }
 
     /**
