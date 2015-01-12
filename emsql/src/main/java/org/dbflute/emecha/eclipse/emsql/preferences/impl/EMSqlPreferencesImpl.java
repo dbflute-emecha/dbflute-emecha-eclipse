@@ -5,10 +5,10 @@ package org.dbflute.emecha.eclipse.emsql.preferences.impl;
 
 import java.io.IOException;
 
-import org.dbflute.emecha.eclipse.core.util.LogUtil;
 import org.dbflute.emecha.eclipse.emsql.EMSqlPlugin;
 import org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferenceStore;
 import org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences;
+import org.dbflute.emecha.eclipse.kernel.util.LogUtil;
 import org.eclipse.core.resources.IProject;
 
 /**

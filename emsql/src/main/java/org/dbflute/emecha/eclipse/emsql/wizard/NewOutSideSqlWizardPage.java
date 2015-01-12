@@ -13,7 +13,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.dbflute.emecha.eclipse.core.util.LogUtil;
 import org.dbflute.emecha.eclipse.emsql.EMSqlPlugin;
 import org.dbflute.emecha.eclipse.emsql.SupportDatabase;
 import org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences;
@@ -26,6 +25,7 @@ import org.dbflute.emecha.eclipse.emsql.template.MySQLSqlTemplateProcessor;
 import org.dbflute.emecha.eclipse.emsql.template.OracleSqlTemplateProcessor;
 import org.dbflute.emecha.eclipse.emsql.template.PostgreSQLSqlTemplateProcessor;
 import org.dbflute.emecha.eclipse.emsql.template.SQLServerSqlTemplateProcessor;
+import org.dbflute.emecha.eclipse.kernel.util.LogUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;

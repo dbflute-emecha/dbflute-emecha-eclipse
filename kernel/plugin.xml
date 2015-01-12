@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page name="%EMechaPrefName"
+            class="org.dbflute.emecha.eclipse.kernel.preferences.EMechaPreferencePage"
+            id="org.dbflute.emecha.EMechaBasePreferencePage">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page name="%EMechaPrefName"
+            class="org.dbflute.emecha.eclipse.kernel.preferences.EMechaPreferencePage"
+            id="org.dbflute.emecha.EMechaBasePropertyPage">
+         <enabledWhen>
+		     <adapt type="org.eclipse.core.resources.IProject">
+		          <test property="org.eclipse.core.resources.projectNature" value="org.eclipse.jdt.core.javanature"/>
+		     </adapt>
+         </enabledWhen>
+      </page>
+   </extension>
+
+</plugin>

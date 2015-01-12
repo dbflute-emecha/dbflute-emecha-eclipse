@@ -5,8 +5,8 @@ package org.dbflute.emecha.eclipse.emsql.wizard;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.dbflute.emecha.eclipse.core.util.LogUtil;
 import org.dbflute.emecha.eclipse.emsql.EMSqlPlugin;
+import org.dbflute.emecha.eclipse.kernel.util.LogUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;

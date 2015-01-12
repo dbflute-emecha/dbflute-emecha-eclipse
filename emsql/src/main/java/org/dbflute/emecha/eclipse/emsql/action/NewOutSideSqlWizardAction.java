@@ -3,8 +3,8 @@
  */
 package org.dbflute.emecha.eclipse.emsql.action;
 
-import org.dbflute.emecha.eclipse.core.util.WorkbenchUtil;
 import org.dbflute.emecha.eclipse.emsql.wizard.NewOutSideSqlWizard;
+import org.dbflute.emecha.eclipse.kernel.util.WorkbenchUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.IJavaProject;
