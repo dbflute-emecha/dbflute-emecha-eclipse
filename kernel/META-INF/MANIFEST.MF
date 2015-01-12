@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: DBFlute Emecha Kernel Eclipse Plugin
 Bundle-SymbolicName: org.dbflute.emecha;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.dbflute.emecha.eclipse.EMechaPlugin
+Bundle-Activator: org.dbflute.emecha.eclipse.kernel.EMechaPlugin
 Bundle-Vendor: DBFlute.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
