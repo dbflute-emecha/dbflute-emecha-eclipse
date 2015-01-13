@@ -2,18 +2,20 @@
 <feature
       id="org.dbflute.emecha.feature"
       label="DBFlute EMecha"
-      version="0.1.1.qualifier">
+      version="0.6.0.qualifier"
+      provider-name="DBFlute.org"
+      plugin="org.dbflute.emecha">
 
    <description url="http://dbflute.seasar.org/ja/manual/function/helper/emecha">
       Eclipse Plugin for DBFlute
    </description>
 
    <copyright url="http://dbflute.seasar.org/ja/environment/license.html">
-      Copyright 2013 the Seasar Foundation and the Others.
+      Copyright 2015 the Seasar Foundation and the Others.
    </copyright>
 
    <license url="http://dbflute.seasar.org/ja/environment/license.html">
-      Copyright 2013 the Seasar Foundation and the Others.
+      Copyright 2015 the Seasar Foundation and the Others.
 Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -24,6 +26,46 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
    </license>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+   </requires>
+
+   <plugin
+         id="org.dbflute.emecha"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.dbflute.emecha.dfeditor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.dbflute.emecha.emsql"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.dbflute.emecha.dfassist"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.dbflute.emecha.synchronizer"
