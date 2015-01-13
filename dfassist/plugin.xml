@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.jdt.ui.quickFixProcessors">
       <quickFixProcessor
-            id="org.dbflute.emecha.eclipse.dfassist.jdt.QuickFixProcessor"
+            id="org.dbflute.emecha.dfassist.jdt.QuickFixProcessor"
             class="org.dbflute.emecha.eclipse.dfassist.jdt.QuickFixProcessor"
             name="DfAssistFixProcessor">
       </quickFixProcessor>
@@ -47,10 +47,10 @@
            <visibleWhen checkEnabled="false">
              <or>
                <with variable="activeMenuSelection">
-                 <reference definitionId="org.dbflute.emecha.command.difinition.newConcrete"/>
+                 <reference definitionId="org.dbflute.emecha.assist.difinition.newConcrete"/>
                </with>
                <with variable="activeMenuEditorInput">
-                 <reference definitionId="org.dbflute.emecha.command.difinition.newConcrete"/>
+                 <reference definitionId="org.dbflute.emecha.assist.difinition.newConcrete"/>
                </with>
              </or>
            </visibleWhen>
@@ -61,7 +61,7 @@
   <extension
         point="org.eclipse.core.expressions.definitions">
     <definition
-          id="org.dbflute.emecha.command.difinition.newConcrete">
+          id="org.dbflute.emecha.assist.difinition.newConcrete">
       <iterate ifEmpty="false">
         <or>
           <adapt type="org.eclipse.core.resources.IFile">
@@ -110,7 +110,7 @@
           nameFilter="*.sql"
           objectClass="org.eclipse.core.resources.IFile">
       <menu
-            id="org.seasar.dbflute.emecha.eclipse.plugin.menu"
+            id="org.dbflute.emecha.menu"
             label="EMecha"
             path="additions">
         <groupMarker name="additions2"/>
@@ -130,7 +130,7 @@
       <action
             id="org.dbflute.emecha.assist.OpenCustomizeEntityAction"
             class="org.dbflute.emecha.eclipse.dfassist.action.OpenCustomizeEntityAction"
-            menubarPath="org.seasar.dbflute.emecha.eclipse.plugin.menu/additions2"
+            menubarPath="org.dbflute.emecha.menu/additions2"
             enablesFor="1"
             label="%openCustomizeEntity.label">
       </action>

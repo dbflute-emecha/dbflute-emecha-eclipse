@@ -15,21 +15,21 @@
  */
 package org.dbflute.emecha.eclipse.dfassist;
 
+import org.dbflute.emecha.eclipse.AbstractEMechaPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  *
  * @author schatten
  */
-public class DfAssistPlugin extends AbstractUIPlugin {
+public class DfAssistPlugin extends AbstractEMechaPlugin {
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.dbflute.emecha.eclipse.dfassist";
+    public static final String PLUGIN_ID = "org.dbflute.emecha.dfassist";
 
-    private static AbstractUIPlugin plugin;
+    private static AbstractEMechaPlugin plugin;
     /**
      *
      */
@@ -53,6 +53,14 @@ public class DfAssistPlugin extends AbstractUIPlugin {
         plugin = null;
         super.stop(context);
     }
+    /**
+     * {@inheritDoc}}
+     * @see org.dbflute.emecha.eclipse.AbstractEMechaPlugin#getPluginId()
+     */
+    @Override
+    public String getPluginId() {
+        return PLUGIN_ID;
+    }
 
     /**
      * Returns an image descriptor for the image file at the given
@@ -62,7 +70,7 @@ public class DfAssistPlugin extends AbstractUIPlugin {
      * @return the image descriptor
      */
     public static ImageDescriptor getImageDescriptor(String path) {
-        return imageDescriptorFromPlugin(PLUGIN_ID, path);
+        return imageDescriptorFromPlugin(plugin.getPluginId(), path);
     }
     public static void log(String message) {
         IStatus status = new Status(IStatus.INFO, plugin.getBundle().getSymbolicName(), IStatus.INFO,

@@ -9,9 +9,9 @@
             icon="icons/dfeditor2.gif"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             class="org.dbflute.emecha.eclipse.dfeditor.DFPropEditor"
-            id="org.dbflute.emecha.eclipse.dfeditor.DFPropEditor">
+            id="org.dbflute.emecha.dfeditor.DFPropEditor">
             <contentTypeBinding
-                  contentTypeId="org.dbflute.emecha.eclipse.dfeditor.dfprop">
+                  contentTypeId="org.dbflute.emecha.dfeditor.dfprop">
             </contentTypeBinding>
       </editor>
    </extension>
@@ -25,7 +25,7 @@
           </content-type>
     </extension>
     <extension point="org.eclipse.ui.editors.documentProviders">
-        <provider id="org.dbflute.emecha.eclipse.dfeditor.documentProviders"
+        <provider id="org.dbflute.emecha.dfeditor.documentProviders"
                class="org.dbflute.emecha.eclipse.dfeditor.DFPropDocumentProvider"
           extensions="dfprop,dataprop,diffmap">
       </provider>
@@ -36,7 +36,7 @@
         <menuContribution
               locationURI="popup:#TextEditorContext?after=group.edit">
             <command
-                  commandId="org.dbflute.emecha.eclipse.dfeditor.ToggleCommentAction" style="push">
+                  commandId="org.dbflute.emecha.dfeditor.ToggleCommentAction" style="push">
                   <visibleWhen
                         checkEnabled="false">
                         <reference
@@ -53,7 +53,7 @@
             <with
                   variable="activeEditorId">
                 <equals
-                      value="org.dbflute.emecha.eclipse.dfeditor.DFPropEditor">
+                      value="org.dbflute.emecha.dfeditor.DFPropEditor">
                 </equals>
             </with>
         </definition>
@@ -61,7 +61,7 @@
     <extension
           point="org.eclipse.ui.contexts">
        <context
-             id="org.dbflute.emecha.eclipse.dfeditor.DFPropEditorScope"
+             id="org.dbflute.emecha.dfeditor.DFPropEditorScope"
              name="Editing DFPropEditor Source"
              description="Editing DFPropEditor Source Context"
              parentId="org.eclipse.ui.textEditorScope">
@@ -72,11 +72,11 @@
         <command
             name="Toggle Comment"
             description="Toggle Comment"
-            categoryId="org.dbflute.emecha.eclipse.dfeditor.category.DFPropEditor"
-            id="org.dbflute.emecha.eclipse.dfeditor.ToggleCommentAction">
+            categoryId="org.dbflute.emecha.dfeditor.category.DFPropEditor"
+            id="org.dbflute.emecha.dfeditor.ToggleCommentAction">
         </command>
         <category
-              id="org.dbflute.emecha.eclipse.dfeditor.category.DFPropEditor"
+              id="org.dbflute.emecha.dfeditor.category.DFPropEditor"
               description="Editing Commands"
               name="Editing">
         </category>
@@ -84,8 +84,8 @@
     <extension
           point="org.eclipse.ui.bindings">
         <key sequence="M1+/"
-             commandId="org.dbflute.emecha.eclipse.dfeditor.ToggleCommentAction"
-             contextId="org.dbflute.emecha.eclipse.dfeditor.DFPropEditorScope"
+             commandId="org.dbflute.emecha.dfeditor.ToggleCommentAction"
+             contextId="org.dbflute.emecha.dfeditor.DFPropEditorScope"
              schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
               />
     </extension>
@@ -103,7 +103,7 @@
       <page
             name="DFProp Configuration"
             class="org.dbflute.emecha.eclipse.dfeditor.preferences.DFPropPreferencePage"
-            id="org.seaser.dbflute.emecha.eclipse.plugin.dfeditor.preferences.DFPropPreferencePage">
+            id="org.seaser.dbflute.emecha.dfeditor.preferences.DFPropPreferencePage">
       </page>
    </extension>
    <extension

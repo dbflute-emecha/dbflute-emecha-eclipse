@@ -15,20 +15,20 @@
  */
 package org.dbflute.emecha.eclipse.dfeditor;
 
+import org.dbflute.emecha.eclipse.AbstractEMechaPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class DFEditorActivator extends AbstractUIPlugin {
+public class DFEditorActivator extends AbstractEMechaPlugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.dbflute.emecha.eclipse.dfeditor";
+    public static final String PLUGIN_ID = "org.dbflute.emecha.dfeditor";
 
     // The shared instance
-    private static DFEditorActivator plugin;
+    private static AbstractEMechaPlugin plugin;
 
     /**
      * The constructor
@@ -59,7 +59,7 @@ public class DFEditorActivator extends AbstractUIPlugin {
      *
      * @return the shared instance
      */
-    public static DFEditorActivator getDefault() {
+    public static AbstractEMechaPlugin getDefault() {
         return plugin;
     }
 
@@ -71,6 +71,15 @@ public class DFEditorActivator extends AbstractUIPlugin {
      * @return the image descriptor
      */
     public static ImageDescriptor getImageDescriptor(String path) {
-        return imageDescriptorFromPlugin(PLUGIN_ID, path);
+        return imageDescriptorFromPlugin(plugin.getPluginId(), path);
+    }
+
+    /**
+     * {@inheritDoc}}
+     * @see org.dbflute.emecha.eclipse.AbstractEMechaPlugin#getPluginId()
+     */
+    @Override
+    public String getPluginId() {
+        return PLUGIN_ID;
     }
 }

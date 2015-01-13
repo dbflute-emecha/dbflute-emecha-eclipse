@@ -4,14 +4,14 @@
 
    <extension
          point="org.eclipse.ui.preferencePages">
-      <page name="%EMechaPrefName"
+      <page name="%emecha.PreferencePage.Name"
             class="org.dbflute.emecha.eclipse.kernel.preferences.EMechaPreferencePage"
             id="org.dbflute.emecha.EMechaBasePreferencePage">
       </page>
    </extension>
    <extension
          point="org.eclipse.ui.propertyPages">
-      <page name="%EMechaPrefName"
+      <page name="%emecha.PropertyPage.Name"
             class="org.dbflute.emecha.eclipse.kernel.preferences.EMechaPreferencePage"
             id="org.dbflute.emecha.EMechaBasePropertyPage">
          <enabledWhen>

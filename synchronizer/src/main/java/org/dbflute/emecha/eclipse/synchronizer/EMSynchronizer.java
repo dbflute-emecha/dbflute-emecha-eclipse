@@ -21,13 +21,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import org.dbflute.emecha.eclipse.AbstractEMechaPlugin;
 import org.dbflute.emecha.eclipse.synchronizer.handler.RefreshHandler;
 import org.dbflute.emecha.eclipse.synchronizer.preferences.PreferenceConstants;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IStartup;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import com.sun.net.httpserver.HttpServer;
@@ -35,13 +35,13 @@ import com.sun.net.httpserver.HttpServer;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class EMSynchronizer extends AbstractUIPlugin implements IStartup {
+public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.dbflute.emecha.eclipse.synchronizer"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.dbflute.emecha.synchronizer"; //$NON-NLS-1$
 
     // The shared instance
-    private static EMSynchronizer plugin;
+    public static EMSynchronizer plugin;
 
     private HttpServer server;
 
@@ -83,6 +83,14 @@ public class EMSynchronizer extends AbstractUIPlugin implements IStartup {
         plugin = null;
         serverStop();
         super.stop(context);
+    }
+    /**
+     * {@inheritDoc}}
+     * @see org.dbflute.emecha.eclipse.AbstractEMechaPlugin#getPluginId()
+     */
+    @Override
+    public String getPluginId() {
+        return PLUGIN_ID;
     }
 
     public void serverStart() {
@@ -147,6 +155,6 @@ public class EMSynchronizer extends AbstractUIPlugin implements IStartup {
      * @return the image descriptor
      */
     public static ImageDescriptor getImageDescriptor(String path) {
-        return imageDescriptorFromPlugin(PLUGIN_ID, path);
+        return imageDescriptorFromPlugin(plugin.getPluginId(), path);
     }
 }

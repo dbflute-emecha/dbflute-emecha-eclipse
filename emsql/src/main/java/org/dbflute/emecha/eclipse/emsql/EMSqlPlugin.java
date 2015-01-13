@@ -1,22 +1,22 @@
 package org.dbflute.emecha.eclipse.emsql;
 
+import org.dbflute.emecha.eclipse.AbstractEMechaPlugin;
 import org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences;
 import org.dbflute.emecha.eclipse.emsql.preferences.impl.EMSqlPreferencesImpl;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class EMSqlPlugin extends AbstractUIPlugin {
+public class EMSqlPlugin extends AbstractEMechaPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.dbflute.emecha.eclipse.emsql";
+	public static final String PLUGIN_ID = "org.dbflute.emecha.emsql";
 
 	// The shared instance
-	private static EMSqlPlugin plugin;
+	public static AbstractEMechaPlugin plugin;
 
 	/**
 	 * The constructor
@@ -47,9 +47,17 @@ public class EMSqlPlugin extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static EMSqlPlugin getDefault() {
+	public static AbstractEMechaPlugin getDefault() {
 		return plugin;
 	}
+    /**
+     * {@inheritDoc}}
+     * @see org.dbflute.emecha.eclipse.AbstractEMechaPlugin#getPluginId()
+     */
+    @Override
+    public String getPluginId() {
+        return PLUGIN_ID;
+    }
 
 	/**
 	 * Returns an image descriptor for the image file at the given
@@ -59,7 +67,7 @@ public class EMSqlPlugin extends AbstractUIPlugin {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return imageDescriptorFromPlugin(PLUGIN_ID, path);
+		return imageDescriptorFromPlugin(plugin.getPluginId(), path);
 	}
 
 	/**
@@ -67,6 +75,6 @@ public class EMSqlPlugin extends AbstractUIPlugin {
 	 * @return PreferenceStore (by the ScopedPreferenceStore with project scope)
 	 */
 	public static EMSqlPreferences getProjectPreferences(IProject project) {
-	    return new EMSqlPreferencesImpl( project, PLUGIN_ID);
+	    return new EMSqlPreferencesImpl( project, plugin.getPluginId());
 	}
 }

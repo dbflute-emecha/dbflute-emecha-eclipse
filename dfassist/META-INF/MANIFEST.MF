@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DBFlute Assist Plugin
-Bundle-SymbolicName: org.seasar.dbflute.emecha.eclipse.plugin.dfassist;singleton:=true
-Bundle-Version: 0.0.3.1
+Bundle-SymbolicName: org.dbflute.emecha.dfassist;singleton:=true
+Bundle-Version: 0.6.0.qualifier
 Bundle-Activator: org.dbflute.emecha.eclipse.dfassist.DfAssistPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.core,
  org.eclipse.jdt.ui,
  org.eclipse.ui.ide,
- org.eclipse.ui.editors
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+ org.eclipse.ui.editors,
+ org.dbflute.emecha
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true

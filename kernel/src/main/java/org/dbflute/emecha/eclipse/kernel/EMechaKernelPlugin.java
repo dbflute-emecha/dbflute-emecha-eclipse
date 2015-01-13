@@ -1,23 +1,23 @@
-package org.dbflute.emecha.eclipse;
+package org.dbflute.emecha.eclipse.kernel;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.dbflute.emecha.eclipse.AbstractEMechaPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class EMechaPlugin extends AbstractUIPlugin {
+public class EMechaKernelPlugin extends AbstractEMechaPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.dbflute.emecha"; //$NON-NLS-1$
 
 	// The shared instance
-	private static EMechaPlugin plugin;
-	
+	public static AbstractEMechaPlugin plugin;
+
 	/**
 	 * The constructor
 	 */
-	public EMechaPlugin() {
+	public EMechaKernelPlugin() {
 	}
 
 	/*
@@ -43,8 +43,16 @@ public class EMechaPlugin extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static EMechaPlugin getDefault() {
+	public static AbstractEMechaPlugin getDefault() {
 		return plugin;
 	}
+    /**
+     * {@inheritDoc}}
+     * @see org.dbflute.emecha.eclipse.AbstractEMechaPlugin#getPluginId()
+     */
+    @Override
+    public String getPluginId() {
+        return PLUGIN_ID;
+    }
 
 }

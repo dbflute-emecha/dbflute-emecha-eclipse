@@ -6,8 +6,9 @@
          point="org.eclipse.ui.preferencePages">
       <page
             name="EMSynchronizer"
+            category="org.dbflute.emecha.EMechaBasePreferencePage"
             class="org.dbflute.emecha.eclipse.synchronizer.preferences.EMSynchronizerPreferencePage"
-            id="org.dbflute.emecha.eclipse.synchronizer.preferences.EMSynchronizerPreferencePage">
+            id="org.dbflute.emecha.synchronizer.preferences.EMSynchronizerPreferencePage">
       </page>
    </extension>
    <extension

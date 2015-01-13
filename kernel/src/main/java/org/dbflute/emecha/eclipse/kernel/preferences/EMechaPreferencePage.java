@@ -13,20 +13,22 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.eclipse.preferences;
+package org.dbflute.emecha.eclipse.kernel.preferences;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.IWorkbenchPropertyPage;
 
 /**
  * EMecha prefarences pages grouping.
  * @author schatten
  */
-public class EMechaPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+public class EMechaPreferencePage extends PreferencePage implements IWorkbenchPreferencePage , IWorkbenchPropertyPage{
 
     /**
      *
@@ -62,6 +64,15 @@ public class EMechaPreferencePage extends PreferencePage implements IWorkbenchPr
         setTitle("This is blank page. Please select submenu.");
         Composite composite = new Composite(parent, SWT.NONE);
         return composite;
+    }
+
+    @Override
+    public IAdaptable getElement() {
+        return null;
+    }
+
+    @Override
+    public void setElement(IAdaptable arg0) {
     }
 
 }
