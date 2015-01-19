@@ -7,5 +7,5 @@ Bundle-Activator: org.dbflute.emecha.eclipse.sqlassist.SQLAssistPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.datatools.sqltools.sqleditor
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
