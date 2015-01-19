@@ -1,7 +1,7 @@
 /*
  *
  */
-package org.dbflute.emecha.eclipse.sqlassist;
+package org.dbflute.emecha.eclipse.sqltools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class PropertyOptionAssistProcessor extends OutsideSqlAssistProcessorBase
     }
     /**
      * {@inheritDoc}
-     * @see org.dbflute.emecha.eclipse.sqlassist.OutsideSqlAssistProcessorBase#appendCompletionProposal(java.util.List, org.eclipse.jface.text.ITextViewer, int)
+     * @see org.dbflute.emecha.eclipse.sqltools.OutsideSqlAssistProcessorBase#appendCompletionProposal(java.util.List, org.eclipse.jface.text.ITextViewer, int)
      */
     @Override
     protected void appendCompletionProposal(List<ICompletionProposal> list, ITextViewer viewer, int offset) {

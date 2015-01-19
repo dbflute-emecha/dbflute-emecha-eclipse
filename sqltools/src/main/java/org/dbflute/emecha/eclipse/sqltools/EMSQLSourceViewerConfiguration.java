@@ -1,7 +1,7 @@
 /*
  *
  */
-package org.dbflute.emecha.eclipse.sqlassist;
+package org.dbflute.emecha.eclipse.sqltools;
 
 import org.eclipse.datatools.sqltools.sqleditor.SQLEditor;
 import org.eclipse.datatools.sqltools.sqleditor.internal.editor.SQLSourceViewerConfiguration;

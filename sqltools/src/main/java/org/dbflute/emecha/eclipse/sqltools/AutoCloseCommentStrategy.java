@@ -1,7 +1,7 @@
 /*
  *
  */
-package org.dbflute.emecha.eclipse.sqlassist;
+package org.dbflute.emecha.eclipse.sqltools;
 
 import org.eclipse.jface.text.DocumentCommand;
 import org.eclipse.jface.text.IAutoEditStrategy;

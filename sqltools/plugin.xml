@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.datatools.sqltools.sqleditor.sourceViewerConfiguration">
       <sourceViewerConfiguration
-            class="org.dbflute.emecha.eclipse.sqlassist.EMSQLSourceViewerConfiguration">
+            class="org.dbflute.emecha.eclipse.sqltools.EMSQLSourceViewerConfiguration">
       </sourceViewerConfiguration>
    </extension>
 

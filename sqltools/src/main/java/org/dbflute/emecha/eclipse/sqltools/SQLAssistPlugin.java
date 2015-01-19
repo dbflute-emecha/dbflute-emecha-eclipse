@@ -1,16 +1,16 @@
-package org.dbflute.emecha.eclipse.sqlassist;
+package org.dbflute.emecha.eclipse.sqltools;
 
+import org.dbflute.emecha.eclipse.AbstractEMechaPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class SQLAssistPlugin extends AbstractUIPlugin {
+public class SQLAssistPlugin extends AbstractEMechaPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.dbflute.emecha.sqlassist"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.dbflute.emecha.sqltools"; //$NON-NLS-1$
 
 	// The shared instance
 	private static SQLAssistPlugin plugin;
@@ -55,6 +55,11 @@ public class SQLAssistPlugin extends AbstractUIPlugin {
      * @return the image descriptor
      */
     public static ImageDescriptor getImageDescriptor(String path) {
-        return imageDescriptorFromPlugin(PLUGIN_ID, path);
+        return imageDescriptorFromPlugin(plugin.getPluginId(), path);
+    }
+
+    @Override
+    public String getPluginId() {
+        return PLUGIN_ID;
     }
 }

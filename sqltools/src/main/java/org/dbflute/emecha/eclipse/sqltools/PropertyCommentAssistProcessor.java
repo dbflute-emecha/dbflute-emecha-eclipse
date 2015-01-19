@@ -1,7 +1,7 @@
 /*
  *
  */
-package org.dbflute.emecha.eclipse.sqlassist;
+package org.dbflute.emecha.eclipse.sqltools;
 
 import java.util.List;
 
