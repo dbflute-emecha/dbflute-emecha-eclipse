@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.3"?>
+<?eclipse version="3.4"?>
 <plugin>
    <extension
          point="org.eclipse.jdt.ui.quickFixProcessors">
@@ -11,6 +11,15 @@
    </extension>
 
   <extension point="org.eclipse.ui.newWizards">
+    <category id="org.dbflute.emecha.project" name="%emecha.newWizard.name"/>
+    <wizard id="org.dbflute.emecha.ui.wizard.DBFluteProjectWizard"
+          category="org.dbflute.emecha.project"
+          class="org.dbflute.emecha.eclipse.dfassist.wizard.DBFluteProjectWizard"
+          name="%emecha.newWizard.project.name"
+          icon="icons/popup-flute.gif"
+          project="true">
+       <description>%emecha.newWizard.project.description</description>
+    </wizard>
     <wizard id="org.dbflute.emecha.assist.newConcreteWizard"
             name="%newConcreteWizard.name"
             category="org.eclipse.jdt.ui.java"
