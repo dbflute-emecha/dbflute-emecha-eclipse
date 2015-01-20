@@ -65,14 +65,19 @@ public class EMechaPreferencePage extends PreferencePage implements IWorkbenchPr
         Composite composite = new Composite(parent, SWT.NONE);
         return composite;
     }
+    /**
+     * The element.
+     */
+    private IAdaptable element;
 
     @Override
     public IAdaptable getElement() {
-        return null;
+        return element;
     }
 
     @Override
-    public void setElement(IAdaptable arg0) {
+    public void setElement(IAdaptable element) {
+        this.element = element;
     }
 
 }
