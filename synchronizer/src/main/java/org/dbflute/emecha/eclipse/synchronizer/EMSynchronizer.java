@@ -34,40 +34,52 @@ import com.sun.net.httpserver.HttpServer;
 
 /**
  * The activator class controls the plug-in life cycle
+ * @author schatten
+ * @author jflute
  */
 public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
 
+    // ===================================================================================
+    //                                                                          Definition
+    //                                                                          ==========
     // The plug-in ID
     public static final String PLUGIN_ID = "org.dbflute.emecha.synchronizer"; //$NON-NLS-1$
 
     // The shared instance
     public static EMSynchronizer plugin;
 
+    // ===================================================================================
+    //                                                                           Attribute
+    //                                                                           =========
     private HttpServer server;
 
     private ExecutorService threadPool;
 
     private int port;
 
+    // ===================================================================================
+    //                                                                         Constructor
+    //                                                                         ===========
     /**
      * The constructor
      */
     public EMSynchronizer() {
     }
 
+    // ===================================================================================
+    //                                                                  Plug-in Start/Stop
+    //                                                                  ==================
     /**
      * {@inheritDoc}
      * @see org.eclipse.ui.IStartup#earlyStartup()
      */
     @Override
     public void earlyStartup() {
-        // Startup plugin with Server
-        serverStart();
+        serverStart(); // Startup plugin with Server
     }
 
     /*
      * (non-Javadoc)
-     *
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
      */
     public void start(BundleContext context) throws Exception {
@@ -77,7 +89,6 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
 
     /*
      * (non-Javadoc)
-     *
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext context) throws Exception {
@@ -95,26 +106,74 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
         return PLUGIN_ID;
     }
 
+    // ===================================================================================
+    //                                                                   Server Start/Stop
+    //                                                                   =================
+    // -----------------------------------------------------
+    //                                                 Start
+    //                                                 -----
     public void serverStart() {
-        int serverPort = 0;
+        final int primaryPort = getPreferencePort();
+        final String hostname = "localhost";
         try {
-            plugin.port = plugin.getPreferenceStore().getInt(PreferenceConstants.P_LISTEN_PORT);
-            serverPort = plugin.port;
-            String hostname = "localhost";
-            HttpServer server = HttpServer.create(new InetSocketAddress(hostname, serverPort), 0);
-            threadPool = Executors.newFixedThreadPool(1);
-            server.setExecutor(threadPool);
-            server.createContext("/", new RefreshHandler());
-            server.createContext("/refresh", new RefreshHandler());
-            server.start();
-            getLog().log(new Status(IStatus.INFO, PLUGIN_ID, "Synchronizer server is started at Port:" + serverPort + "."));
+            final HttpServer server = doServerStart(primaryPort, hostname);
+            info("Synchronizer server is started at Port: " + primaryPort);
             this.server = server;
         } catch (IOException e) {
-            getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, "Synchronizer server is not started by error. (Port:" + serverPort + ")", e));
-            server = null;
+            handlePrimaryPortError(primaryPort, hostname, e);
         }
     }
 
+    protected int getPreferencePort() {
+        return plugin.getPreferenceStore().getInt(PreferenceConstants.P_LISTEN_PORT);
+    }
+
+    protected HttpServer doServerStart(int serverPort, String hostname) throws IOException {
+        plugin.port = serverPort;
+        final HttpServer server = HttpServer.create(new InetSocketAddress(hostname, serverPort), 0);
+        threadPool = Executors.newFixedThreadPool(1);
+        server.setExecutor(threadPool);
+        server.createContext("/", new RefreshHandler());
+        server.createContext("/refresh", new RefreshHandler());
+        server.start();
+        return server;
+    }
+
+    protected boolean isDefalutPort(int serverPort) {
+        return serverPort == PreferenceConstants.DEFAULT_LISTEN_PORT;
+    }
+
+    protected int getSecondaryPort() {
+        return PreferenceConstants.SECONDARY_LISTEN_PORT;
+    }
+
+    protected void handlePrimaryPortError(int primaryPort, String hostname, IOException originalEx) {
+        if (isDefalutPort(primaryPort)) {
+            try {
+                retryBySecondaryPort(hostname);
+            } catch (IOException ignored) {
+                closeError(primaryPort);
+            }
+        } else {
+            closeError(primaryPort);
+        }
+    }
+
+    protected void retryBySecondaryPort(String hostname) throws IOException {
+        final int secondaryPort = getSecondaryPort();
+        final HttpServer retryServer = doServerStart(secondaryPort, hostname);
+        info("Synchronizer server is started at Secondary Port: " + secondaryPort);
+        this.server = retryServer;
+    }
+
+    protected void closeError(int primaryPort) {
+        error("Synchronizer server is not started by error. (Port:" + primaryPort + ")");
+        this.server = null;
+    }
+
+    // -----------------------------------------------------
+    //                                                  Stop
+    //                                                  ----
     public void serverStop() throws InterruptedException {
         if (server != null) {
             server.stop(10);
@@ -127,6 +186,20 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
         server = null;
     }
 
+    // ===================================================================================
+    //                                                                        Small Helper
+    //                                                                        ============
+    protected void info(String msg) {
+        getLog().log(new Status(IStatus.INFO, PLUGIN_ID, msg));
+    }
+
+    protected void error(String msg) {
+        getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, msg));
+    }
+
+    // ===================================================================================
+    //                                                                       Static Facade
+    //                                                                       =============
     public static void serverRestart() {
         EMSynchronizer synchronizer = getDefault();
         try {
@@ -143,7 +216,6 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
 
     /**
      * Returns the shared instance
-     *
      * @return the shared instance
      */
     public static EMSynchronizer getDefault() {
@@ -152,7 +224,6 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
 
     /**
      * Returns an image descriptor for the image file at the given plug-in relative path
-     *
      * @param path the path
      * @return the image descriptor
      */

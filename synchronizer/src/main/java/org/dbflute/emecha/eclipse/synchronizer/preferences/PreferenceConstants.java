@@ -22,5 +22,6 @@ public class PreferenceConstants {
 
     public static final String P_LISTEN_PORT = "listenPort";
     public static final int DEFAULT_LISTEN_PORT = 8386;
+    public static final int SECONDARY_LISTEN_PORT = 8387;
 
 }
