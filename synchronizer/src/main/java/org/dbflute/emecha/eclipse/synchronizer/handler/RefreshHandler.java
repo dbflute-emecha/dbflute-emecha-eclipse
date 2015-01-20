@@ -42,60 +42,62 @@ import com.sun.net.httpserver.HttpHandler;
 /**
  * Refresh Handler
  * @author schatten
+ * @author jflute
  */
 public class RefreshHandler implements HttpHandler {
+
+    // ===================================================================================
+    //                                                                          Definition
+    //                                                                          ==========
     protected static final Map<String, Integer> STRING_TO_DEPTH = new HashMap<String, Integer>();
     static {
         STRING_TO_DEPTH.put("ZERO", IResource.DEPTH_ZERO); //$NON-NLS-1$
         STRING_TO_DEPTH.put("ONE", IResource.DEPTH_ONE); //$NON-NLS-1$
         STRING_TO_DEPTH.put("INFINITE", IResource.DEPTH_INFINITE); //$NON-NLS-1$
     }
+    protected static final String NOT_FOUND_MARK = "*NotFound";
 
-    protected int toDepth(String depth) {
-        if (depth == null || depth.length() < 1) {
-            return IResource.DEPTH_ONE;
-        }
-        Integer i = STRING_TO_DEPTH.get(depth.toUpperCase());
-        return i != null ? i : IResource.DEPTH_ONE;
-    }
-
+    // ===================================================================================
+    //                                                                         Handle HTTP
+    //                                                                         ===========
     /**
      * {@inheritDoc}
-     *
      * @see com.sun.net.httpserver.HttpHandler#handle(com.sun.net.httpserver.HttpExchange)
      */
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-        PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, "UTF-8")); //$NON-NLS-1$
+        final ByteArrayOutputStream output = new ByteArrayOutputStream();
+        final PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, "UTF-8")); //$NON-NLS-1$
         try {
             final List<RefreshTask> list = new LinkedList<RefreshTask>();
-            IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-            String query = exchange.getRequestURI().getQuery();
+            final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+            final String query = exchange.getRequestURI().getQuery();
+            boolean notFound = false;
             if (query != null) {
-                String[] params = query.split("&"); //$NON-NLS-1$
+                final String[] params = query.split("&"); //$NON-NLS-1$
                 for (String param : params) {
-                    int index = param.indexOf("="); //$NON-NLS-1$
-                    String name;
-                    String val = null;
+                    final int index = param.indexOf("="); //$NON-NLS-1$
+                    final String name;
+                    final String val;
                     if (index > -1) {
                         name = param.substring(0, index);
                         val = param.substring(index + 1);
                     } else {
                         name = param;
+                        val = null;
                     }
-                    IResource r = root.findMember(name);
-                    if (r != null && r.exists()) {
-                        list.add(new RefreshTask(r, toDepth(val)));
-                        writer.println(r.getFullPath());
+                    final IResource resource = root.findMember(name);
+                    if (resource != null && resource.exists()) {
+                        list.add(createRefreshTask(resource, toDepth(val)));
+                        writer.println(resource.getFullPath());
+                    } else { // not found
+                        writer.println(name + " " + NOT_FOUND_MARK);
+                        notFound = true;
                     }
                 }
             }
-
-            if (list.isEmpty()) {
-                list.add(new RefreshTask(root, IResource.DEPTH_INFINITE));
+            if (list.isEmpty() && !notFound) { // all projects (means no specified)
+                list.add(createRefreshTask(root, IResource.DEPTH_INFINITE));
                 writer.println(Messages.MSG_ALL_RESOURCE);
             }
             new WorkspaceJob(Messages.MSG_REFRESH_RESOURCE) {
@@ -112,7 +114,7 @@ public class RefreshHandler implements HttpHandler {
         } finally {
             writer.flush();
             exchange.sendResponseHeaders(200, output.size());
-            OutputStream response = exchange.getResponseBody();
+            final OutputStream response = exchange.getResponseBody();
             response.write(output.toByteArray());
             response.flush();
             response.close();
@@ -120,17 +122,29 @@ public class RefreshHandler implements HttpHandler {
         }
     }
 
-    private class RefreshTask {
-        protected IResource r;
-        protected int depth;
+    protected int toDepth(String depthKey) {
+        if (depthKey == null || depthKey.length() < 1) {
+            return IResource.DEPTH_ONE;
+        }
+        final Integer depthInt = STRING_TO_DEPTH.get(depthKey.toUpperCase());
+        return depthInt != null ? depthInt : IResource.DEPTH_ONE;
+    }
 
-        public RefreshTask(IResource r, int depth) {
-            this.r = r;
+    protected RefreshTask createRefreshTask(IResource resource, final int depth) {
+        return new RefreshTask(resource, depth);
+    }
+
+    private class RefreshTask {
+        protected final IResource resource;
+        protected final int depth;
+
+        public RefreshTask(IResource resource, int depth) {
+            this.resource = resource;
             this.depth = depth;
         }
 
         public void run(IProgressMonitor monitor) throws CoreException {
-            r.refreshLocal(depth, monitor);
+            resource.refreshLocal(depth, monitor);
         }
     }
 }
