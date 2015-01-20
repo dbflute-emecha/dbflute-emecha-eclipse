@@ -18,6 +18,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -28,9 +29,15 @@ import org.eclipse.swt.widgets.Text;
  */
 public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage implements IWizardPage {
 
-    private Text versionText;
+    private static final String DEFAULT_JRE_VERSION = "1.8";
+    private static final String[] JRE_VERSION = {DEFAULT_JRE_VERSION, "1.7", "1.6" };
+
+    private Properties dbfluteMetaPropreties;
+
+    private Text dbfluteVersionText;
     private Text clientProjectText;
     private Text packageBaseText;
+    private Combo jreVersionCombo;
 
 
     public DBFluteProjectWizardClientPage() {
@@ -79,16 +86,38 @@ public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage
         this.packageBaseText.setLayoutData(new GridData(SWT.FILL, SWT.FILL_WINDING, true, false));
         this.packageBaseText.addModifyListener(modifyingListener);
 
-        Label versionLabel = new Label(container, SWT.NORMAL);
-        versionLabel.setText(Messages.NewProjectWizardClient_version);
+        Group runtimeGroup = new Group(container, SWT.NORMAL);
+        runtimeGroup.setText(Messages.NewProjectWizardClient_runtimeGroup);
+        runtimeGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 3, 1));
+        runtimeGroup.setLayout(new GridLayout(3, false));
+
+        Label jreVersionLabel = new Label(runtimeGroup, SWT.NORMAL);
+        jreVersionLabel.setText(Messages.NewProjectWizardClient_javaVersion);
+        widthGroup.addControl(jreVersionLabel);
+
+        this.jreVersionCombo = new Combo(runtimeGroup, SWT.READ_ONLY);
+        this.jreVersionCombo.setItems(JRE_VERSION);
+        this.jreVersionCombo.setText("1.8");
+        GridData jreVersionLayout = new GridData(135, SWT.DEFAULT);
+        jreVersionLayout.horizontalSpan = 2;
+        this.jreVersionCombo.setLayoutData(jreVersionLayout);
+        this.jreVersionCombo.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                DBFluteProjectWizardClientPage.this.setLatestDBFluteVersion();
+            }
+        });
+
+        Label versionLabel = new Label(runtimeGroup, SWT.NORMAL);
+        versionLabel.setText(Messages.NewProjectWizardClient_dbfluteVersion);
         widthGroup.addControl(versionLabel);
 
-        this.versionText = new Text(container, SWT.SINGLE | SWT.BORDER);
-        this.versionText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+        this.dbfluteVersionText = new Text(runtimeGroup, SWT.SINGLE | SWT.BORDER);
+        this.dbfluteVersionText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         setLatestDBFluteVersion();
-        this.versionText.addModifyListener(modifyingListener);
+        this.dbfluteVersionText.addModifyListener(modifyingListener);
 
-        Button latestVersionBtn = new Button(container, SWT.PUSH);
+        Button latestVersionBtn = new Button(runtimeGroup, SWT.PUSH);
         latestVersionBtn.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
         latestVersionBtn.setText(Messages.NewProjectWizardClient_latestVersion);
         latestVersionBtn.addSelectionListener(new SelectionAdapter() {
@@ -111,20 +140,36 @@ public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage
     private String getLatestReleaseVersionKey() {
         return "dbflute.latest.release.version";
     }
+    private String getCompatibleVersionKey() {
+        return "compatible10x.dbflute.latest.release.version";
+    }
 
     protected void setLatestDBFluteVersion() {
-        Properties prop = new Properties();
-        try (InputStream is = new URL(getVersionMetaURL()).openStream()) {
-            prop.load(is);
-        } catch (IOException e) {
+        Properties prop = getDbfluteMetaProperties();
+
+        String versionKey;
+        if (DEFAULT_JRE_VERSION.equals(this.jreVersionCombo.getText().trim())) {
+            versionKey = getLatestReleaseVersionKey();
+        } else {
+            versionKey = getCompatibleVersionKey();
         }
-        String dbfluteVersion = prop.getProperty(getLatestReleaseVersionKey(), "1.1.0");
-        this.versionText.setText(dbfluteVersion);
+        String dbfluteVersion = prop.getProperty(versionKey, "");
+        this.dbfluteVersionText.setText(dbfluteVersion);
+    }
+    private Properties getDbfluteMetaProperties() {
+        if (dbfluteMetaPropreties == null || dbfluteMetaPropreties.size() == 0) {
+            dbfluteMetaPropreties = new Properties();
+            try (InputStream is = new URL(getVersionMetaURL()).openStream()) {
+                dbfluteMetaPropreties.load(is);
+            } catch (IOException e) {
+            }
+        }
+        return dbfluteMetaPropreties;
     }
 
     @Override
     protected String validateInput() {
-        String message = validateInput(this.versionText.getText(), Messages.NewProjectWizardClient_version, true);
+        String message = validateInput(this.dbfluteVersionText.getText(), Messages.NewProjectWizardClient_dbfluteVersion, true);
         if (message != null) {
             return message;
         }
@@ -139,8 +184,11 @@ public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage
         return null;
     }
 
+    public String getJreVersion() {
+        return this.jreVersionCombo.getText().trim();
+    }
     public String getDbfluteVersion() {
-        return this.versionText.getText().trim();
+        return this.dbfluteVersionText.getText().trim();
     }
 
     public String getClientName() {

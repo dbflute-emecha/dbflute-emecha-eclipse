@@ -107,6 +107,7 @@ public class DBFluteProjectWizard extends Wizard implements INewWizard {
         if (this.artifactPage.hasParent()) {
             operation.setParentArtifactInfo(this.artifactPage.getParentGroupId(), this.artifactPage.getParentArtifactId(), this.artifactPage.getParentVersion());
         }
+        operation.setJreVersion(this.clientPage.getJreVersion());
         operation.setDbfluteVersion(this.clientPage.getDbfluteVersion());
         operation.setClientName(this.clientPage.getClientName());
         operation.setPackageBase(this.clientPage.getPackageBase());

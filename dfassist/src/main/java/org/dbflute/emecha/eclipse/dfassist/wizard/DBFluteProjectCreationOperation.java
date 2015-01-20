@@ -228,14 +228,60 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
         str.append("  <properties>").append(separator);
         str.append("    <dbflute.version>").append(this.dbfluteVersion).append("</dbflute.version>").append(separator);
         str.append("  </properties>").append(separator);
-        str.append(separator);
-        str.append("  <dependencies>").append(separator);
-        str.append("    <dependency>").append(separator);
-        str.append("      <groupId>org.dbflute</groupId>").append(separator);
-        str.append("      <artifactId>dbflute-runtime</artifactId>").append(separator);
-        str.append("      <version>${dbflute.version}</version>").append(separator);
-        str.append("    </dependency>").append(separator);
-        str.append("  </dependencies>").append(separator);
+        if (isLambdaVersion()) {
+            str.append(separator);
+            str.append("  <dependencies>").append(separator);
+            str.append("    <dependency>").append(separator);
+            str.append("      <groupId>org.dbflute</groupId>").append(separator);
+            str.append("      <artifactId>dbflute-runtime</artifactId>").append(separator);
+            str.append("      <version>${dbflute.version}</version>").append(separator);
+            str.append("    </dependency>").append(separator);
+            str.append("  </dependencies>").append(separator);
+        } else {
+            str.append(separator);
+            str.append("  <dependencies>").append(separator);
+            str.append("    <dependency>").append(separator);
+            str.append("      <groupId>org.seasar.dbflute</groupId>").append(separator);
+            str.append("      <artifactId>dbflute-runtime</artifactId>").append(separator);
+            str.append("      <version>${dbflute.version}</version>").append(separator);
+            str.append("    </dependency>").append(separator);
+            str.append("  </dependencies>").append(separator);
+            str.append(separator);
+            str.append("  <pluginRepositories>").append(separator);
+            str.append("    <pluginRepository>").append(separator);
+            str.append("      <id>maven.seasar.org</id>").append(separator);
+            str.append("      <name>The Seasar Foundation Maven2 Repository</name>").append(separator);
+            str.append("      <url>http://maven.seasar.org/maven2</url>").append(separator);
+            str.append("    </pluginRepository>").append(separator);
+//            str.append("    <pluginRepository>").append(separator);
+//            str.append("      <id>maven-snapshot.seasar.org</id>").append(separator);
+//            str.append("      <name>The Seasar Foundation Maven2 Repository</name>").append(separator);
+//            str.append("      <url>http://maven.seasar.org/maven2-snapshot</url>").append(separator);
+//            str.append("    </pluginRepository>").append(separator);
+            str.append("  </pluginRepositories>").append(separator);
+            str.append("  <repositories>").append(separator);
+            str.append("    <repository>").append(separator);
+            str.append("      <id>maven.seasar.org</id>").append(separator);
+            str.append("      <name>The Seasar Foundation Maven2 Repository</name>").append(separator);
+            str.append("      <url>http://maven.seasar.org/maven2</url>").append(separator);
+            str.append("      <snapshots>").append(separator);
+            str.append("        <enabled>false</enabled>").append(separator);
+            str.append("      </snapshots>").append(separator);
+            str.append("    </repository>").append(separator);
+//            str.append("    <repository>").append(separator);
+//            str.append("      <id>maven-snapshot.seasar.org</id>").append(separator);
+//            str.append("      <name>The Seasar Foundation Maven2 Repository</name>").append(separator);
+//            str.append("      <url>http://maven.seasar.org/maven2-snapshot</url>").append(separator);
+//            str.append("      <releases>").append(separator);
+//            str.append("        <enabled>false</enabled>").append(separator);
+//            str.append("      </releases>").append(separator);
+//            str.append("      <snapshots>").append(separator);
+//            str.append("        <enabled>true</enabled>").append(separator);
+//            str.append("        <updatePolicy>always</updatePolicy>").append(separator);
+//            str.append("      </snapshots>").append(separator);
+//            str.append("    </repository>").append(separator);
+            str.append("  </repositories>").append(separator);
+        }
         str.append(separator);
         str.append("  <build>").append(separator);
         str.append("    <plugins>").append(separator);
@@ -247,31 +293,57 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
         str.append("          <encoding>UTF-8</encoding>").append(separator);
         str.append("        </configuration>").append(separator);
         str.append("      </plugin>").append(separator);
-        str.append("      <plugin>").append(separator);
-        str.append("        <groupId>org.dbflute</groupId>").append(separator);
-        str.append("        <artifactId>dbflute-maven-plugin</artifactId>").append(separator);
-        str.append("        <configuration>").append(separator);
-        str.append("          <dbfluteVersion>${dbflute.version}</dbfluteVersion>").append(separator);
-        str.append("          <clientProject>").append(this.clientName).append("</clientProject>").append(separator);
-        str.append("          <packageBase>").append(this.packageBase).append("</packageBase>").append(separator);
-//        str.append("          <!--").append(separator);
-//        str.append("          <targetLanguage>java</targetLanguage>").append(separator);
-//        str.append("          <targetContainer>spring</targetContainer>").append(separator);
-//        str.append("          <database>h2</database>").append(separator);
-//        str.append("          <databaseDriver>org.h2.Driver</databaseDriver>").append(separator);
-//        str.append("          <databaseUrl>jdbc:h2:file:../src/main/resources/").append(this.clientName).append("</databaseUrl>").append(separator);
-//        str.append("          <databaseSchema> </databaseSchema>").append(separator);
-//        str.append("          <databaseUser>sa</databaseUser>").append(separator);
-//        str.append("          <databasePassword> </databasePassword>").append(separator);
-//        str.append("           -->").append(separator);
-        str.append("        </configuration>").append(separator);
-        str.append("      </plugin>").append(separator);
+        if (isLambdaVersion()) {
+            str.append("      <plugin>").append(separator);
+            str.append("        <groupId>org.dbflute</groupId>").append(separator);
+            str.append("        <artifactId>dbflute-maven-plugin</artifactId>").append(separator);
+            str.append("        <configuration>").append(separator);
+            str.append("          <dbfluteVersion>${dbflute.version}</dbfluteVersion>").append(separator);
+            str.append("          <clientProject>").append(this.clientName).append("</clientProject>").append(separator);
+            str.append("          <packageBase>").append(this.packageBase).append("</packageBase>").append(separator);
+//            str.append("          <!--").append(separator);
+//            str.append("          <targetLanguage>java</targetLanguage>").append(separator);
+//            str.append("          <targetContainer>spring</targetContainer>").append(separator);
+//            str.append("          <database>h2</database>").append(separator);
+//            str.append("          <databaseDriver>org.h2.Driver</databaseDriver>").append(separator);
+//            str.append("          <databaseUrl>jdbc:h2:file:../src/main/resources/").append(this.clientName).append("</databaseUrl>").append(separator);
+//            str.append("          <databaseSchema> </databaseSchema>").append(separator);
+//            str.append("          <databaseUser>sa</databaseUser>").append(separator);
+//            str.append("          <databasePassword> </databasePassword>").append(separator);
+//            str.append("           -->").append(separator);
+            str.append("        </configuration>").append(separator);
+            str.append("      </plugin>").append(separator);
+        } else {
+            str.append("      <plugin>").append(separator);
+            str.append("        <groupId>org.seasar.dbflute</groupId>").append(separator);
+            str.append("        <artifactId>dbflute-maven-plugin</artifactId>").append(separator);
+            str.append("        <configuration>").append(separator);
+            str.append("          <dbfluteVersion>${dbflute.version}</dbfluteVersion>").append(separator);
+            str.append("          <clientProject>").append(this.clientName).append("</clientProject>").append(separator);
+            str.append("          <dbPackage>").append(this.packageBase).append("</dbPackage>").append(separator);
+//            str.append("          <!--").append(separator);
+//            str.append("          <targetLanguage>java</targetLanguage>").append(separator);
+//            str.append("          <targetContainer>seasar</targetContainer>").append(separator);
+//            str.append("          <database>h2</database>").append(separator);
+//            str.append("          <databaseDriver>org.h2.Driver</databaseDriver>").append(separator);
+//            str.append("          <databaseUrl>jdbc:h2:file:../src/main/resources/").append(this.clientName).append("</databaseUrl>").append(separator);
+//            str.append("          <databaseSchema> </databaseSchema>").append(separator);
+//            str.append("          <databaseUser>sa</databaseUser>").append(separator);
+//            str.append("          <databasePassword> </databasePassword>").append(separator);
+//            str.append("           -->").append(separator);
+            str.append("        </configuration>").append(separator);
+            str.append("      </plugin>").append(separator);
+        }
         str.append("    </plugins>").append(separator);
         str.append("  </build>").append(separator);
         str.append("</project>").append(separator);
         IFile pomFile = project.getFile("pom.xml");
         InputStream source = new ByteArrayInputStream(str.toString().getBytes("UTF-8"));
         pomFile.create(source, false, new SubProgressMonitor(monitor, 1));
+    }
+
+    private boolean isLambdaVersion() {
+        return "1.8".equals(this.javaVersion);
     }
 
     private void createProjectSettings(IProject project, IProgressMonitor monitor) throws IOException, CoreException {
@@ -375,6 +447,10 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
 
     public void setPackageBase(String packageBase) {
         this.packageBase = packageBase;
+    }
+
+    public void setJreVersion(String jreVersion) {
+        this.javaVersion = jreVersion;
     }
 
 

@@ -34,7 +34,7 @@ public class Messages extends NLS {
     public static String NewProjectWizardArtifact_artifactName;
     public static String NewProjectWizardArtifact_artifactDescription;
     public static String NewProjectWizardArtifact_parentArtifactGroupTitle;
-    public static String NewProjectWizardClient_version;
+    public static String NewProjectWizardClient_dbfluteVersion;
     public static String NewProjectWizardClient_clientGroupTitle;
     public static String NewProjectWizardClient_clientProject;
     public static String NewProjectWizardClient_latestVersion;
@@ -49,6 +49,8 @@ public class Messages extends NLS {
     public static String NewProjectWizard_ProgressTitle;
     public static String NewProjectWizardTask_createProject;
     public static String NewProjectWizardTask_cancel;
+    public static String NewProjectWizardClient_runtimeGroup;
+    public static String NewProjectWizardClient_javaVersion;
 
     static {
         // initialize resource bundle
