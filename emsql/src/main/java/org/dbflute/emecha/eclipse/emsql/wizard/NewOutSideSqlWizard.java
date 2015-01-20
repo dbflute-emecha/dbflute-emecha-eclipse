@@ -34,6 +34,7 @@ public class NewOutSideSqlWizard extends Wizard implements INewWizard {
 
     private NewOutSideSqlWizardPage mainPage;
     private IFile createFile = null;
+
     /**
      * Construct
      */
@@ -49,20 +50,19 @@ public class NewOutSideSqlWizard extends Wizard implements INewWizard {
      */
     @Override
     public boolean performFinish() {
-        if ( !mainPage.isPageComplete() ) {
+        if (!mainPage.isPageComplete()) {
             return false;
         }
         IRunnableWithProgress progress = new IRunnableWithProgress() {
-            public void run(IProgressMonitor monitor)
-                    throws InvocationTargetException {
+            public void run(IProgressMonitor monitor) throws InvocationTargetException {
                 try {
-                    if ( monitor == null ) {
+                    if (monitor == null) {
                         monitor = new NullProgressMonitor();
                     }
                     monitor.beginTask("Create SQL file. File name is " + mainPage.getSQLFileName() + ".", 5);
                     createFile = mainPage.createSQLFile(new SubProgressMonitor(monitor, 5));
                 } catch (Exception e) {
-                    LogUtil.log(EMSqlPlugin.getDefault(),e);
+                    LogUtil.log(EMSqlPlugin.getDefault(), e);
                     throw new InvocationTargetException(e);
                 } finally {
                     monitor.done();
@@ -71,7 +71,7 @@ public class NewOutSideSqlWizard extends Wizard implements INewWizard {
         };
         try {
             if (finishPage(progress)) {
-                if ( createFile != null) {
+                if (createFile != null) {
                     IWorkbenchWindow dw = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
                     try {
                         if (dw != null) {
@@ -81,7 +81,7 @@ public class NewOutSideSqlWizard extends Wizard implements INewWizard {
                             }
                         }
                     } catch (PartInitException e) {
-                        LogUtil.log(EMSqlPlugin.getDefault(),e);
+                        LogUtil.log(EMSqlPlugin.getDefault(), e);
                     }
 
                 }
@@ -101,9 +101,7 @@ public class NewOutSideSqlWizard extends Wizard implements INewWizard {
     protected boolean finishPage(IRunnableWithProgress runnable) {
         IRunnableWithProgress op = new WorkspaceModifyDelegatingOperation(runnable);
         try {
-            PlatformUI.getWorkbench().getProgressService().runInUI(
-                    getContainer(), op,
-                    ResourcesPlugin.getWorkspace().getRoot());
+            PlatformUI.getWorkbench().getProgressService().runInUI(getContainer(), op, ResourcesPlugin.getWorkspace().getRoot());
         } catch (InvocationTargetException e) {
             LogUtil.log(EMSqlPlugin.getDefault(), e);
             return false;
@@ -113,7 +111,6 @@ public class NewOutSideSqlWizard extends Wizard implements INewWizard {
         }
         return true;
     }
-
 
     /**
      * Initialize Wizard.

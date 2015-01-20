@@ -81,7 +81,7 @@ public class ToggleCommentAction extends TextEditorAction {
     @Override
     public void run() {
         super.run();
-        ITextEditor editor= getTextEditor();
+        ITextEditor editor = getTextEditor();
         if (editor == null)
             return;
         if (!validateEditorInputState())
@@ -89,19 +89,19 @@ public class ToggleCommentAction extends TextEditorAction {
 
         final int operationCode;
         if (isSelectionCommented(editor.getSelectionProvider().getSelection()))
-            operationCode= ITextOperationTarget.STRIP_PREFIX;
+            operationCode = ITextOperationTarget.STRIP_PREFIX;
         else
-            operationCode= ITextOperationTarget.PREFIX;
+            operationCode = ITextOperationTarget.PREFIX;
 
-        Shell shell= editor.getSite().getShell();
+        Shell shell = editor.getSite().getShell();
         if (!fOperationTarget.canDoOperation(operationCode)) {
             // if (shell != null)
             //    MessageDialog.openError(shell, Messages.ToggleSLCommentAction_0, Messages.ToggleSLCommentAction_1);
             return;
         }
-        Display display= null;
+        Display display = null;
         if (shell != null && !shell.isDisposed())
-            display= shell.getDisplay();
+            display = shell.getDisplay();
 
         BusyIndicator.showWhile(display, new Runnable() {
             public void run() {
@@ -110,6 +110,7 @@ public class ToggleCommentAction extends TextEditorAction {
         });
 
     }
+
     /**
      * Is the given selection single-line commented?
      *
@@ -120,29 +121,30 @@ public class ToggleCommentAction extends TextEditorAction {
         if (!(selection instanceof ITextSelection))
             return false;
 
-        ITextSelection textSelection= (ITextSelection) selection;
+        ITextSelection textSelection = (ITextSelection) selection;
         if (textSelection.getStartLine() < 0 || textSelection.getEndLine() < 0)
             return false;
 
-        IDocument document= getTextEditor().getDocumentProvider().getDocument(getTextEditor().getEditorInput());
+        IDocument document = getTextEditor().getDocumentProvider().getDocument(getTextEditor().getEditorInput());
         try {
-            IRegion block= getTextBlockFromSelection(textSelection, document);
-            ITypedRegion[] regions= TextUtilities.computePartitioning(document, fDocumentPartitioning, block.getOffset(), block.getLength(), false);
-            int[] lines= new int[regions.length * 2]; // [startline, endline, startline, endline, ...]
-            for (int i= 0, j= 0; i < regions.length; i++, j+= 2) {
+            IRegion block = getTextBlockFromSelection(textSelection, document);
+            ITypedRegion[] regions =
+                    TextUtilities.computePartitioning(document, fDocumentPartitioning, block.getOffset(), block.getLength(), false);
+            int[] lines = new int[regions.length * 2]; // [startline, endline, startline, endline, ...]
+            for (int i = 0, j = 0; i < regions.length; i++, j += 2) {
                 // start line of region
-                lines[j]= getFirstCompleteLineOfRegion(regions[i], document);
+                lines[j] = getFirstCompleteLineOfRegion(regions[i], document);
                 // end line of region
-                int length= regions[i].getLength();
-                int offset= regions[i].getOffset() + length;
+                int length = regions[i].getLength();
+                int offset = regions[i].getOffset() + length;
                 if (length > 0)
                     offset--;
-                lines[j + 1]= (lines[j] == -1 ? -1 : document.getLineOfOffset(offset));
+                lines[j + 1] = (lines[j] == -1 ? -1 : document.getLineOfOffset(offset));
             }
 
             // Perform the check
-            for (int i= 0, j= 0; i < regions.length; i++, j += 2) {
-                String[] prefixes= fPrefixesMap.get(regions[i].getType());
+            for (int i = 0, j = 0; i < regions.length; i++, j += 2) {
+                String[] prefixes = fPrefixesMap.get(regions[i].getType());
                 if (prefixes != null && prefixes.length > 0 && lines[j] >= 0 && lines[j + 1] >= 0)
                     if (!isBlockCommented(lines[j], lines[j + 1], prefixes, document))
                         return false;
@@ -168,8 +170,8 @@ public class ToggleCommentAction extends TextEditorAction {
     protected IRegion getTextBlockFromSelection(ITextSelection selection, IDocument document) {
 
         try {
-            IRegion line= document.getLineInformationOfOffset(selection.getOffset());
-            int length= selection.getLength() == 0 ? line.getLength() : selection.getLength() + (selection.getOffset() - line.getOffset());
+            IRegion line = document.getLineInformationOfOffset(selection.getOffset());
+            int length = selection.getLength() == 0 ? line.getLength() : selection.getLength() + (selection.getOffset() - line.getOffset());
             return new Region(line.getOffset(), length);
 
         } catch (BadLocationException x) {
@@ -191,13 +193,13 @@ public class ToggleCommentAction extends TextEditorAction {
 
         try {
 
-            int startLine= document.getLineOfOffset(region.getOffset());
+            int startLine = document.getLineOfOffset(region.getOffset());
 
-            int offset= document.getLineOffset(startLine);
+            int offset = document.getLineOffset(startLine);
             if (offset >= region.getOffset())
                 return startLine;
 
-            offset= document.getLineOffset(startLine + 1);
+            offset = document.getLineOffset(startLine + 1);
             return (offset > region.getOffset() + region.getLength() ? -1 : startLine + 1);
 
         } catch (BadLocationException x) {
@@ -207,7 +209,6 @@ public class ToggleCommentAction extends TextEditorAction {
 
         return -1;
     }
-
 
     /**
      * Determines whether each line is prefixed by one of the prefixes.
@@ -226,19 +227,19 @@ public class ToggleCommentAction extends TextEditorAction {
         try {
 
             // check for occurrences of prefixes in the given lines
-            for (int i= startLine; i <= endLine; i++) {
+            for (int i = startLine; i <= endLine; i++) {
 
-                IRegion line= document.getLineInformation(i);
-                String text= document.get(line.getOffset(), line.getLength());
+                IRegion line = document.getLineInformation(i);
+                String text = document.get(line.getOffset(), line.getLength());
 
-                int[] found= TextUtilities.indexOf(prefixes, text, 0);
+                int[] found = TextUtilities.indexOf(prefixes, text, 0);
 
                 if (found[0] == -1)
                     // found a line which is not commented
                     return false;
 
-                String s= document.get(line.getOffset(), found[0]);
-                s= s.trim();
+                String s = document.get(line.getOffset(), found[0]);
+                s = s.trim();
                 if (s.length() != 0)
                     // found a line which is not commented
                     return false;
@@ -270,11 +271,13 @@ public class ToggleCommentAction extends TextEditorAction {
             return;
         }
 
-        ITextEditor editor= getTextEditor();
+        ITextEditor editor = getTextEditor();
         if (fOperationTarget == null && editor != null)
-            fOperationTarget= (ITextOperationTarget) editor.getAdapter(ITextOperationTarget.class);
+            fOperationTarget = (ITextOperationTarget) editor.getAdapter(ITextOperationTarget.class);
 
-        boolean isEnabled= (fOperationTarget != null && fOperationTarget.canDoOperation(ITextOperationTarget.PREFIX) && fOperationTarget.canDoOperation(ITextOperationTarget.STRIP_PREFIX));
+        boolean isEnabled =
+                (fOperationTarget != null && fOperationTarget.canDoOperation(ITextOperationTarget.PREFIX) && fOperationTarget
+                        .canDoOperation(ITextOperationTarget.STRIP_PREFIX));
         setEnabled(isEnabled);
     }
 
@@ -284,40 +287,40 @@ public class ToggleCommentAction extends TextEditorAction {
     @Override
     public void setEditor(ITextEditor editor) {
         super.setEditor(editor);
-        fOperationTarget= null;
+        fOperationTarget = null;
     }
 
     public void configure(ISourceViewer sourceViewer, SourceViewerConfiguration configuration) {
-        fPrefixesMap= null;
+        fPrefixesMap = null;
 
-        String[] types= configuration.getConfiguredContentTypes(sourceViewer);
-        Map<String, String[]> prefixesMap= new HashMap<String, String[]>(types.length);
-        for (int i= 0; i < types.length; i++) {
-            String type= types[i];
-            String[] prefixes= configuration.getDefaultPrefixes(sourceViewer, type);
+        String[] types = configuration.getConfiguredContentTypes(sourceViewer);
+        Map<String, String[]> prefixesMap = new HashMap<String, String[]>(types.length);
+        for (int i = 0; i < types.length; i++) {
+            String type = types[i];
+            String[] prefixes = configuration.getDefaultPrefixes(sourceViewer, type);
             if (prefixes != null && prefixes.length > 0) {
-                int emptyPrefixes= 0;
-                for (int j= 0; j < prefixes.length; j++)
+                int emptyPrefixes = 0;
+                for (int j = 0; j < prefixes.length; j++)
                     if (prefixes[j].length() == 0)
                         emptyPrefixes++;
 
                 if (emptyPrefixes > 0) {
-                    String[] nonemptyPrefixes= new String[prefixes.length - emptyPrefixes];
-                    for (int j= 0, k= 0; j < prefixes.length; j++) {
-                        String prefix= prefixes[j];
+                    String[] nonemptyPrefixes = new String[prefixes.length - emptyPrefixes];
+                    for (int j = 0, k = 0; j < prefixes.length; j++) {
+                        String prefix = prefixes[j];
                         if (prefix.length() != 0) {
-                            nonemptyPrefixes[k]= prefix;
+                            nonemptyPrefixes[k] = prefix;
                             k++;
                         }
                     }
-                    prefixes= nonemptyPrefixes;
+                    prefixes = nonemptyPrefixes;
                 }
 
                 prefixesMap.put(type, prefixes);
             }
         }
-        fDocumentPartitioning= configuration.getConfiguredDocumentPartitioning(sourceViewer);
-        fPrefixesMap= prefixesMap;
+        fDocumentPartitioning = configuration.getConfiguredDocumentPartitioning(sourceViewer);
+        fPrefixesMap = prefixesMap;
     }
 
     /**

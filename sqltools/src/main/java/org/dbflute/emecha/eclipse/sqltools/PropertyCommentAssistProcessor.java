@@ -19,10 +19,12 @@ import org.eclipse.swt.graphics.Image;
 public class PropertyCommentAssistProcessor extends OutsideSqlAssistProcessorBase {
 
     private Image icon;
+
     public PropertyCommentAssistProcessor(OutsideSqlAssistProcessorBase... processor) {
         super(processor);
         icon = SQLAssistPlugin.getImageDescriptor("icons/listmark-rest.gif").createImage();
     }
+
     protected void appendCompletionProposal(List<ICompletionProposal> list, ITextViewer viewer, int offset) {
         String prefix = null;
 
@@ -71,9 +73,8 @@ public class PropertyCommentAssistProcessor extends OutsideSqlAssistProcessorBas
         }
     }
 
-    private static final String[] DBFLUTE_MARK_OPTIONS = {
-        "#df:entity#","!!AutoDetect!!","!df:pmb!","!df:pmb extends Paging!","+cursor+","+domain+","+scalar+", "#df:x#"
-    };
+    private static final String[] DBFLUTE_MARK_OPTIONS = { "#df:entity#", "!!AutoDetect!!", "!df:pmb!", "!df:pmb extends Paging!",
+            "+cursor+", "+domain+", "+scalar+", "#df:x#" };
 
     private void addFixedMarkProposal(List<ICompletionProposal> list, String prefix, String suffix, int offset, boolean delimSpace) {
         int suffixLength = 0;
@@ -81,12 +82,13 @@ public class PropertyCommentAssistProcessor extends OutsideSqlAssistProcessorBas
             char startMark = prefix.charAt(0);
             boolean endBres = false;
             for (char c : suffix.toCharArray()) {
-                if (('a' <= c && 'z' >= c) || ('A' <= c && 'Z' >= c)){
-                    if (endBres) break;
+                if (('a' <= c && 'z' >= c) || ('A' <= c && 'Z' >= c)) {
+                    if (endBres)
+                        break;
                     suffixLength++;
                     continue;
                 }
-                if (startMark == c){
+                if (startMark == c) {
                     suffixLength++;
                     endBres = true;
                     continue;
@@ -101,22 +103,20 @@ public class PropertyCommentAssistProcessor extends OutsideSqlAssistProcessorBas
                 String replacementString = delimSpace ? markString : " " + markString;
                 IContextInformation contextInformation = null;
                 String additionalProposalInfo = null;
-                list.add(new CompletionProposal(replacementString, offset, replacementLength , replacementString.length(), icon, markString, contextInformation  , additionalProposalInfo ));
+                list.add(new CompletionProposal(replacementString, offset, replacementLength, replacementString.length(), icon, markString,
+                        contextInformation, additionalProposalInfo));
             }
         }
     }
 
-    private static final String[] ENTITY_PROPERTY_TYPES = {
-        "String", "Integer", "Long", "Date", "BigDecimal", "Timestamp", "Time"
-    };
-    private static final String[] PARAMETER_PROPERTY_TYPES = {
-        "String", "Integer", "Long", "Date", "BigDecimal", "Timestamp", "Time", "List<T>", "Map<K,V>"
-    };
+    private static final String[] ENTITY_PROPERTY_TYPES = { "String", "Integer", "Long", "Date", "BigDecimal", "Timestamp", "Time" };
+    private static final String[] PARAMETER_PROPERTY_TYPES = { "String", "Integer", "Long", "Date", "BigDecimal", "Timestamp", "Time",
+            "List<T>", "Map<K,V>" };
 
     private void addPropertyMarkProposal(List<ICompletionProposal> list, String prefix, String suffix, int offset, boolean delimSpace) {
         if (prefix != null && prefix.length() > 1) {
             String startMark = prefix.substring(0, 2);
-            String[] propertyTypes=null;
+            String[] propertyTypes = null;
             if ("!!".equals(startMark)) {
                 propertyTypes = PARAMETER_PROPERTY_TYPES;
             } else if ("##".equals(startMark)) {
@@ -128,12 +128,13 @@ public class PropertyCommentAssistProcessor extends OutsideSqlAssistProcessorBas
                     replacementLength++;
                 }
                 int endMark = suffix.indexOf(startMark);
-                for (String markString: propertyTypes) {
+                for (String markString : propertyTypes) {
                     if (!(startMark + markString).startsWith(prefix)) {
                         continue;
                     }
                     StringBuilder replacementString = new StringBuilder();
-                    if (!delimSpace) replacementString.append(" ");
+                    if (!delimSpace)
+                        replacementString.append(" ");
                     replacementString.append(startMark);
                     replacementString.append(markString);
                     replacementString.append(" ");
@@ -142,12 +143,14 @@ public class PropertyCommentAssistProcessor extends OutsideSqlAssistProcessorBas
                         replacementString.append(startMark);
                     }
                     IContextInformation contextInformation = null;
-                    String additionalProposalInfo = startMark+markString+" property-name"+startMark;
-                    list.add(new CompletionProposal(replacementString.toString(), offset, replacementLength, cursolOffset, icon, markString, contextInformation , additionalProposalInfo ));
+                    String additionalProposalInfo = startMark + markString + " property-name" + startMark;
+                    list.add(new CompletionProposal(replacementString.toString(), offset, replacementLength, cursolOffset, icon,
+                            markString, contextInformation, additionalProposalInfo));
                 }
             }
         }
     }
+
     private void addPackageMarkProposal(List<ICompletionProposal> list, String prefix, String suffix, int offset, boolean delimSpace) {
         if (prefix != null && prefix.length() > 1) {
             String startMark = prefix.substring(0, 2);
@@ -159,13 +162,14 @@ public class PropertyCommentAssistProcessor extends OutsideSqlAssistProcessorBas
                 replacementLength++;
             }
             int endMark = suffix.indexOf(startMark);
-            for (PackageRefMark mark: PackageRefMark.values()) {
+            for (PackageRefMark mark : PackageRefMark.values()) {
                 String markString = mark.getReplaceString();
                 if (!(startMark + markString).startsWith(prefix)) {
                     continue;
                 }
                 StringBuilder replacementString = new StringBuilder();
-                if (!delimSpace) replacementString.append(" ");
+                if (!delimSpace)
+                    replacementString.append(" ");
                 replacementString.append(startMark);
                 replacementString.append(markString);
                 replacementString.append(".");
@@ -176,16 +180,24 @@ public class PropertyCommentAssistProcessor extends OutsideSqlAssistProcessorBas
                 }
                 IContextInformation contextInformation = null;
                 String additionalProposalInfo = mark.getAdditionalProposalInfo();
-                list.add(new CompletionProposal(replacementString.toString(), offset, replacementLength, cursolOffset, icon, mark.getDisplayString(), contextInformation , additionalProposalInfo ));
+                list.add(new CompletionProposal(replacementString.toString(), offset, replacementLength, cursolOffset, icon, mark
+                        .getDisplayString(), contextInformation, additionalProposalInfo));
             }
         }
     }
+
     private enum PackageRefMark {
-        Domain{
+        Domain {
             @Override
-            public String getReplaceString() {return "$$Domain$$";}
+            public String getReplaceString() {
+                return "$$Domain$$";
+            }
+
             @Override
-            public String getDisplayString() {return "DomainEntity Package";}
+            public String getDisplayString() {
+                return "DomainEntity Package";
+            }
+
             @Override
             public String getAdditionalProposalInfo() {
                 return "-- !df:pmb!<br><b>-- !!$$Domain$$.Member member!!</b><br>select ...<br>  from ...";
@@ -193,37 +205,56 @@ public class PropertyCommentAssistProcessor extends OutsideSqlAssistProcessorBas
         },
         Customize {
             @Override
-            public String getReplaceString() {return "$$Customize$$";}
+            public String getReplaceString() {
+                return "$$Customize$$";
+            }
+
             @Override
-            public String getDisplayString() {return "CustomizeEntity Package";}
+            public String getDisplayString() {
+                return "CustomizeEntity Package";
+            }
+
             @Override
             public String getAdditionalProposalInfo() {
                 return "-- !df:pmb!<br><b>-- !!$$Customize$$.SimpleMember member!!</b><br>select ...<br>  from ...";
             }
         },
-        Pmb{
+        Pmb {
             @Override
-            public String getReplaceString() {return "$$Pmb$$";}
+            public String getReplaceString() {
+                return "$$Pmb$$";
+            }
+
             @Override
-            public String getDisplayString() {return "ParameterBean Package";}
+            public String getDisplayString() {
+                return "ParameterBean Package";
+            }
+
             @Override
             public String getAdditionalProposalInfo() {
                 return "-- !df:pmb!<br><b>-- !!$$Pmb$$.SimpleMemberPmb memberPmb!!</b><br>select ...<br>  from ...";
             }
         },
-        CDef{
+        CDef {
             @Override
-            public String getReplaceString() {return "$$CDef$$";}
+            public String getReplaceString() {
+                return "$$CDef$$";
+            }
+
             @Override
-            public String getDisplayString() {return "CDef Package";}
+            public String getDisplayString() {
+                return "CDef Package";
+            }
+
             @Override
             public String getAdditionalProposalInfo() {
                 return "-- !df:pmb!<br><b>-- !!$$CDef$$.MemberStatus status!!</b><br>select ...<br>  from ...";
             }
-        }
-        ;
+        };
         public abstract String getReplaceString();
+
         public abstract String getDisplayString();
+
         public abstract String getAdditionalProposalInfo();
     }
 

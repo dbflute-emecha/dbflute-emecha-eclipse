@@ -307,7 +307,8 @@ public class DFPropEditor extends TextEditor {
                 }
             }
             Map<Annotation, Position> additions = applyFolding(annotationModel, dfmodel, annotationsMap);
-            annotationModel.modifyAnnotations(annotationsMap.values().toArray(new ProjectionAnnotation[annotationsMap.size()]), additions,new ProjectionAnnotation[0]);
+            annotationModel.modifyAnnotations(annotationsMap.values().toArray(new ProjectionAnnotation[annotationsMap.size()]), additions,
+                    new ProjectionAnnotation[0]);
         }
     }
 
@@ -317,7 +318,8 @@ public class DFPropEditor extends TextEditor {
      * @param dfmodel
      * @param annotationsMap old annotations.
      */
-    private Map<Annotation, Position> applyFolding(ProjectionAnnotationModel annotationModel, DFPropModel dfmodel, Map<Integer, ProjectionAnnotation> annotationsMap) {
+    private Map<Annotation, Position> applyFolding(ProjectionAnnotationModel annotationModel, DFPropModel dfmodel,
+            Map<Integer, ProjectionAnnotation> annotationsMap) {
         Map<Annotation, Position> retMap = new HashMap<Annotation, Position>();
 
         DFPropModel[] child = dfmodel.getChild();
@@ -372,7 +374,7 @@ public class DFPropEditor extends TextEditor {
             for (DFPropModel child : topChild) {
                 if (child instanceof MapModel) {
                     if (existsMap) {
-                        createExistsMapMarker(file, (MapModel)child);
+                        createExistsMapMarker(file, (MapModel) child);
                     }
                     checkDuplicateKeys(file, child);
                     existsMap = true;

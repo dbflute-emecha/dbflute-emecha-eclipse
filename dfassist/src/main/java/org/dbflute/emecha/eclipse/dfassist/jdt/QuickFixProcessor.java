@@ -66,8 +66,7 @@ public class QuickFixProcessor implements IQuickFixProcessor {
     /* (非 Javadoc)
      * @see org.eclipse.jdt.ui.text.java.IQuickFixProcessor#getCorrections(org.eclipse.jdt.ui.text.java.IInvocationContext, org.eclipse.jdt.ui.text.java.IProblemLocation[])
      */
-    public IJavaCompletionProposal[] getCorrections(IInvocationContext context, IProblemLocation[] locations)
-            throws CoreException {
+    public IJavaCompletionProposal[] getCorrections(IInvocationContext context, IProblemLocation[] locations) throws CoreException {
         if (locations == null || locations.length == 0) {
             return null;
         }
@@ -82,6 +81,7 @@ public class QuickFixProcessor implements IQuickFixProcessor {
         }
         return (IJavaCompletionProposal[]) result.toArray(new IJavaCompletionProposal[result.size()]);
     }
+
     protected Collection<IJavaCompletionProposal> process(IInvocationContext context, IProblemLocation problem) {
         int problemId = problem.getProblemId();
         if (problemId == 0) {// no proposals for none-problem locations
@@ -121,10 +121,10 @@ public class QuickFixProcessor implements IQuickFixProcessor {
                 selectedNode = simpleNameParent;
             }
         case ASTNode.QUALIFIED_NAME:
-            DerivedFieldInfo fieldInfo = createDerivedFieldInfo(context, problem, (Name)selectedNode);
+            DerivedFieldInfo fieldInfo = createDerivedFieldInfo(context, problem, (Name) selectedNode);
             ASTNode parent = selectedNode.getParent();
             if (parent instanceof MethodInvocation) {
-                MethodInvocation parentMethod = (MethodInvocation)parent;
+                MethodInvocation parentMethod = (MethodInvocation) parent;
                 String methodName = parentMethod.getName().getFullyQualifiedName();
                 DerivedType derivedType = DerivedType.nameOf(methodName);
                 if (derivedType == null) {
@@ -170,11 +170,11 @@ public class QuickFixProcessor implements IQuickFixProcessor {
         if (selectedNode instanceof SimpleName) {
             ASTNode simpleNameParent = selectedNode.getParent();
             if (simpleNameParent.getNodeType() == ASTNode.QUALIFIED_NAME) {
-                nameNode = (QualifiedName)simpleNameParent;
+                nameNode = (QualifiedName) simpleNameParent;
             }
         }
 
-       DerivedFieldInfo fieldInfo = new DerivedFieldInfo();
+        DerivedFieldInfo fieldInfo = new DerivedFieldInfo();
         fieldInfo.setConstantFieldName(getPropertyName(nameNode));
         fieldInfo.setTargetTypeName(getSelectedTypeName(nameNode));
         return fieldInfo;
@@ -182,19 +182,20 @@ public class QuickFixProcessor implements IQuickFixProcessor {
 
     protected String getPropertyName(Name selectedNode) {
         if (selectedNode instanceof QualifiedName) {
-            return ((QualifiedName)selectedNode).getName().getFullyQualifiedName();
+            return ((QualifiedName) selectedNode).getName().getFullyQualifiedName();
         } else {
-            String fullyQualifiedName = ((Name)selectedNode).getFullyQualifiedName();
+            String fullyQualifiedName = ((Name) selectedNode).getFullyQualifiedName();
             return fullyQualifiedName.substring(fullyQualifiedName.lastIndexOf('.') + 1);
         }
     }
+
     /**
      * @param selectedNode
      * @return
      */
     protected String getSelectedTypeName(Name selectedNode) {
         if (selectedNode instanceof QualifiedName) {
-            return ((QualifiedName)selectedNode).getQualifier().getFullyQualifiedName();
+            return ((QualifiedName) selectedNode).getQualifier().getFullyQualifiedName();
         }
         String fullyQualifiedName = ((Name) selectedNode).getFullyQualifiedName();
         int sep = fullyQualifiedName.lastIndexOf('.');
@@ -204,13 +205,12 @@ public class QuickFixProcessor implements IQuickFixProcessor {
         // TODO クラス名取得方法検討
         ASTNode parent = selectedNode.getParent();
         if (parent instanceof Name) {
-            return getSelectedTypeName((Name)parent);
+            return getSelectedTypeName((Name) parent);
         }
         if (parent instanceof FieldAccess) {
-            return ((FieldAccess)parent).getExpression().toString();
+            return ((FieldAccess) parent).getExpression().toString();
         }
         return null;
     }
-
 
 }

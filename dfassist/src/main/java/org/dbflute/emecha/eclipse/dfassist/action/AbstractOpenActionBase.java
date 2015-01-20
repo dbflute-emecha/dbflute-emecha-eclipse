@@ -46,10 +46,10 @@ import org.eclipse.ui.ide.IDE;
  */
 public abstract class AbstractOpenActionBase implements IObjectActionDelegate {
 
-
     protected IStructuredSelection _selection;
     protected IAction _action;
     protected IWorkbenchPart _targetPart;
+
     /**
      * {@inheritDoc}
      * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
@@ -60,6 +60,7 @@ public abstract class AbstractOpenActionBase implements IObjectActionDelegate {
             this._selection = iss;
         }
     }
+
     /**
      * {@inheritDoc}
      * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction, org.eclipse.ui.IWorkbenchPart)
@@ -68,6 +69,7 @@ public abstract class AbstractOpenActionBase implements IObjectActionDelegate {
         this._action = action;
         this._targetPart = targetPart;
     }
+
     /**
      * {@inheritDoc}
      * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
@@ -82,11 +84,12 @@ public abstract class AbstractOpenActionBase implements IObjectActionDelegate {
                 String packageName = getTargetPackageName(getBasePackageName(file, javap));
                 String typeQualifiedName = getTargetClassName(file);
                 try {
-                    IType findType = javap.findType(packageName, typeQualifiedName, (IProgressMonitor)null);
-                    if (findType == null || !findType.exists()) return;
+                    IType findType = javap.findType(packageName, typeQualifiedName, (IProgressMonitor) null);
+                    if (findType == null || !findType.exists())
+                        return;
                     if (findType.isBinary()) {
                         IClassFile classFile = findType.getClassFile();
-                        classFile.open((IProgressMonitor)null);
+                        classFile.open((IProgressMonitor) null);
                     } else {
                         openFileInEditor(file, findType);
                     }
@@ -105,12 +108,14 @@ public abstract class AbstractOpenActionBase implements IObjectActionDelegate {
      * @return ターゲットパッケージ名
      */
     protected abstract String getTargetPackageName(String packageName);
+
     /**
      * 対象のファイルに関連するクラス名を取得する。
      * @param file 選択されたファイル
      * @return ターゲットクラス名
      */
     protected abstract String getTargetClassName(IFile file);
+
     /**
      * 対象のファイルのパッケージを取得する。
      * @param file 選択されたファイル
@@ -129,7 +134,8 @@ public abstract class AbstractOpenActionBase implements IObjectActionDelegate {
         } catch (JavaModelException e) {
             DfAssistPlugin.log(e);
         }
-        if (rootPath == null) return null;
+        if (rootPath == null)
+            return null;
         String dir = filePath.substring(rootPath.length() + 1);
         int index = dir.indexOf("/exbhv");
         if (index > 0) {
@@ -137,6 +143,7 @@ public abstract class AbstractOpenActionBase implements IObjectActionDelegate {
         }
         return null;
     }
+
     protected String getSqlName(IFile file) {
         String fileName = file.getName();
         int separateIndex = fileName.lastIndexOf('_');

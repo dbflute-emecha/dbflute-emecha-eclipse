@@ -24,12 +24,7 @@ import java.util.regex.Pattern;
 public class DFPropModelParser {
 
     private enum State {
-        DEFAULT
-        ,BLOCK_START
-        ,INDENT
-        ,COMMENT
-        ,SINGLE_QUATE
-        ,DUBLE_QUATE
+        DEFAULT, BLOCK_START, INDENT, COMMENT, SINGLE_QUATE, DUBLE_QUATE
     }
 
     public DFPropFileModel parse(String source) {
@@ -141,7 +136,7 @@ public class DFPropModelParser {
                     }
                 }
                 break;
-            case '}' :
+            case '}':
                 if (State.DEFAULT.equals(state) || State.INDENT.equals(state) || State.BLOCK_START.equals(state)) {
                     parseBuffer(current, buffer, offset, index, lineNumber);
                     DFPropModel prevModel = current;
@@ -196,9 +191,9 @@ public class DFPropModelParser {
                     buffer.append(c);
                 }
                 break;
-            case ';' :
+            case ';':
                 boolean skip = false;
-                if (current instanceof MapEntryModel && "url".equals(((MapEntryModel) current).getNameText()) ) {
+                if (current instanceof MapEntryModel && "url".equals(((MapEntryModel) current).getNameText())) {
                     char before = source.charAt(index - 1);
                     if (before != ' ' && before != '\t' && before != '\r' && before != '\n') {
                         skip = true;

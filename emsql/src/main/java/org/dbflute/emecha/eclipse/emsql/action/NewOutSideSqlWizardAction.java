@@ -47,7 +47,7 @@ public class NewOutSideSqlWizardAction implements IActionDelegate {
             }
         }
         // TODO Message Resource
-        WorkbenchUtil.showMessage("EMecha-EMSql","Invalid path.");
+        WorkbenchUtil.showMessage("EMecha-EMSql", "Invalid path.");
     }
 
     /**

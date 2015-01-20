@@ -17,7 +17,6 @@ package org.dbflute.emecha.eclipse.dfassist.action;
 
 import org.eclipse.core.resources.IFile;
 
-
 /**
  * SQLからCustomizeEntityを開くアクション
  * @author schatten

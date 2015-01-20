@@ -12,19 +12,11 @@ import java.util.Map;
  */
 public enum SupportDatabase {
     //-- Main Support
-    MySQL("mysql"),
-    PostgreSQL("postgresql"),
-    Oracle("oracle"),
-    DB2("db2"),
-    SQLServer("mssql"),
-    H2Database("h2"),
-    ApacheDerby("derby"),
+    MySQL("mysql"), PostgreSQL("postgresql"), Oracle("oracle"), DB2("db2"), SQLServer("mssql"), H2Database("h2"), ApacheDerby("derby"),
     //-- sub supported
-    SQLite("sqlite"),
-    MSAccess("msaccess"),
+    SQLite("sqlite"), MSAccess("msaccess"),
     //-- a-little-bit supported
-    Sybase("sybase"),
-    ;
+    Sybase("sybase"), ;
     private final String dbName;
     private static final Map<String, SupportDatabase> databaseMap;
     static {
@@ -33,12 +25,15 @@ public enum SupportDatabase {
             databaseMap.put(database.getDbName().toLowerCase(), database);
         }
     }
+
     private SupportDatabase(String dbName) {
         this.dbName = dbName;
     }
+
     public String getDbName() {
         return this.dbName;
     }
+
     public static SupportDatabase nameOf(String name) {
         if (name == null) {
             return null;

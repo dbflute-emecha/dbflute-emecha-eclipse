@@ -61,20 +61,14 @@ public class DFPropFileConfiguration extends TextSourceViewerConfiguration imple
      * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getConfiguredContentTypes(org.eclipse.jface.text.source.ISourceViewer)
      */
     public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
-        return new String[] {
-                IDocument.DEFAULT_CONTENT_TYPE,
-                DFP_PARTITIONING,
-                DFP_COMMENT
-                };
+        return new String[] { IDocument.DEFAULT_CONTENT_TYPE, DFP_PARTITIONING, DFP_COMMENT };
     }
 
     /**
      * {@inheritDoc}
      * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getDoubleClickStrategy(org.eclipse.jface.text.source.ISourceViewer, java.lang.String)
      */
-    public ITextDoubleClickStrategy getDoubleClickStrategy(
-            ISourceViewer sourceViewer,
-            String contentType) {
+    public ITextDoubleClickStrategy getDoubleClickStrategy(ISourceViewer sourceViewer, String contentType) {
         if (doubleClickStrategy == null)
             doubleClickStrategy = new DFPropDoubleClickStrategy();
         return doubleClickStrategy;
@@ -122,7 +116,7 @@ public class DFPropFileConfiguration extends TextSourceViewerConfiguration imple
      */
     @Override
     public String[] getDefaultPrefixes(ISourceViewer sourceViewer, String contentType) {
-        return new String[] {"#"};
+        return new String[] { "#" };
     }
 
     /**

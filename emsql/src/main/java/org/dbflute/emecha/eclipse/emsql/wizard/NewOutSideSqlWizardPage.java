@@ -83,12 +83,7 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
     private String sqlCommentStr = "";
 
     protected enum SqlType {
-        SELECT("select"),
-        INSERT("insert"),
-        UPDATE("update"),
-        DELETE("delete"),
-        DML,
-        OTHER;
+        SELECT("select"), INSERT("insert"), UPDATE("update"), DELETE("delete"), DML, OTHER;
         protected final String prefix;
 
         private SqlType() {
@@ -316,6 +311,7 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
         String defaultPath = preferenceStore.getSqlDirectory(getPackageName(javaElement));
         return javaProject.getPackageFragmentRoot(defaultPath);
     }
+
     public String getPackageName(IJavaElement javaElement) {
         IPackageFragment packageFragment = (IPackageFragment) javaElement.getAncestor(IJavaElement.PACKAGE_FRAGMENT);
         String packageName = packageFragment.getElementName();
@@ -351,7 +347,8 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
         select.setFocus();
 
         createOptionSeparator(composite, "DBFlute Options");
-        final Button cmt = createSimpleCheckBox(composite, "Use SQL Title and Description Comment.", 0, new DfUseCommentListener(), useComment);
+        final Button cmt =
+                createSimpleCheckBox(composite, "Use SQL Title and Description Comment.", 0, new DfUseCommentListener(), useComment);
         Text cmtTxt = createSQLTitleCommentTextBox(composite, 20);
         createSelectionDependency(cmt, cmtTxt);
         final Button ce = createSimpleCheckBox(composite, "Use Customize Entity.", 0, new DfUseEntityListener(), useEntity);
@@ -375,9 +372,10 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
         createSelectionOnece(scalar, paging);
 
         // SELECT 選択時のチェックボックス連動
-        select.addSelectionListener(new SelectionListener(){
+        select.addSelectionListener(new SelectionListener() {
             public void widgetDefaultSelected(SelectionEvent e) {
             }
+
             public void widgetSelected(SelectionEvent e) {
                 if (select.getSelection()) {
                     ce.setEnabled(true);
@@ -427,8 +425,7 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
         return radio;
     }
 
-    protected Button createSimpleCheckBox(Composite composite, String label, int indent,
-                                        SelectionListener listener, boolean defaultCheck) {
+    protected Button createSimpleCheckBox(Composite composite, String label, int indent, SelectionListener listener, boolean defaultCheck) {
         createEmptySpace(composite, 1);
         GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
         gd.horizontalSpan = 3;
@@ -626,6 +623,7 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
     private boolean checkIgnoreExistsPath(String name) {
         return ignoreFilePath.contains(name.toLowerCase() + getSQLFileExtension());
     }
+
     /**
      * 他のBehaviorに紐付く同一のSQLNameのチェック
      * @param typeName
@@ -634,8 +632,10 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
     private boolean checkExistsSqlName(String typeName) {
         return ignoreSQLNames.contains(getSqlName(typeName).toLowerCase());
     }
+
     private Set<String> ignoreFilePath = new HashSet<String>();
     private Set<String> ignoreSQLNames = new HashSet<String>();
+
     /**
      * フォルダ配下のSQLファイル名を取得する。
      */
@@ -669,6 +669,7 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
             LogUtil.log(EMSqlPlugin.getDefault(), e);
         }
     }
+
     protected void loadExistsFiles() {
         IPath folderPath = this.getSQLFolderPath();
         if (folderPath != null) {
@@ -676,6 +677,7 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
             loadExistsFiles(file.getLocation().toFile());
         }
     }
+
     protected void loadExistsFiles(File file) {
         if (file.isFile()) {
             String name = file.getName();
@@ -691,6 +693,7 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
             }
         }
     }
+
     protected static String getSqlName(String name) {
         if (name == null) {
             return "";
@@ -730,11 +733,9 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
         return ret;
     }
 
-    private static Set<String> failName = new HashSet<String>(Arrays.asList(new String[]{
-            "select", "insert", "delete", "update", "create",
-            "alter", "connect", "usage", "garant", "revoke",
-            "drop", "truncate"
-            }));
+    private static Set<String> failName = new HashSet<String>(Arrays.asList(new String[] { "select", "insert", "delete", "update",
+            "create", "alter", "connect", "usage", "garant", "revoke", "drop", "truncate" }));
+
     /**
      * 禁則ファイル名を取得する。
      * @return
@@ -742,6 +743,7 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
     protected Set<String> getFailNames() {
         return failName;
     }
+
     /**
      * SQL Name Check.
      * @param typeName
@@ -946,14 +948,14 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
         case MySQL:
             return new MySQLSqlTemplateProcessor();
         case PostgreSQL:
-        case SQLite:   // same sql used.
+        case SQLite: // same sql used.
             return new PostgreSQLSqlTemplateProcessor();
         case Oracle:
             return new OracleSqlTemplateProcessor();
         case DB2:
             return new DB2SqlTemplateProcessor();
         case SQLServer:
-        case Sybase:   // same sql used.
+        case Sybase: // same sql used.
             return new SQLServerSqlTemplateProcessor();
         case H2Database:
             return new H2DatabaseSqlTemplateProcessor();

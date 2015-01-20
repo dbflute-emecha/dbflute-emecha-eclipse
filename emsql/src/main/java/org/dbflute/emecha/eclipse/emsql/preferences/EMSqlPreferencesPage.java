@@ -42,10 +42,12 @@ public class EMSqlPreferencesPage extends PropertyPage implements IWorkbenchProp
     public EMSqlPreferencesPage() {
         super();
     }
+
     private String customDirectory;
     private SupportDatabase customDatabase;
     private Text directoryInput;
     private boolean changed = false;
+
     /**
      * {@inheritDoc}
      * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)
@@ -97,6 +99,7 @@ public class EMSqlPreferencesPage extends PropertyPage implements IWorkbenchProp
             public void widgetSelected(SelectionEvent e) {
                 selectPackageFragmentRoot();
             }
+
             public void widgetDefaultSelected(SelectionEvent e) {
             }
         });
@@ -123,9 +126,10 @@ public class EMSqlPreferencesPage extends PropertyPage implements IWorkbenchProp
 
         databaseCombo.addSelectionListener(new SelectionListener() {
             public void widgetSelected(SelectionEvent e) {
-                customDatabase = SupportDatabase.nameOf(((Combo)e.getSource()).getText());
+                customDatabase = SupportDatabase.nameOf(((Combo) e.getSource()).getText());
                 changed = true;
             }
+
             public void widgetDefaultSelected(SelectionEvent e) {
             }
         });
@@ -137,6 +141,7 @@ public class EMSqlPreferencesPage extends PropertyPage implements IWorkbenchProp
     }
 
     private static String DEFAULT_DATABASE_LABEL = "(default)";
+
     private String[] getDatabaseItems() {
         ArrayList<String> list = new ArrayList<String>();
         list.add(DEFAULT_DATABASE_LABEL); // default
@@ -160,8 +165,7 @@ public class EMSqlPreferencesPage extends PropertyPage implements IWorkbenchProp
         if (getJavaElement().getElementType() == IJavaElement.JAVA_PROJECT) {
             return projectPreferences.getSqlDirectory();
         } else if (getJavaElement().getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
-            IPackageFragment packageFragment = (IPackageFragment) getJavaElement().getAncestor(
-                    IJavaElement.PACKAGE_FRAGMENT);
+            IPackageFragment packageFragment = (IPackageFragment) getJavaElement().getAncestor(IJavaElement.PACKAGE_FRAGMENT);
             return projectPreferences.getSqlDirectory(packageFragment.getElementName());
         }
         return projectPreferences.getDefaultSqlDirectory();
@@ -172,13 +176,11 @@ public class EMSqlPreferencesPage extends PropertyPage implements IWorkbenchProp
         if (getJavaElement().getElementType() == IJavaElement.JAVA_PROJECT) {
             return projectPreferences.getDatabaseName();
         } else if (getJavaElement().getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
-            IPackageFragment packageFragment = (IPackageFragment) getJavaElement().getAncestor(
-                    IJavaElement.PACKAGE_FRAGMENT);
+            IPackageFragment packageFragment = (IPackageFragment) getJavaElement().getAncestor(IJavaElement.PACKAGE_FRAGMENT);
             return projectPreferences.getDatabaseName(packageFragment.getElementName());
         }
         return projectPreferences.getDefaultDatabaseName();
     }
-
 
     /**
      * Creates a spacer control with the given span.
@@ -212,8 +214,7 @@ public class EMSqlPreferencesPage extends PropertyPage implements IWorkbenchProp
                 projectPreferences.setSqlDirectory(customDirectory);
                 projectPreferences.setDatabaseName(customDatabaseName);
             } else if (getJavaElement().getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
-                IPackageFragment packageFragment = (IPackageFragment) getJavaElement().getAncestor(
-                        IJavaElement.PACKAGE_FRAGMENT);
+                IPackageFragment packageFragment = (IPackageFragment) getJavaElement().getAncestor(IJavaElement.PACKAGE_FRAGMENT);
                 projectPreferences.setSqlDirectory(packageFragment.getElementName(), customDirectory);
                 projectPreferences.setDatabaseName(packageFragment.getElementName(), customDatabaseName);
             }
@@ -236,8 +237,9 @@ public class EMSqlPreferencesPage extends PropertyPage implements IWorkbenchProp
      */
     private boolean isDirectoryChanged() {
         return !(getDefaultOutputDirectory() == null ? customDirectory == null || customDirectory.length() == 0
-                                                   : getDefaultOutputDirectory().equals(customDirectory) );
+                : getDefaultOutputDirectory().equals(customDirectory));
     }
+
     /**
      * データベースタイプが編集されたか判定する。
      * @return true : changed status
@@ -252,7 +254,6 @@ public class EMSqlPreferencesPage extends PropertyPage implements IWorkbenchProp
         }
     }
 
-
     public void selectPackageFragmentRoot() {
         IPackageFragmentRoot sourceContainer = SourceContainerDialog.getSourceContainer(getShell(), getWorkspaceRoot());
         if (sourceContainer != null) {
@@ -262,12 +263,15 @@ public class EMSqlPreferencesPage extends PropertyPage implements IWorkbenchProp
             changed = true;
         }
     }
+
     protected IJavaProject getJavaProject() {
         return getJavaElement().getJavaProject();
     }
+
     protected IJavaElement getJavaElement() {
-        return (IJavaElement)this.getElement().getAdapter(IJavaElement.class);
+        return (IJavaElement) this.getElement().getAdapter(IJavaElement.class);
     }
+
     protected IWorkspaceRoot getWorkspaceRoot() {
         return getJavaElement().getJavaProject().getProject().getWorkspace().getRoot();
     }

@@ -121,14 +121,15 @@ public class DBFluteProjectWizardLocationPage extends AbstractNewProjectWizardPa
         setControl(container);
     }
 
-
     private WorkingSetConfigurationBlock workingSetBlock;
+
     /**
      * @see org.eclipse.ui.dialogs.WorkingSetGroup#getSelectedWorkingSets()
      */
     public IWorkingSet[] getSelectedWorkingSets() {
         return workingSetBlock.getSelectedWorkingSets();
     }
+
     /**
      * @see org.eclipse.ui.dialogs.WorkingSetGroup#WorkingSetGroup(Composite, IStructuredSelection, String[])
      */

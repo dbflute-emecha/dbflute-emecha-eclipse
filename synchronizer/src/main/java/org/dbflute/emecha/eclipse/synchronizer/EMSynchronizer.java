@@ -48,6 +48,7 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
     private ExecutorService threadPool;
 
     private int port;
+
     /**
      * The constructor
      */
@@ -84,6 +85,7 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
         serverStop();
         super.stop(context);
     }
+
     /**
      * {@inheritDoc}}
      * @see org.dbflute.emecha.eclipse.AbstractEMechaPlugin#getPluginId()
@@ -105,7 +107,7 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
             server.createContext("/", new RefreshHandler());
             server.createContext("/refresh", new RefreshHandler());
             server.start();
-            getLog().log(new Status(IStatus.INFO, PLUGIN_ID, "Synchronizer server is started at Port:"+ serverPort +"."));
+            getLog().log(new Status(IStatus.INFO, PLUGIN_ID, "Synchronizer server is started at Port:" + serverPort + "."));
             this.server = server;
         } catch (IOException e) {
             getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, "Synchronizer server is not started by error. (Port:" + serverPort + ")", e));

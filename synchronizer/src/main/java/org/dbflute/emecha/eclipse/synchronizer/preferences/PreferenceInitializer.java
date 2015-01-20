@@ -26,7 +26,6 @@ import org.dbflute.emecha.eclipse.synchronizer.EMSynchronizer;
  */
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
-
     /*
      * (non-Javadoc)
      * 
@@ -35,7 +34,11 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
     public void initializeDefaultPreferences() {
         IPreferenceStore store = EMSynchronizer.getDefault().getPreferenceStore();
         store.setDefault(PreferenceConstants.P_LISTEN_PORT, PreferenceConstants.DEFAULT_LISTEN_PORT);
-        EMSynchronizer.getDefault().getLog().log(new Status(IStatus.INFO, EMSynchronizer.PLUGIN_ID, "Synchronizer Initialized Port:" + store.getInt(PreferenceConstants.P_LISTEN_PORT)));
+        EMSynchronizer
+                .getDefault()
+                .getLog()
+                .log(new Status(IStatus.INFO, EMSynchronizer.PLUGIN_ID, "Synchronizer Initialized Port:"
+                        + store.getInt(PreferenceConstants.P_LISTEN_PORT)));
     }
 
 }

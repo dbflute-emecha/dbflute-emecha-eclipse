@@ -57,6 +57,7 @@ public class DerivedFieldPropertyProposal implements IJavaCompletionProposal {
         this(context, fieldInfo);
         this._addRelevance = relevance;
     }
+
     public DerivedFieldPropertyProposal(IInvocationContext context, DerivedFieldInfo fieldInfo) {
         this._context = context;
         this._fieldInfo = fieldInfo;
@@ -88,7 +89,7 @@ public class DerivedFieldPropertyProposal implements IJavaCompletionProposal {
             }
             IType findType = JavaCore.create(resource.getProject()).findType(typeName);
             // 生成先のクラスを開く
-            IEditorPart editor = JavaUI.openInEditor(findType,true,false);
+            IEditorPart editor = JavaUI.openInEditor(findType, true, false);
             // 対象クラスにメソッドを追加
             String importTypeName = this._fieldInfo.getPropertyTypeFullPackageName();
             if (!importTypeName.startsWith("java.lang")) { //$NON-NLS-1$
@@ -100,7 +101,7 @@ public class DerivedFieldPropertyProposal implements IJavaCompletionProposal {
             findType.createMethod(_fieldInfo.getSetterMethodSource(), null, true, null);
             // カーソル位置制御
             if (editor instanceof AbstractTextEditor) {
-                AbstractTextEditor ateditor = (AbstractTextEditor)editor;
+                AbstractTextEditor ateditor = (AbstractTextEditor) editor;
                 ISourceRange propertyFieldSourceRange = propertyField.getSourceRange();
                 // 変数の型宣言前にカーソルを設定
                 ateditor.selectAndReveal(propertyFieldSourceRange.getOffset() + 10, 0);
@@ -131,7 +132,7 @@ public class DerivedFieldPropertyProposal implements IJavaCompletionProposal {
                 Name name = imp.getName();
                 String packageName = name.getFullyQualifiedName();
                 String[] split = packageName.split("\\."); //$NON-NLS-1$
-                String splitName = split.length > 1 ? split[split.length -1] : split[0];
+                String splitName = split.length > 1 ? split[split.length - 1] : split[0];
                 if (splitName.equals(typeName)) {
                     typeName = packageName;
                     break;

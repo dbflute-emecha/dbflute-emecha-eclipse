@@ -37,8 +37,8 @@ public class OutsideSqlFileHyperlinkDetector extends JavaElementHyperlinkDetecto
      * @see org.eclipse.jdt.internal.ui.javaeditor.JavaElementHyperlinkDetector#addHyperlinks(org.eclipse.jface.text.IRegion, org.eclipse.jdt.ui.actions.SelectionDispatchAction, org.eclipse.jdt.core.IJavaElement, boolean, org.eclipse.ui.texteditor.ITextEditor)
      */
     @Override
-    protected void addHyperlinks(List<IHyperlink> hyperlinksCollector, IRegion wordRegion,
-            SelectionDispatchAction openAction, IJavaElement element, boolean qualify, JavaEditor editor) {
+    protected void addHyperlinks(List<IHyperlink> hyperlinksCollector, IRegion wordRegion, SelectionDispatchAction openAction,
+            IJavaElement element, boolean qualify, JavaEditor editor) {
 
         if (element instanceof IType) {
             String packageName = ((IType) element).getPackageFragment().getElementName();

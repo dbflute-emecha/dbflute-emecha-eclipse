@@ -40,87 +40,85 @@ import org.eclipse.ui.actions.WorkspaceModifyDelegatingOperation;
  */
 public class NewConcreteClassWizard extends Wizard implements INewWizard {
 
-	private IFile resource;
-	private NewConcreteClassWizardPage wizardPage;
-	/**
-	 *
-	 */
-	public NewConcreteClassWizard() {
-	    super();
-	    setNeedsProgressMonitor(true);
-	}
+    private IFile resource;
+    private NewConcreteClassWizardPage wizardPage;
 
-	/**
-	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
-	 */
-	@Override
-	public boolean performFinish() {
-		IRunnableWithProgress runnable = new IRunnableWithProgress(){
+    /**
+     *
+     */
+    public NewConcreteClassWizard() {
+        super();
+        setNeedsProgressMonitor(true);
+    }
 
-			public void run(IProgressMonitor monitor)
-					throws InvocationTargetException, InterruptedException {
-				try{
-					wizardPage.createType(monitor);
-				}catch (CoreException e) {
-				    DfAssistPlugin.log(e);
-				}finally{
-					monitor.done();
-				}
-			}
-		};
-		if ( finishPage(runnable) ) {
-			try {
-				JavaUI.openInEditor(this.wizardPage.getCreatedType());
-			} catch (Exception e) {
-			    DfAssistPlugin.log(e);
-				return false;
-			}
-		}
-		return true;
-	}
+    /**
+     * @see org.eclipse.jface.wizard.Wizard#performFinish()
+     */
+    @Override
+    public boolean performFinish() {
+        IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
-	/**
-	 * finishPage
-	 * @param runnable
-	 */
-	private boolean finishPage(IRunnableWithProgress runnable) {
-		try{
-			IRunnableWithProgress op = new WorkspaceModifyDelegatingOperation(runnable);
-			PlatformUI.getWorkbench().getProgressService().runInUI(
-                    getContainer(), op,
-                    ResourcesPlugin.getWorkspace().getRoot());
-		} catch ( InterruptedException e ){
-		    DfAssistPlugin.log(e);
-			return false;
-		} catch (InvocationTargetException e) {
-		    DfAssistPlugin.log(e);
-			return false;
-		}
-		return true;
-	}
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                try {
+                    wizardPage.createType(monitor);
+                } catch (CoreException e) {
+                    DfAssistPlugin.log(e);
+                } finally {
+                    monitor.done();
+                }
+            }
+        };
+        if (finishPage(runnable)) {
+            try {
+                JavaUI.openInEditor(this.wizardPage.getCreatedType());
+            } catch (Exception e) {
+                DfAssistPlugin.log(e);
+                return false;
+            }
+        }
+        return true;
+    }
 
-	/**
-	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
-	 */
-	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		Object o = selection.getFirstElement();
-		if (o instanceof IFile) {
-			IFile f = (IFile) o;
-			init(f);
-		}
-		this.wizardPage = new NewConcreteClassWizardPage();
-		addPage(this.wizardPage);
-		this.wizardPage.init(selection);
-		this.wizardPage.setResource(resource);
-	}
+    /**
+     * finishPage
+     * @param runnable
+     */
+    private boolean finishPage(IRunnableWithProgress runnable) {
+        try {
+            IRunnableWithProgress op = new WorkspaceModifyDelegatingOperation(runnable);
+            PlatformUI.getWorkbench().getProgressService().runInUI(getContainer(), op, ResourcesPlugin.getWorkspace().getRoot());
+        } catch (InterruptedException e) {
+            DfAssistPlugin.log(e);
+            return false;
+        } catch (InvocationTargetException e) {
+            DfAssistPlugin.log(e);
+            return false;
+        }
+        return true;
+    }
 
-	protected void init(IFile file) {
-		IProject p = file.getProject();
-		IJavaProject javap = JavaCore.create(p);
-		if (javap.exists() && javap.isOpen()) {
-			this.resource = file;
-		}
+    /**
+     * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
+     */
+    public void init(IWorkbench workbench, IStructuredSelection selection) {
+        Object o = selection.getFirstElement();
+        if (o instanceof IFile) {
+            IFile f = (IFile) o;
+            init(f);
+        }
+        this.wizardPage = new NewConcreteClassWizardPage();
+        addPage(this.wizardPage);
+        this.wizardPage.init(selection);
+        this.wizardPage.setResource(resource);
+    }
 
-	}
+    protected void init(IFile file) {
+        IProject p = file.getProject();
+        IJavaProject javap = JavaCore.create(p);
+        if (javap.exists() && javap.isOpen()) {
+            this.resource = file;
+        }
+
+    }
 
 }

@@ -5,7 +5,6 @@ package org.dbflute.emecha.eclipse.emsql.template;
 
 import java.util.List;
 
-
 /**
  * Default Sql Template Processor.
  * @author Schatten
@@ -13,6 +12,7 @@ import java.util.List;
 public class DefaultSqlTemplateProcessor implements ISqlTemplateProcessor {
     /** 改行コード */
     private String lineSeparator = System.getProperty("line.separator", "\n");
+
     /**
      * 改行コードを取得する。
      * @return 改行コード
@@ -20,6 +20,7 @@ public class DefaultSqlTemplateProcessor implements ISqlTemplateProcessor {
     protected String getLineSeparator() {
         return lineSeparator;
     }
+
     /**
      * {@inheritDoc}
      * @see org.dbflute.emecha.eclipse.emsql.template.ISqlTemplateProcessor#setLineSeparator(java.lang.String)
@@ -44,6 +45,7 @@ public class DefaultSqlTemplateProcessor implements ISqlTemplateProcessor {
         sql.append(getLineSeparator());
         return sql.toString();
     }
+
     /**
      * {@inheritDoc}
      * @see org.dbflute.emecha.eclipse.emsql.template.ISqlTemplateProcessor#getSelectPagingSqlTemplate()
@@ -118,4 +120,3 @@ public class DefaultSqlTemplateProcessor implements ISqlTemplateProcessor {
         return sql.toString();
     }
 }
-

@@ -79,8 +79,7 @@ public class DFPropDoubleClickStrategy implements ITextDoubleClickStrategy {
             int len = endPos - offset;
             fText.setSelectedRange(offset, len);
             return true;
-        } catch (BadLocationException x) {
-        }
+        } catch (BadLocationException x) {}
 
         return false;
     }
@@ -118,8 +117,7 @@ public class DFPropDoubleClickStrategy implements ITextDoubleClickStrategy {
             selectRange(startPos, endPos);
             return true;
 
-        } catch (BadLocationException x) {
-        }
+        } catch (BadLocationException x) {}
 
         return false;
     }

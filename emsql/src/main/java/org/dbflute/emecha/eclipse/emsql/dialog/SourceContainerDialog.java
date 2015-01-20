@@ -34,7 +34,8 @@ public class SourceContainerDialog extends ElementTreeSelectionDialog {
             if (selection.length != 1) {
                 return new Status(IStatus.ERROR, EMSqlPlugin.PLUGIN_ID, "");
             }
-            return typeValid(selection[0]) ? new Status(IStatus.OK, EMSqlPlugin.PLUGIN_ID, "") : new Status(IStatus.ERROR, EMSqlPlugin.PLUGIN_ID, "");
+            return typeValid(selection[0]) ? new Status(IStatus.OK, EMSqlPlugin.PLUGIN_ID, "") : new Status(IStatus.ERROR,
+                    EMSqlPlugin.PLUGIN_ID, "");
         }
 
         private boolean typeValid(Object element) {
@@ -53,6 +54,7 @@ public class SourceContainerDialog extends ElementTreeSelectionDialog {
 
         }
     }
+
     protected static class PackageAndProjectViewerFilter extends ViewerFilter {
         @Override
         public boolean select(Viewer viewer, Object parentElement, Object element) {
@@ -60,7 +62,7 @@ public class SourceContainerDialog extends ElementTreeSelectionDialog {
                 return true;
             }
             if (element instanceof IPackageFragmentRoot) {
-                IPackageFragmentRoot fragmentRoot= (IPackageFragmentRoot)element;
+                IPackageFragmentRoot fragmentRoot = (IPackageFragmentRoot) element;
                 try {
                     return (fragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE);
                 } catch (JavaModelException e) {
@@ -71,8 +73,9 @@ public class SourceContainerDialog extends ElementTreeSelectionDialog {
         }
 
     }
+
     protected SourceContainerDialog(Shell parent) {
-        super(parent, new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT),new StandardJavaElementContentProvider());
+        super(parent, new JavaElementLabelProvider(JavaElementLabelProvider.SHOW_DEFAULT), new StandardJavaElementContentProvider());
         this.setAllowMultiple(false);
         this.setDoubleClickSelects(true);
         setValidator(new PackageRootSelectionValidator());

@@ -18,17 +18,19 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
  */
 public abstract class OutsideSqlAssistProcessorBase implements IContentAssistProcessor {
 
-    protected static final String DEFAULT_LINE_DELIMEITER  = System.getProperty("line.separator");
+    protected static final String DEFAULT_LINE_DELIMEITER = System.getProperty("line.separator");
 
     protected String getLineDelimiter() {
         return DEFAULT_LINE_DELIMEITER;
     }
 
     private List<OutsideSqlAssistProcessorBase> processors = new ArrayList<OutsideSqlAssistProcessorBase>();
+
     public OutsideSqlAssistProcessorBase(OutsideSqlAssistProcessorBase... processor) {
         processors.add(this);
         processors.addAll(Arrays.asList(processor));
     }
+
     /**
      * {@inheritDoc}
      * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeCompletionProposals(org.eclipse.jface.text.ITextViewer, int)
@@ -101,22 +103,29 @@ public abstract class OutsideSqlAssistProcessorBase implements IContentAssistPro
 
     protected static class OutsideSqlProposal {
         private final String propertyMark;
+
         public OutsideSqlProposal(String propertyMark) {
             this.propertyMark = propertyMark;
         }
+
         public String getPropertyMark() {
             return this.propertyMark;
         }
+
         public int getCursorPositionOffset() {
             return this.propertyMark.length();
         }
+
         public String getAdditionalProposalInfo() {
             return this.propertyMark;
         }
+
         public String getDisplayString() {
             return this.propertyMark;
         }
+
         private static final String SPACE = "          " + "          " + "          " + "          " + "          ";
+
         protected String getSpaceIndent(int indent) {
             String base = indent > 50 ? SPACE + SPACE : SPACE;
             int length = indent > 100 ? 100 : indent;

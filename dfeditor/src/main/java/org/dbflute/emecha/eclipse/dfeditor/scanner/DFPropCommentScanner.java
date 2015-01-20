@@ -26,15 +26,15 @@ import org.eclipse.jface.text.rules.IRule;
 
 public class DFPropCommentScanner extends BsDFPropScanner {
 
-    public DFPropCommentScanner(DfColorManager manager, IPreferenceStore store ){
-        super(manager,store);
+    public DFPropCommentScanner(DfColorManager manager, IPreferenceStore store) {
+        super(manager, store);
     }
 
     @Override
     protected List<IRule> createRules() {
         ArrayList<IRule> rules = new ArrayList<IRule>();
 
-        rules.add(new EndOfLineRule("#",getToken(DfColor.LINE_COMMENT)));
+        rules.add(new EndOfLineRule("#", getToken(DfColor.LINE_COMMENT)));
 
         return rules;
     }

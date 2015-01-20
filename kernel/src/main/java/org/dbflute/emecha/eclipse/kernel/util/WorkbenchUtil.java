@@ -42,8 +42,7 @@ public class WorkbenchUtil {
 
     public static void selectAndReveal(IResource newResource) {
         IWorkbench workbench = PlatformUI.getWorkbench();
-        BasicNewResourceWizard.selectAndReveal(newResource, workbench
-                .getActiveWorkbenchWindow());
+        BasicNewResourceWizard.selectAndReveal(newResource, workbench.getActiveWorkbenchWindow());
     }
 
     public static IEditorPart openResource(Plugin plugin, final IFile resource) {
@@ -90,8 +89,7 @@ public class WorkbenchUtil {
 
     public static Shell getShell() {
         IWorkbenchWindow window = getWorkbenchWindow();
-        return window != null ? window.getShell() : new Shell(Display
-                .getDefault());
+        return window != null ? window.getShell() : new Shell(Display.getDefault());
     }
 
     public static void showMessage(String pluginName, String msg) {
@@ -99,9 +97,7 @@ public class WorkbenchUtil {
     }
 
     public static void showMessage(String pluginName, String msg, int msgType) {
-        MessageDialog dialog = new MessageDialog(getShell(),
-                pluginName, null, msg, msgType,
-                new String[] { IDialogConstants.OK_LABEL }, 0);
+        MessageDialog dialog = new MessageDialog(getShell(), pluginName, null, msg, msgType, new String[] { IDialogConstants.OK_LABEL }, 0);
         dialog.open();
     }
 

@@ -68,36 +68,44 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
         monitor.beginTask(Messages.NewProjectWizard_ProgressTitle, 9);
         try {
             // プロジェクト作成
-            if (monitor.isCanceled()) throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
+            if (monitor.isCanceled())
+                throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
             IProject newProject = createProject(project, location, monitor);
             monitor.worked(1);
             // ワーキングセットへ追加
-            if (monitor.isCanceled()) throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
+            if (monitor.isCanceled())
+                throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
             appendWorkingSet(project);
             monitor.worked(1);
             // ネイチャー追加
-            if (monitor.isCanceled()) throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
+            if (monitor.isCanceled())
+                throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
             addNature(newProject, monitor);
             monitor.worked(1);
             // ビルドコマンド追加
-            if (monitor.isCanceled()) throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
+            if (monitor.isCanceled())
+                throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
             addBuildCommand(newProject, monitor);
             monitor.worked(1);
             // ソースフォルダ作成
-            if (monitor.isCanceled()) throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
+            if (monitor.isCanceled())
+                throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
             createFolders(newProject, monitor);
             monitor.worked(1);
             // クラスパス追加
-            if (monitor.isCanceled()) throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
+            if (monitor.isCanceled())
+                throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
             createClasspathFile(newProject, monitor);
             monitor.worked(1);
             // POMファイル作成
-            if (monitor.isCanceled()) throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
+            if (monitor.isCanceled())
+                throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
             createPomFile(newProject, monitor);
             monitor.worked(1);
             // プロジェクト設定追加
-            if (monitor.isCanceled()) throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
-            createProjectSettings(newProject,monitor);
+            if (monitor.isCanceled())
+                throw new InterruptedException(Messages.NewProjectWizardTask_cancel);
+            createProjectSettings(newProject, monitor);
             monitor.worked(1);
             // ワークスペースをリフレッシュ
             ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, monitor);
@@ -108,7 +116,7 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
         monitor.done();
     }
 
-    private IProject createProject(IProject newProject, IPath location, IProgressMonitor monitor) throws InvocationTargetException{
+    private IProject createProject(IProject newProject, IPath location, IProgressMonitor monitor) throws InvocationTargetException {
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         IProjectDescription description = workspace.newProjectDescription(newProject.getName());
         if (location != null) {
@@ -129,7 +137,7 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
 
     private void addNature(IProject project, IProgressMonitor monitor) throws CoreException {
         IProjectDescription description = project.getDescription();
-        description.setNatureIds(new String[]{"org.eclipse.jdt.core.javanature","org.eclipse.m2e.core.maven2Nature"});
+        description.setNatureIds(new String[] { "org.eclipse.jdt.core.javanature", "org.eclipse.m2e.core.maven2Nature" });
         project.setDescription(description, monitor);
     }
 
@@ -142,7 +150,7 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
         ICommand maven2BuilderCommand = description.newCommand();
         maven2BuilderCommand.setBuilderName("org.eclipse.m2e.core.maven2Builder");
 
-        description.setBuildSpec(new ICommand[]{javabuilderCommand, maven2BuilderCommand});
+        description.setBuildSpec(new ICommand[] { javabuilderCommand, maven2BuilderCommand });
 
         project.setDescription(description, monitor);
     }
@@ -184,10 +192,14 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
         str.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(separator);
         str.append("<classpath>").append(separator);
         str.append("\t<classpathentry kind=\"src\" output=\"target/classes\" path=\"src/main/java\"/>").append(separator);
-        str.append("\t<classpathentry kind=\"src\" excluding=\"**\" output=\"target/classes\" path=\"src/main/resources\"/>").append(separator);
+        str.append("\t<classpathentry kind=\"src\" excluding=\"**\" output=\"target/classes\" path=\"src/main/resources\"/>").append(
+                separator);
         str.append("\t<classpathentry kind=\"src\" output=\"target/test-classes\" path=\"src/test/java\"/>").append(separator);
-        str.append("\t<classpathentry kind=\"src\" excluding=\"**\" output=\"target/test-classes\" path=\"src/test/resources\"/>").append(separator);
-        str.append("\t<classpathentry kind=\"con\" path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-").append(javaVersion).append("\"/>").append(separator);
+        str.append("\t<classpathentry kind=\"src\" excluding=\"**\" output=\"target/test-classes\" path=\"src/test/resources\"/>").append(
+                separator);
+        str.append(
+                "\t<classpathentry kind=\"con\" path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-")
+                .append(javaVersion).append("\"/>").append(separator);
         str.append("\t<classpathentry kind=\"con\" path=\"org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER\"/>").append(separator);
         str.append("\t<classpathentry kind=\"output\" path=\"target/classes\"/>").append(separator);
         str.append("</classpath>").append(separator);
@@ -201,7 +213,8 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
         StringBuilder str = new StringBuilder();
         str.append("<project xmlns=\"http://maven.apache.org/POM/4.0.0\"").append(separator);
         str.append("         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"").append(separator);
-        str.append("         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">").append(separator);
+        str.append("         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">")
+                .append(separator);
         str.append(separator);
 
         if (hasParent()) {
@@ -253,11 +266,11 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
             str.append("      <name>The Seasar Foundation Maven2 Repository</name>").append(separator);
             str.append("      <url>http://maven.seasar.org/maven2</url>").append(separator);
             str.append("    </pluginRepository>").append(separator);
-//            str.append("    <pluginRepository>").append(separator);
-//            str.append("      <id>maven-snapshot.seasar.org</id>").append(separator);
-//            str.append("      <name>The Seasar Foundation Maven2 Repository</name>").append(separator);
-//            str.append("      <url>http://maven.seasar.org/maven2-snapshot</url>").append(separator);
-//            str.append("    </pluginRepository>").append(separator);
+            //            str.append("    <pluginRepository>").append(separator);
+            //            str.append("      <id>maven-snapshot.seasar.org</id>").append(separator);
+            //            str.append("      <name>The Seasar Foundation Maven2 Repository</name>").append(separator);
+            //            str.append("      <url>http://maven.seasar.org/maven2-snapshot</url>").append(separator);
+            //            str.append("    </pluginRepository>").append(separator);
             str.append("  </pluginRepositories>").append(separator);
             str.append("  <repositories>").append(separator);
             str.append("    <repository>").append(separator);
@@ -268,18 +281,18 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
             str.append("        <enabled>false</enabled>").append(separator);
             str.append("      </snapshots>").append(separator);
             str.append("    </repository>").append(separator);
-//            str.append("    <repository>").append(separator);
-//            str.append("      <id>maven-snapshot.seasar.org</id>").append(separator);
-//            str.append("      <name>The Seasar Foundation Maven2 Repository</name>").append(separator);
-//            str.append("      <url>http://maven.seasar.org/maven2-snapshot</url>").append(separator);
-//            str.append("      <releases>").append(separator);
-//            str.append("        <enabled>false</enabled>").append(separator);
-//            str.append("      </releases>").append(separator);
-//            str.append("      <snapshots>").append(separator);
-//            str.append("        <enabled>true</enabled>").append(separator);
-//            str.append("        <updatePolicy>always</updatePolicy>").append(separator);
-//            str.append("      </snapshots>").append(separator);
-//            str.append("    </repository>").append(separator);
+            //            str.append("    <repository>").append(separator);
+            //            str.append("      <id>maven-snapshot.seasar.org</id>").append(separator);
+            //            str.append("      <name>The Seasar Foundation Maven2 Repository</name>").append(separator);
+            //            str.append("      <url>http://maven.seasar.org/maven2-snapshot</url>").append(separator);
+            //            str.append("      <releases>").append(separator);
+            //            str.append("        <enabled>false</enabled>").append(separator);
+            //            str.append("      </releases>").append(separator);
+            //            str.append("      <snapshots>").append(separator);
+            //            str.append("        <enabled>true</enabled>").append(separator);
+            //            str.append("        <updatePolicy>always</updatePolicy>").append(separator);
+            //            str.append("      </snapshots>").append(separator);
+            //            str.append("    </repository>").append(separator);
             str.append("  </repositories>").append(separator);
         }
         str.append(separator);
@@ -301,16 +314,16 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
             str.append("          <dbfluteVersion>${dbflute.version}</dbfluteVersion>").append(separator);
             str.append("          <clientProject>").append(this.clientName).append("</clientProject>").append(separator);
             str.append("          <packageBase>").append(this.packageBase).append("</packageBase>").append(separator);
-//            str.append("          <!--").append(separator);
-//            str.append("          <targetLanguage>java</targetLanguage>").append(separator);
-//            str.append("          <targetContainer>spring</targetContainer>").append(separator);
-//            str.append("          <database>h2</database>").append(separator);
-//            str.append("          <databaseDriver>org.h2.Driver</databaseDriver>").append(separator);
-//            str.append("          <databaseUrl>jdbc:h2:file:../src/main/resources/").append(this.clientName).append("</databaseUrl>").append(separator);
-//            str.append("          <databaseSchema> </databaseSchema>").append(separator);
-//            str.append("          <databaseUser>sa</databaseUser>").append(separator);
-//            str.append("          <databasePassword> </databasePassword>").append(separator);
-//            str.append("           -->").append(separator);
+            //            str.append("          <!--").append(separator);
+            //            str.append("          <targetLanguage>java</targetLanguage>").append(separator);
+            //            str.append("          <targetContainer>spring</targetContainer>").append(separator);
+            //            str.append("          <database>h2</database>").append(separator);
+            //            str.append("          <databaseDriver>org.h2.Driver</databaseDriver>").append(separator);
+            //            str.append("          <databaseUrl>jdbc:h2:file:../src/main/resources/").append(this.clientName).append("</databaseUrl>").append(separator);
+            //            str.append("          <databaseSchema> </databaseSchema>").append(separator);
+            //            str.append("          <databaseUser>sa</databaseUser>").append(separator);
+            //            str.append("          <databasePassword> </databasePassword>").append(separator);
+            //            str.append("           -->").append(separator);
             str.append("        </configuration>").append(separator);
             str.append("      </plugin>").append(separator);
         } else {
@@ -321,16 +334,16 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
             str.append("          <dbfluteVersion>${dbflute.version}</dbfluteVersion>").append(separator);
             str.append("          <clientProject>").append(this.clientName).append("</clientProject>").append(separator);
             str.append("          <dbPackage>").append(this.packageBase).append("</dbPackage>").append(separator);
-//            str.append("          <!--").append(separator);
-//            str.append("          <targetLanguage>java</targetLanguage>").append(separator);
-//            str.append("          <targetContainer>seasar</targetContainer>").append(separator);
-//            str.append("          <database>h2</database>").append(separator);
-//            str.append("          <databaseDriver>org.h2.Driver</databaseDriver>").append(separator);
-//            str.append("          <databaseUrl>jdbc:h2:file:../src/main/resources/").append(this.clientName).append("</databaseUrl>").append(separator);
-//            str.append("          <databaseSchema> </databaseSchema>").append(separator);
-//            str.append("          <databaseUser>sa</databaseUser>").append(separator);
-//            str.append("          <databasePassword> </databasePassword>").append(separator);
-//            str.append("           -->").append(separator);
+            //            str.append("          <!--").append(separator);
+            //            str.append("          <targetLanguage>java</targetLanguage>").append(separator);
+            //            str.append("          <targetContainer>seasar</targetContainer>").append(separator);
+            //            str.append("          <database>h2</database>").append(separator);
+            //            str.append("          <databaseDriver>org.h2.Driver</databaseDriver>").append(separator);
+            //            str.append("          <databaseUrl>jdbc:h2:file:../src/main/resources/").append(this.clientName).append("</databaseUrl>").append(separator);
+            //            str.append("          <databaseSchema> </databaseSchema>").append(separator);
+            //            str.append("          <databaseUser>sa</databaseUser>").append(separator);
+            //            str.append("          <databasePassword> </databasePassword>").append(separator);
+            //            str.append("           -->").append(separator);
             str.append("        </configuration>").append(separator);
             str.append("      </plugin>").append(separator);
         }
@@ -452,6 +465,5 @@ public class DBFluteProjectCreationOperation implements IRunnableWithProgress {
     public void setJreVersion(String jreVersion) {
         this.javaVersion = jreVersion;
     }
-
 
 }

@@ -51,7 +51,7 @@ public class DBFluteProjectWizardArtifactPage extends AbstractNewProjectWizardPa
     public void createControl(Composite parent) {
         Composite container = new Composite(parent, SWT.NONE);
 
-        GridLayout layout = new GridLayout(3,false);
+        GridLayout layout = new GridLayout(3, false);
         layout.marginWidth = 0;
         layout.marginHeight = 0;
 
@@ -230,11 +230,9 @@ public class DBFluteProjectWizardArtifactPage extends AbstractNewProjectWizardPa
     }
 
     public boolean hasParent() {
-        return !parentGroupIdText.getText().trim().isEmpty()
-                || !parentArtifactIdText.getText().trim().isEmpty()
+        return !parentGroupIdText.getText().trim().isEmpty() || !parentArtifactIdText.getText().trim().isEmpty()
                 || !parentVersionText.getText().trim().isEmpty();
     }
-
 
     public String getArtifactId() {
         return this.artifactIdText.getText().trim();
@@ -243,9 +241,11 @@ public class DBFluteProjectWizardArtifactPage extends AbstractNewProjectWizardPa
     public String getPackaging() {
         return this.packagingCombo.getText();
     }
+
     public String getArtifactName() {
         return this.nameText.getText().trim();
     }
+
     public String getDescription() {
         return this.descriptionText.getText().trim();
     }

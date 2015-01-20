@@ -20,7 +20,9 @@ package org.dbflute.emecha.eclipse.dfeditor.dfmodel;
  */
 public interface FoldingModel {
     boolean canFolding();
+
     int getFoldingStart();
+
     int getFoldingLength();
 
 }

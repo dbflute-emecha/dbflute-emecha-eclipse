@@ -36,7 +36,7 @@ public class EMSQLSourceViewerConfiguration extends SQLSourceViewerConfiguration
 
     @Override
     public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
-        ContentAssistant assistant = (ContentAssistant)super.getContentAssistant(sourceViewer);
+        ContentAssistant assistant = (ContentAssistant) super.getContentAssistant(sourceViewer);
         if (propertyOptionAssistProcessor == null) {
             propertyOptionAssistProcessor = new PropertyOptionAssistProcessor();
         }
@@ -53,8 +53,8 @@ public class EMSQLSourceViewerConfiguration extends SQLSourceViewerConfiguration
 
     @Override
     public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer, String contentType) {
-        if ("sql_character".equals(contentType) || "sql_double_quotes_identifier".equals(contentType)
-                || "sql_comment".equals(contentType) || "sql_multiline_comment".equals(contentType)) {
+        if ("sql_character".equals(contentType) || "sql_double_quotes_identifier".equals(contentType) || "sql_comment".equals(contentType)
+                || "sql_multiline_comment".equals(contentType)) {
             return super.getAutoEditStrategies(sourceViewer, contentType);
         }
         IAutoEditStrategy[] parentStrategies = super.getAutoEditStrategies(sourceViewer, contentType);

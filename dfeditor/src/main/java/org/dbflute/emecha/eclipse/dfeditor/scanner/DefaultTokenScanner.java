@@ -39,10 +39,10 @@ public class DefaultTokenScanner extends BsDFPropScanner {
         List<IRule> rules = new ArrayList<IRule>();
         rules.add(new WhitespaceRule(new WhitespaceDetector()));
 
-        rules.add(new SingleLineRule("$$","$$",getToken(DfColor.ALIAS_MARK)));
-        rules.add(new SingleLineRule("/*","*/",getToken(DfColor.SQL)));
-        rules.add(new SingleLineRule("\"","\"",getToken(DfColor.VALIABLE)));
-        rules.add(new SingleLineRule("'","'",getToken(DfColor.VALIABLE)));
+        rules.add(new SingleLineRule("$$", "$$", getToken(DfColor.ALIAS_MARK)));
+        rules.add(new SingleLineRule("/*", "*/", getToken(DfColor.SQL)));
+        rules.add(new SingleLineRule("\"", "\"", getToken(DfColor.VALIABLE)));
+        rules.add(new SingleLineRule("'", "'", getToken(DfColor.VALIABLE)));
 
         CombinedWordRule wordRule = new CombinedWordRule();
         CombinedWordRule.WordMatcher mapMacher = new CombinedWordRule.WordMatcher();

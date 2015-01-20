@@ -1,6 +1,5 @@
 package org.dbflute.emecha.eclipse.emsql.preferences;
 
-
 public interface EMSqlPreferences {
 
     String getDefaultSqlDirectory();

@@ -42,91 +42,92 @@ import org.eclipse.ui.part.FileEditorInput;
 @SuppressWarnings("restriction")
 public class NewConcreteWizardCommand extends AbstractHandler implements IHandler {
 
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		ISelection objParam = HandlerUtil.getActiveMenuEditorInput(event);
-		boolean execute = executeSelection(objParam);
-		if (execute) return null;
+    public Object execute(ExecutionEvent event) throws ExecutionException {
+        ISelection objParam = HandlerUtil.getActiveMenuEditorInput(event);
+        boolean execute = executeSelection(objParam);
+        if (execute)
+            return null;
 
-		ISelection menuParam = HandlerUtil.getActiveMenuSelection(event);
-		execute = executeSelection(menuParam);
+        ISelection menuParam = HandlerUtil.getActiveMenuSelection(event);
+        execute = executeSelection(menuParam);
 
-		return null;
-	}
+        return null;
+    }
 
-	protected boolean executeSelection(ISelection selection) {
-		if (selection instanceof StructuredSelection) {
-			Object firstElement = ((StructuredSelection)selection).getFirstElement();
-			if (firstElement instanceof IFile ){
-				NewConcreteClassWizard wizard = new NewConcreteClassWizard();
-				wizard.init(PlatformUI.getWorkbench(), (StructuredSelection)selection);
-				this.getWorkbench(wizard);
-				return true;
-			}
-			if (firstElement instanceof FileEditorInput) {
-				final IFile file = ((FileEditorInput)firstElement).getFile();
-				NewConcreteClassWizard wizard = new NewConcreteClassWizard();
-				wizard.init(PlatformUI.getWorkbench(), new StructuredSelection(file));
-				this.getWorkbench(wizard);
-				return true;
-			}
-			if (firstElement instanceof CompilationUnit) {
-				IJavaElement javaElement = ((CompilationUnit) firstElement).getPrimaryElement();
-				if (javaElement.getElementType() == IJavaElement.COMPILATION_UNIT) {
-					final IFile file = javaElement.getJavaProject().getProject().getWorkspace().getRoot().getFile(javaElement.getPath());
-					NewConcreteClassWizard wizard = new NewConcreteClassWizard();
-					wizard.init(PlatformUI.getWorkbench(),new StructuredSelection(file));
-					this.getWorkbench(wizard);
-					return true;
-				}
-			}
-			if (firstElement instanceof SourceType) {
-				IJavaElement primaryElement = ((SourceType)firstElement).getPrimaryElement();
-				if (primaryElement.getElementType() == IJavaElement.TYPE) {
-					final IFile file = primaryElement.getJavaProject().getProject().getWorkspace().getRoot().getFile(primaryElement.getPath());
-					NewConcreteClassWizard wizard = new NewConcreteClassWizard();
-					wizard.init(PlatformUI.getWorkbench(),new StructuredSelection(file));
-					this.getWorkbench(wizard);
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+    protected boolean executeSelection(ISelection selection) {
+        if (selection instanceof StructuredSelection) {
+            Object firstElement = ((StructuredSelection) selection).getFirstElement();
+            if (firstElement instanceof IFile) {
+                NewConcreteClassWizard wizard = new NewConcreteClassWizard();
+                wizard.init(PlatformUI.getWorkbench(), (StructuredSelection) selection);
+                this.getWorkbench(wizard);
+                return true;
+            }
+            if (firstElement instanceof FileEditorInput) {
+                final IFile file = ((FileEditorInput) firstElement).getFile();
+                NewConcreteClassWizard wizard = new NewConcreteClassWizard();
+                wizard.init(PlatformUI.getWorkbench(), new StructuredSelection(file));
+                this.getWorkbench(wizard);
+                return true;
+            }
+            if (firstElement instanceof CompilationUnit) {
+                IJavaElement javaElement = ((CompilationUnit) firstElement).getPrimaryElement();
+                if (javaElement.getElementType() == IJavaElement.COMPILATION_UNIT) {
+                    final IFile file = javaElement.getJavaProject().getProject().getWorkspace().getRoot().getFile(javaElement.getPath());
+                    NewConcreteClassWizard wizard = new NewConcreteClassWizard();
+                    wizard.init(PlatformUI.getWorkbench(), new StructuredSelection(file));
+                    this.getWorkbench(wizard);
+                    return true;
+                }
+            }
+            if (firstElement instanceof SourceType) {
+                IJavaElement primaryElement = ((SourceType) firstElement).getPrimaryElement();
+                if (primaryElement.getElementType() == IJavaElement.TYPE) {
+                    final IFile file =
+                            primaryElement.getJavaProject().getProject().getWorkspace().getRoot().getFile(primaryElement.getPath());
+                    NewConcreteClassWizard wizard = new NewConcreteClassWizard();
+                    wizard.init(PlatformUI.getWorkbench(), new StructuredSelection(file));
+                    this.getWorkbench(wizard);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
+    /**
+     * getWorkbench
+     *
+     * @param wizard
+     */
+    private int getWorkbench(NewConcreteClassWizard wizard) {
+        WizardDialog dialog = new WizardDialog(getShell(), wizard);
+        return dialog.open();
+    }
 
-	/**
-	 * getWorkbench
-	 *
-	 * @param wizard
-	 */
-	private int getWorkbench(NewConcreteClassWizard wizard) {
-		WizardDialog dialog = new WizardDialog(getShell(), wizard);
-		return dialog.open();
-	}
+    /**
+     * getShell
+     *
+     * @return
+     */
+    private Shell getShell() {
+        IWorkbenchWindow window = getWorkbenchWindow();
+        Shell shell = window != null ? window.getShell() : new Shell(Display.getDefault());
+        return shell;
+    }
 
-	/**
-	 * getShell
-	 *
-	 * @return
-	 */
-	private Shell getShell() {
-		IWorkbenchWindow window = getWorkbenchWindow();
-		Shell shell = window != null ? window.getShell() : new Shell(Display.getDefault());
-		return shell;
-	}
-
-	/**
-	 * getWorkbenchWindow
-	 *
-	 * @return
-	 */
-	private IWorkbenchWindow getWorkbenchWindow() {
-		IWorkbench workbench = PlatformUI.getWorkbench();
-		IWorkbenchWindow result = workbench.getActiveWorkbenchWindow();
-		if (result == null && 0 < workbench.getWorkbenchWindowCount()) {
-			IWorkbenchWindow[] ws = workbench.getWorkbenchWindows();
-			result = ws[0];
-		}
-		return result;
-	}
+    /**
+     * getWorkbenchWindow
+     *
+     * @return
+     */
+    private IWorkbenchWindow getWorkbenchWindow() {
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        IWorkbenchWindow result = workbench.getActiveWorkbenchWindow();
+        if (result == null && 0 < workbench.getWorkbenchWindowCount()) {
+            IWorkbenchWindow[] ws = workbench.getWorkbenchWindows();
+            result = ws[0];
+        }
+        return result;
+    }
 }

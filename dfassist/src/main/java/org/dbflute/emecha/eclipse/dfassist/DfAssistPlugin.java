@@ -30,6 +30,7 @@ public class DfAssistPlugin extends AbstractEMechaPlugin {
     public static final String PLUGIN_ID = "org.dbflute.emecha.dfassist";
 
     private static AbstractEMechaPlugin plugin;
+
     /**
      *
      */
@@ -53,6 +54,7 @@ public class DfAssistPlugin extends AbstractEMechaPlugin {
         plugin = null;
         super.stop(context);
     }
+
     /**
      * {@inheritDoc}}
      * @see org.dbflute.emecha.eclipse.AbstractEMechaPlugin#getPluginId()
@@ -72,19 +74,19 @@ public class DfAssistPlugin extends AbstractEMechaPlugin {
     public static ImageDescriptor getImageDescriptor(String path) {
         return imageDescriptorFromPlugin(plugin.getPluginId(), path);
     }
+
     public static void log(String message) {
-        IStatus status = new Status(IStatus.INFO, plugin.getBundle().getSymbolicName(), IStatus.INFO,
-                message, null);
+        IStatus status = new Status(IStatus.INFO, plugin.getBundle().getSymbolicName(), IStatus.INFO, message, null);
         plugin.getLog().log(status);
     }
+
     public static void log(String message, Throwable t) {
-        IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), IStatus.ERROR,
-                message, t);
+        IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), IStatus.ERROR, message, t);
         plugin.getLog().log(status);
     }
+
     public static void log(Throwable t) {
-        IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), IStatus.ERROR,
-                t.getMessage(), t);
+        IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), IStatus.ERROR, t.getMessage(), t);
         plugin.getLog().log(status);
     }
 }

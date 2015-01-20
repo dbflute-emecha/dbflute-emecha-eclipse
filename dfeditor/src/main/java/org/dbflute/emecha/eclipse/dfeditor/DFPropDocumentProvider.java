@@ -24,10 +24,7 @@ import org.eclipse.ui.editors.text.FileDocumentProvider;
 
 public class DFPropDocumentProvider extends FileDocumentProvider implements DFPropPartitions {
 
-    private static final String[] LEGAL_CONTENT_TYPES = new String[] {
-        DFP_PARTITIONING,
-        DFP_COMMENT
-        };
+    private static final String[] LEGAL_CONTENT_TYPES = new String[] { DFP_PARTITIONING, DFP_COMMENT };
 
     public DFPropDocumentProvider() {
         super();
@@ -36,10 +33,7 @@ public class DFPropDocumentProvider extends FileDocumentProvider implements DFPr
     protected IDocument createDocument(Object element) throws CoreException {
         IDocument document = super.createDocument(element);
         if (document != null) {
-            IDocumentPartitioner partitioner =
-                    new FastPartitioner(
-                            new DFPropPartitionScanner(),
-                            LEGAL_CONTENT_TYPES);
+            IDocumentPartitioner partitioner = new FastPartitioner(new DFPropPartitionScanner(), LEGAL_CONTENT_TYPES);
             partitioner.connect(document);
             document.setDocumentPartitioner(partitioner);
         }

@@ -28,6 +28,7 @@ public final class DerivedFieldInfo {
     public String getTargetTypeName() {
         return _targetTypeName;
     }
+
     public void setTargetTypeName(String typeName) {
         _targetTypeName = typeName;
     }
@@ -35,17 +36,19 @@ public final class DerivedFieldInfo {
     public String getPropertyTypeFullPackageName() {
         return _propertyType.getName();
     }
+
     public String getPropertyTypeName() {
         return _propertyType.getSimpleName();
     }
+
     public void setPropertyType(Class<?> type) {
         _propertyType = type;
     }
 
-
     public String getConstantFieldName() {
         return _constantFieldName;
     }
+
     public void setConstantFieldName(String fieldName) {
         _constantFieldName = fieldName;
         if (fieldName != null) {
@@ -59,7 +62,7 @@ public final class DerivedFieldInfo {
             int upper = 0;
             for (String str : splitFieldName) {
                 if (upper > 0) {
-                    propName.append(str.substring(0,upper).toUpperCase());
+                    propName.append(str.substring(0, upper).toUpperCase());
                     columnName.append("_");
                 }
                 propName.append(str.substring(upper).toLowerCase());
@@ -78,6 +81,7 @@ public final class DerivedFieldInfo {
     public String getColumnName() {
         return _columnName;
     }
+
     /**
      * 作成する定数のソースコードを取得する。
      * @return 定数コード
@@ -93,6 +97,7 @@ public final class DerivedFieldInfo {
         disp.append("\";");
         return disp.toString();
     }
+
     /**
      * 作成するフィールドのソースコードを取得する。
      * @return フィールドコード
@@ -106,6 +111,7 @@ public final class DerivedFieldInfo {
         disp.append(" _").append(this.getPropertyName()).append(";");
         return disp.toString();
     }
+
     /**
      * 作成するGetterのソースコードを取得する。
      * @return Getterコード
@@ -127,6 +133,7 @@ public final class DerivedFieldInfo {
         disp.append(";").append(LINE_SEPARATER).append("}");
         return disp.toString();
     }
+
     /**
      * 作成するSetterのソースコードを取得する。
      * @return Setterコード
@@ -135,7 +142,8 @@ public final class DerivedFieldInfo {
         StringBuilder disp = new StringBuilder();
         disp.append("/**").append(LINE_SEPARATER);
         disp.append(" * [set] ").append(this.getColumnName()).append(": (Derived Referrer)").append(LINE_SEPARATER);
-        disp.append(" * @param ").append(this.getPropertyName()).append(" The value of the column '").append(this.getColumnName()).append("'. (NullAllowed)").append(LINE_SEPARATER);
+        disp.append(" * @param ").append(this.getPropertyName()).append(" The value of the column '").append(this.getColumnName())
+                .append("'. (NullAllowed)").append(LINE_SEPARATER);
         disp.append(" */").append(LINE_SEPARATER);
 
         disp.append("public void set");

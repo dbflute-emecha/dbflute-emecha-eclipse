@@ -67,8 +67,7 @@ public abstract class BsDFPropScanner extends BufferedRuleBasedScanner implement
     /**
      * @see org.eclipse.jface.text.rules.IPartitionTokenScanner#setPartialRange(org.eclipse.jface.text.IDocument, int, int, java.lang.String, int)
      */
-    public void setPartialRange(IDocument document, int offset, int length,
-            String contentType, int partitionOffset) {
+    public void setPartialRange(IDocument document, int offset, int length, String contentType, int partitionOffset) {
         fContentType = contentType;
         fPartitionOffset = partitionOffset;
         if (partitionOffset > -1) {

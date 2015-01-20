@@ -18,19 +18,21 @@ public class EMSqlPreferenceStore extends ScopedPreferenceStore {
 
     private IScopeContext _localStoreContext;
     private String _localNodeQualifier;
-     /**
-     * @param context
-     * @param qualifier
-     */
+
+    /**
+    * @param context
+    * @param qualifier
+    */
     public EMSqlPreferenceStore(IProject project, String qualifier) {
         super(new ProjectScope(project), qualifier);
         _localStoreContext = new ProjectScope(project);
         _localNodeQualifier = qualifier;
     }
+
     public Preferences getPreferenceChildNode(String keyName) {
-// For befor 3.4
-//        IEclipsePreferences[] preferenceNodes = this.getPreferenceNodes(false);
-//        IEclipsePreferences projectPreferences = preferenceNodes[0];
+        // For befor 3.4
+        //        IEclipsePreferences[] preferenceNodes = this.getPreferenceNodes(false);
+        //        IEclipsePreferences projectPreferences = preferenceNodes[0];
         IEclipsePreferences projectPreferences = _localStoreContext.getNode(_localNodeQualifier);
         return projectPreferences.node(keyName);
     }
@@ -49,10 +51,11 @@ public class EMSqlPreferenceStore extends ScopedPreferenceStore {
             if (lastIndexOf < 0) {
                 return null;
             }
-            packageName = packageName.substring(0,lastIndexOf);
+            packageName = packageName.substring(0, lastIndexOf);
         }
         return null;
     }
+
     public String getDeclaredPackagePreference(String keyName, String packageName) {
         Preferences node = getPreferenceChildNode(keyName);
         if (node == null) {
@@ -65,9 +68,8 @@ public class EMSqlPreferenceStore extends ScopedPreferenceStore {
         return null;
     }
 
-
     public void setPreferenceValue(String keyName, String packageName, String value) {
-        if ( packageName == null || packageName.length() == 0) {
+        if (packageName == null || packageName.length() == 0) {
             if (value == null) {
                 this.setValue(keyName, "");
             } else {
@@ -84,9 +86,9 @@ public class EMSqlPreferenceStore extends ScopedPreferenceStore {
     }
 
     public void removePreferenceValue(String keyName, String packageName) {
-        if ( packageName == null || packageName.length() == 0) {
+        if (packageName == null || packageName.length() == 0) {
             this.setValue(keyName, "");
-        } else{
+        } else {
             Preferences node = getPreferenceChildNode(keyName);
             node.remove(packageName);
         }

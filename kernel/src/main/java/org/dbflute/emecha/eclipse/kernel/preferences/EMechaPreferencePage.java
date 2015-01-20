@@ -28,7 +28,7 @@ import org.eclipse.ui.IWorkbenchPropertyPage;
  * EMecha prefarences pages grouping.
  * @author schatten
  */
-public class EMechaPreferencePage extends PreferencePage implements IWorkbenchPreferencePage , IWorkbenchPropertyPage{
+public class EMechaPreferencePage extends PreferencePage implements IWorkbenchPreferencePage, IWorkbenchPropertyPage {
 
     /**
      *
@@ -65,6 +65,7 @@ public class EMechaPreferencePage extends PreferencePage implements IWorkbenchPr
         Composite composite = new Composite(parent, SWT.NONE);
         return composite;
     }
+
     /**
      * The element.
      */

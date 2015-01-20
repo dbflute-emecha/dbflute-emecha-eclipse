@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
 public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage implements IWizardPage {
 
     private static final String DEFAULT_JRE_VERSION = "1.8";
-    private static final String[] JRE_VERSION = {DEFAULT_JRE_VERSION, "1.7", "1.6" };
+    private static final String[] JRE_VERSION = { DEFAULT_JRE_VERSION, "1.7", "1.6" };
 
     private Properties dbfluteMetaPropreties;
 
@@ -39,13 +39,13 @@ public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage
     private Text packageBaseText;
     private Combo jreVersionCombo;
 
-
     public DBFluteProjectWizardClientPage() {
         super("DBFluteProjectWizardClientPage");
         setTitle(Messages.NewProjectWizardClientTitle);
         setDescription(Messages.NewProjectWizardClientDescription);
         setPageComplete(false);
     }
+
     /**
      * {@inheritDoc}
      * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
@@ -54,7 +54,7 @@ public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage
     public void createControl(Composite parent) {
         Composite container = new Composite(parent, SWT.NONE);
 
-        GridLayout layout = new GridLayout(3,false);
+        GridLayout layout = new GridLayout(3, false);
         container.setLayout(layout);
 
         WidthGroup widthGroup = new WidthGroup();
@@ -74,7 +74,7 @@ public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage
         clientProjectLabel.setText(Messages.NewProjectWizardClient_clientProject);
         widthGroup.addControl(clientProjectLabel);
 
-        this.clientProjectText= new Text(clientGroup, SWT.SINGLE | SWT.BORDER);
+        this.clientProjectText = new Text(clientGroup, SWT.SINGLE | SWT.BORDER);
         this.clientProjectText.setLayoutData(new GridData(SWT.FILL, SWT.FILL_WINDING, true, false));
         this.clientProjectText.addModifyListener(modifyingListener);
 
@@ -82,7 +82,7 @@ public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage
         packageBaseLabel.setText(Messages.NewProjectWizardClient_packageBase);
         widthGroup.addControl(packageBaseLabel);
 
-        this.packageBaseText= new Text(clientGroup, SWT.SINGLE | SWT.BORDER);
+        this.packageBaseText = new Text(clientGroup, SWT.SINGLE | SWT.BORDER);
         this.packageBaseText.setLayoutData(new GridData(SWT.FILL, SWT.FILL_WINDING, true, false));
         this.packageBaseText.addModifyListener(modifyingListener);
 
@@ -137,9 +137,11 @@ public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage
     private String getVersionMetaURL() {
         return "http://dbflute.org/meta/public.properties";
     }
+
     private String getLatestReleaseVersionKey() {
         return "dbflute.latest.release.version";
     }
+
     private String getCompatibleVersionKey() {
         return "compatible10x.dbflute.latest.release.version";
     }
@@ -156,13 +158,13 @@ public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage
         String dbfluteVersion = prop.getProperty(versionKey, "");
         this.dbfluteVersionText.setText(dbfluteVersion);
     }
+
     private Properties getDbfluteMetaProperties() {
         if (dbfluteMetaPropreties == null || dbfluteMetaPropreties.size() == 0) {
             dbfluteMetaPropreties = new Properties();
             try (InputStream is = new URL(getVersionMetaURL()).openStream()) {
                 dbfluteMetaPropreties.load(is);
-            } catch (IOException e) {
-            }
+            } catch (IOException e) {}
         }
         return dbfluteMetaPropreties;
     }
@@ -187,6 +189,7 @@ public class DBFluteProjectWizardClientPage extends AbstractNewProjectWizardPage
     public String getJreVersion() {
         return this.jreVersionCombo.getText().trim();
     }
+
     public String getDbfluteVersion() {
         return this.dbfluteVersionText.getText().trim();
     }

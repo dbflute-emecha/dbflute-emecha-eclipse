@@ -25,6 +25,7 @@ public class DBFluteProjectWizard extends Wizard implements INewWizard {
     protected DBFluteProjectWizardClientPage clientPage;
     protected IStructuredSelection selection;
     protected IWorkbench workbench;
+
     /**
      *
      */
@@ -76,20 +77,23 @@ public class DBFluteProjectWizard extends Wizard implements INewWizard {
         String artifactId = this.artifactPage.getArtifactId();
 
         if (artifactId == null || artifactId.isEmpty()) {
-            MessageDialog.openError(getShell(),NLS.bind(Messages.NewProjectWizard_existsProjectTitle,artifactId),Messages.NewProjectWizard_existsProjectMessage );
+            MessageDialog.openError(getShell(), NLS.bind(Messages.NewProjectWizard_existsProjectTitle, artifactId),
+                    Messages.NewProjectWizard_existsProjectMessage);
             return false;
         }
 
         IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(artifactId);
         if (project.exists()) {
-            MessageDialog.openError(getShell(),NLS.bind(Messages.NewProjectWizard_existsProjectTitle,artifactId),Messages.NewProjectWizard_existsProjectMessage );
+            MessageDialog.openError(getShell(), NLS.bind(Messages.NewProjectWizard_existsProjectTitle, artifactId),
+                    Messages.NewProjectWizard_existsProjectMessage);
             return false;
         }
 
         if (!this.locationPage.isInWorkspace()) {
             IPath projectDir = location.addTrailingSeparator().append(artifactId);
             if (projectDir.toFile().exists()) {
-                MessageDialog.openError(getShell(),NLS.bind(Messages.NewProjectWizard_existsProjectTitle,artifactId),Messages.NewProjectWizard_existsProjectMessage );
+                MessageDialog.openError(getShell(), NLS.bind(Messages.NewProjectWizard_existsProjectTitle, artifactId),
+                        Messages.NewProjectWizard_existsProjectMessage);
                 return false;
             }
             location = projectDir;
@@ -105,7 +109,8 @@ public class DBFluteProjectWizard extends Wizard implements INewWizard {
         operation.setDescription(this.artifactPage.getDescription());
         operation.setArtifactInfo(this.artifactPage.getGroupId(), this.artifactPage.getArtifactId(), this.artifactPage.getVersion());
         if (this.artifactPage.hasParent()) {
-            operation.setParentArtifactInfo(this.artifactPage.getParentGroupId(), this.artifactPage.getParentArtifactId(), this.artifactPage.getParentVersion());
+            operation.setParentArtifactInfo(this.artifactPage.getParentGroupId(), this.artifactPage.getParentArtifactId(),
+                    this.artifactPage.getParentVersion());
         }
         operation.setJreVersion(this.clientPage.getJreVersion());
         operation.setDbfluteVersion(this.clientPage.getDbfluteVersion());
@@ -115,19 +120,18 @@ public class DBFluteProjectWizard extends Wizard implements INewWizard {
         try {
             ProgressMonitorDialog dialog = new ProgressMonitorDialog(getShell());
             dialog.run(true, true, operation);
-        } catch(InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             // 処理中に何らかの例外が発生したときの処理
             Throwable realException = e.getTargetException();
             MessageDialog.openError(getShell(), "Error", realException.getMessage());
             return false;
-        } catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             // キャンセルされたときの処理
             IProject createdProject = ResourcesPlugin.getWorkspace().getRoot().getProject(artifactId);
             if (createdProject.exists()) {
                 try {
                     createdProject.delete(true, true, null);
-                } catch (CoreException e1) {
-                }
+                } catch (CoreException e1) {}
             }
             return false;
         }

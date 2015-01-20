@@ -41,27 +41,27 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class NewConcreteClassWizardPage extends NewClassWizardPage {
 
-	private IFile resource;
+    private IFile resource;
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.eclipse.jdt.ui.wizards.NewClassWizardPage#createControl(org.eclipse.swt.widgets.Composite)
-	 */
-	@Override
-	public void createControl(Composite parent) {
-		super.createControl(parent);
-		String pkgName = getPackageFragment().getElementName();
-		String implPackageName = pkgName;
-		if (implPackageName == null || implPackageName.trim().length() == 0) {
-		    implPackageName = "impl";
-	    } else if (!implPackageName.endsWith(".impl")) {
-		    implPackageName = pkgName + ".impl";
-		}
-        setPackageFragment( getPackageFragmentRoot().getPackageFragment( implPackageName) ,true);
+    /**
+     * {@inheritDoc}
+     * @see org.eclipse.jdt.ui.wizards.NewClassWizardPage#createControl(org.eclipse.swt.widgets.Composite)
+     */
+    @Override
+    public void createControl(Composite parent) {
+        super.createControl(parent);
+        String pkgName = getPackageFragment().getElementName();
+        String implPackageName = pkgName;
+        if (implPackageName == null || implPackageName.trim().length() == 0) {
+            implPackageName = "impl";
+        } else if (!implPackageName.endsWith(".impl")) {
+            implPackageName = pkgName + ".impl";
+        }
+        setPackageFragment(getPackageFragmentRoot().getPackageFragment(implPackageName), true);
         if (this.resource != null) {
             String typeName = this.resource.getFullPath().removeFileExtension().lastSegment();
 
-            if ( typeName.lastIndexOf("Abstract") > -1 ) {
+            if (typeName.lastIndexOf("Abstract") > -1) {
                 setTypeName(typeName.replace("Abstract", "") + "Impl", true);
             } else {
                 setTypeName(typeName + "Impl", true);
@@ -69,7 +69,7 @@ public class NewConcreteClassWizardPage extends NewClassWizardPage {
 
             String superClassName = pkgName + "." + typeName;
             try {
-                if ( this.isInterface(this.resource) ) {
+                if (this.isInterface(this.resource)) {
                     List<String> list = new ArrayList<String>();
                     list.add(superClassName);
                     setSuperInterfaces(list, true);
@@ -81,34 +81,34 @@ public class NewConcreteClassWizardPage extends NewClassWizardPage {
             }
         }
         setAddComments(true, true);
-		enableCommentControl(true);
-		setMethodStubSelection(false, false, true, true);
+        enableCommentControl(true);
+        setMethodStubSelection(false, false, true, true);
 
-	}
+    }
 
-	/**
-	 * @param resource セットする resource
-	 */
-	public void setResource(IFile resource) {
-		this.resource = resource;
-	}
+    /**
+     * @param resource セットする resource
+     */
+    public void setResource(IFile resource) {
+        this.resource = resource;
+    }
 
-	/**
-	 * 対象がInterfaceクラスか判定する。
-	 * @param file 対象のファイル
-	 * @return 対象がInterfaceクラスの場合に<code>true</code>
-	 * @throws CoreException
-	 * @throws IOException
-	 */
-	protected boolean isInterface(IFile file) throws CoreException, IOException {
-		ASTParser parser = ASTParser.newParser(getAstLevel(file));
-		parser.setKind(ASTParser.K_COMPILATION_UNIT);
-		parser.setSource(this.getSourceString(file).toCharArray());
-		CompilationUnit unit = (CompilationUnit) parser.createAST(null);
-		TypeDeclaration type = (TypeDeclaration)unit.types().get(0);
-		return type.isInterface();
+    /**
+     * 対象がInterfaceクラスか判定する。
+     * @param file 対象のファイル
+     * @return 対象がInterfaceクラスの場合に<code>true</code>
+     * @throws CoreException
+     * @throws IOException
+     */
+    protected boolean isInterface(IFile file) throws CoreException, IOException {
+        ASTParser parser = ASTParser.newParser(getAstLevel(file));
+        parser.setKind(ASTParser.K_COMPILATION_UNIT);
+        parser.setSource(this.getSourceString(file).toCharArray());
+        CompilationUnit unit = (CompilationUnit) parser.createAST(null);
+        TypeDeclaration type = (TypeDeclaration) unit.types().get(0);
+        return type.isInterface();
 
-	}
+    }
 
     /**
      * ソース解析レベルを取得する。
@@ -129,41 +129,42 @@ public class NewConcreteClassWizardPage extends NewClassWizardPage {
         return 3; //AST.JLS3;
     }
 
-	/**
-	 * 対象のファイルの内容を取得する。
-	 * @param file 対象のファイル
-	 * @return ソース文字列
-	 * @throws CoreException
-	 * @throws IOException
-	 */
-	protected String getSourceString(IFile file) throws CoreException ,IOException {
-		StringBuilder builder = new StringBuilder();
-		InputStream stream = null;
-		BufferedReader reader = null;
-		try {
-			stream = file.getContents();
-			reader = new BufferedReader(new InputStreamReader(stream));
-			for (String str = reader.readLine(); str != null; str = reader.readLine() ){
-				builder.append(str);
-				builder.append('\n');
-			}
-			return builder.toString();
-		} finally {
-			closeStream(stream);
-			closeStream(reader);
-		}
-	}
-	/**
-	 * ストリームを閉じる。
-	 * @param closeable target stream
-	 */
-	protected void closeStream(Closeable closeable) {
-		try {
-			if ( closeable != null )
-					closeable.close();
-		}catch (IOException e) {
-		    DfAssistPlugin.log(e);
-		}
-	}
+    /**
+     * 対象のファイルの内容を取得する。
+     * @param file 対象のファイル
+     * @return ソース文字列
+     * @throws CoreException
+     * @throws IOException
+     */
+    protected String getSourceString(IFile file) throws CoreException, IOException {
+        StringBuilder builder = new StringBuilder();
+        InputStream stream = null;
+        BufferedReader reader = null;
+        try {
+            stream = file.getContents();
+            reader = new BufferedReader(new InputStreamReader(stream));
+            for (String str = reader.readLine(); str != null; str = reader.readLine()) {
+                builder.append(str);
+                builder.append('\n');
+            }
+            return builder.toString();
+        } finally {
+            closeStream(stream);
+            closeStream(reader);
+        }
+    }
+
+    /**
+     * ストリームを閉じる。
+     * @param closeable target stream
+     */
+    protected void closeStream(Closeable closeable) {
+        try {
+            if (closeable != null)
+                closeable.close();
+        } catch (IOException e) {
+            DfAssistPlugin.log(e);
+        }
+    }
 
 }
