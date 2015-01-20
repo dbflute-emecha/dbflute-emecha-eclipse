@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="feature_export" name="build">
+	<condition property="have.output.dir">
+		<available file="target"/>
+	</condition>
+	<target name="clean" if="have.output.dir">
+		<delete dir="target"/>
+	</target>
+	<target name="feature_export">
+		<!-- Please Use Eclipse Export Dialog -->
+		<pde.exportFeatures destination="target/dropins/DBFlute-EMecha/eclipse" exportSource="false" exportType="directory" features="org.dbflute.emecha.feature" useJARFormat="true"/>
+	</target>
+	<target name="release-zip">
+		<zip destfile="target/release/DBFlute-EMecha.zip"
+			basedir="target/dropins"
+			excludes="**/artifacts.jar,**/content.jar"
+			update="true"
+		/>
+	</target>
+</project>

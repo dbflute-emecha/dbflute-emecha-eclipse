@@ -34,6 +34,7 @@ import org.eclipse.swt.graphics.Color;
 public abstract class BsDFPropScanner extends BufferedRuleBasedScanner implements IPartitionTokenScanner {
 
     private DfColorManager colorManager;
+    @SuppressWarnings("unused")
     private IPreferenceStore preferenceStore;
 
     public BsDFPropScanner(DfColorManager manager, IPreferenceStore store) {
