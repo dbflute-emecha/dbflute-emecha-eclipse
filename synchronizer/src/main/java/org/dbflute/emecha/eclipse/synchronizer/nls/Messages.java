@@ -18,16 +18,16 @@ package org.dbflute.emecha.eclipse.synchronizer.nls;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * Messages
+ * see Messages.properties
  * @author schatten
+ * @author jflute
  */
 public class Messages extends NLS {
+
     static {
-        Class<Messages> clazz = Messages.class;
+        final Class<Messages> clazz = Messages.class;
         NLS.initializeMessages(clazz.getName(), clazz);
     }
 
     public static String MSG_REFRESH_RESOURCE;
-    public static String MSG_ALL_RESOURCE;
-
 }

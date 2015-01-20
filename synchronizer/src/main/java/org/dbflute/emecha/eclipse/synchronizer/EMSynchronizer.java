@@ -113,14 +113,14 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
     //                                                 Start
     //                                                 -----
     public void serverStart() {
-        final int primaryPort = getPreferencePort();
+        final int serverPort = getPreferencePort();
         final String hostname = "localhost";
         try {
-            final HttpServer server = doServerStart(primaryPort, hostname);
-            info("Synchronizer server is started at Port: " + primaryPort);
+            final HttpServer server = doServerStart(serverPort, hostname);
+            info("Synchronizer server was started at Port: " + serverPort);
             this.server = server;
         } catch (IOException e) {
-            handlePrimaryPortError(primaryPort, hostname, e);
+            handleServerStartError(serverPort, hostname, e);
         }
     }
 
@@ -130,44 +130,67 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
 
     protected HttpServer doServerStart(int serverPort, String hostname) throws IOException {
         plugin.port = serverPort;
-        final HttpServer server = HttpServer.create(new InetSocketAddress(hostname, serverPort), 0);
+        final HttpServer server = HttpServer.create(newInetSocketAddress(serverPort, hostname), 0);
         threadPool = Executors.newFixedThreadPool(1);
         server.setExecutor(threadPool);
-        server.createContext("/", new RefreshHandler());
-        server.createContext("/refresh", new RefreshHandler());
+        server.createContext("/", newRefreshHandler(serverPort));
+        server.createContext("/refresh", newRefreshHandler(serverPort));
         server.start();
         return server;
     }
 
-    protected boolean isDefalutPort(int serverPort) {
-        return serverPort == PreferenceConstants.DEFAULT_LISTEN_PORT;
+    protected InetSocketAddress newInetSocketAddress(int serverPort, String hostname) {
+        return new InetSocketAddress(hostname, serverPort);
     }
 
-    protected int getSecondaryPort() {
-        return PreferenceConstants.SECONDARY_LISTEN_PORT;
+    protected RefreshHandler newRefreshHandler(int serverPort) {
+        return new RefreshHandler(serverPort);
     }
 
-    protected void handlePrimaryPortError(int primaryPort, String hostname, IOException originalEx) {
-        if (isDefalutPort(primaryPort)) {
+    protected void handleServerStartError(int serverPort, String hostname, IOException originalEx) {
+        if (isPrimaryPort(serverPort)) {
             try {
                 retryBySecondaryPort(hostname);
             } catch (IOException ignored) {
-                closeError(primaryPort);
+                try {
+                    retryByTertiaryPort(hostname);
+                } catch (IOException iignored) {
+                    try {
+                        retryByQuaternaryPort(hostname);
+                    } catch (IOException iiignored) {
+                        closeError(serverPort, originalEx);
+                    }
+                }
             }
         } else {
-            closeError(primaryPort);
+            closeError(serverPort, originalEx);
         }
     }
 
+    protected boolean isPrimaryPort(int serverPort) {
+        return serverPort == PreferenceConstants.PRIMARY_LISTEN_PORT;
+    }
+
     protected void retryBySecondaryPort(String hostname) throws IOException {
-        final int secondaryPort = getSecondaryPort();
-        final HttpServer retryServer = doServerStart(secondaryPort, hostname);
-        info("Synchronizer server is started at Secondary Port: " + secondaryPort);
+        doRetryByQuaternaryPort(hostname, "Secondary", PreferenceConstants.SECONDARY_LISTEN_PORT);
+    }
+
+    protected void retryByTertiaryPort(String hostname) throws IOException {
+        doRetryByQuaternaryPort(hostname, "Tertiary", PreferenceConstants.TERTIARY_LISTEN_PORT);
+    }
+
+    protected void retryByQuaternaryPort(String hostname) throws IOException {
+        doRetryByQuaternaryPort(hostname, "Quaternary", PreferenceConstants.QUATERNARY_LISTEN_PORT);
+    }
+
+    protected void doRetryByQuaternaryPort(String hostname, String title, int retryPort) throws IOException {
+        final HttpServer retryServer = doServerStart(retryPort, hostname);
+        info("Synchronizer server was started at " + title + " Port: " + retryPort);
         this.server = retryServer;
     }
 
-    protected void closeError(int primaryPort) {
-        error("Synchronizer server is not started by error. (Port:" + primaryPort + ")");
+    protected void closeError(int primaryPort, IOException originalEx) {
+        error("Synchronizer server was not started by error. (Port:" + primaryPort + ")");
         this.server = null;
     }
 
@@ -201,7 +224,7 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
     //                                                                       Static Facade
     //                                                                       =============
     public static void serverRestart() {
-        EMSynchronizer synchronizer = getDefault();
+        final EMSynchronizer synchronizer = getDefault();
         try {
             synchronizer.serverStop();
             synchronizer.serverStart();

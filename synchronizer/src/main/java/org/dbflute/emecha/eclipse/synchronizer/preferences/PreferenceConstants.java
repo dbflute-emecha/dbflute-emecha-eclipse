@@ -21,7 +21,9 @@ package org.dbflute.emecha.eclipse.synchronizer.preferences;
 public class PreferenceConstants {
 
     public static final String P_LISTEN_PORT = "listenPort";
-    public static final int DEFAULT_LISTEN_PORT = 8386;
+    public static final int PRIMARY_LISTEN_PORT = 8386;
     public static final int SECONDARY_LISTEN_PORT = 8387;
+    public static final int TERTIARY_LISTEN_PORT = 8388;
+    public static final int QUATERNARY_LISTEN_PORT = 8389;
 
 }

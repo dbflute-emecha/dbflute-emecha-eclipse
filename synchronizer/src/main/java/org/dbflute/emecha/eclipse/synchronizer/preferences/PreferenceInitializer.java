@@ -33,7 +33,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
      */
     public void initializeDefaultPreferences() {
         IPreferenceStore store = EMSynchronizer.getDefault().getPreferenceStore();
-        store.setDefault(PreferenceConstants.P_LISTEN_PORT, PreferenceConstants.DEFAULT_LISTEN_PORT);
+        store.setDefault(PreferenceConstants.P_LISTEN_PORT, PreferenceConstants.PRIMARY_LISTEN_PORT);
         EMSynchronizer
                 .getDefault()
                 .getLog()
