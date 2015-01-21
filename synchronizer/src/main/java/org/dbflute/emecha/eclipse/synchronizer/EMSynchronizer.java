@@ -172,15 +172,15 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
     }
 
     protected void retryBySecondaryPort(String hostname) throws IOException {
-        doRetryByQuaternaryPort(hostname, "Secondary", PreferenceConstants.SECONDARY_LISTEN_PORT);
+        doRetryByQuaternaryPort(hostname, "secondary", PreferenceConstants.SECONDARY_LISTEN_PORT);
     }
 
     protected void retryByTertiaryPort(String hostname) throws IOException {
-        doRetryByQuaternaryPort(hostname, "Tertiary", PreferenceConstants.TERTIARY_LISTEN_PORT);
+        doRetryByQuaternaryPort(hostname, "tertiary", PreferenceConstants.TERTIARY_LISTEN_PORT);
     }
 
     protected void retryByQuaternaryPort(String hostname) throws IOException {
-        doRetryByQuaternaryPort(hostname, "Quaternary", PreferenceConstants.QUATERNARY_LISTEN_PORT);
+        doRetryByQuaternaryPort(hostname, "quaternary", PreferenceConstants.QUATERNARY_LISTEN_PORT);
     }
 
     protected void doRetryByQuaternaryPort(String hostname, String title, int retryPort) throws IOException {
