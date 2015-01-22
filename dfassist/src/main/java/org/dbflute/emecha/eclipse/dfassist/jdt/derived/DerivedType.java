@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * 集計関数の種類
- * @author m-saito
+ * @author schatten
  */
 public enum DerivedType {
     MAX("max"), MIN("min"), SUM("sum"), AVG("avg"), COUNT("count"), COUNT_DISTINCT("countDistinct");

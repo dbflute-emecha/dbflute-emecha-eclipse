@@ -29,6 +29,8 @@ import org.dbflute.emecha.eclipse.dfassist.jdt.derived.DerivedFieldPropertyPropo
 import org.dbflute.emecha.eclipse.dfassist.jdt.derived.DerivedType;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -113,6 +115,11 @@ public class QuickFixProcessor implements IQuickFixProcessor {
         if (selectedNode == null) {
             return new ArrayList<IJavaCompletionProposal>();
         }
+        boolean haslocalDate = false;
+        try {
+            IType localDateType = context.getCompilationUnit().getJavaProject().findType("java.time.LocalDate");
+            haslocalDate = localDateType != null;
+        } catch (JavaModelException e) {}
         List<IJavaCompletionProposal> proposals = new ArrayList<IJavaCompletionProposal>();
         switch (selectedNode.getNodeType()) {
         case ASTNode.SIMPLE_NAME:
@@ -139,10 +146,17 @@ public class QuickFixProcessor implements IQuickFixProcessor {
                 case MAX:
                 case MIN:
                     proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(Integer.class), 2));
-                    proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(Date.class), 1));
-                    proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(Timestamp.class), 1));
+                    if (haslocalDate) {
+                        proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy("java.time.LocalDate"), 1)); //$NON-NLS-1$
+                        proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy("java.time.LocalDateTime"), 1)); //$NON-NLS-1$
+                        proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(Date.class), -1));
+                        proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(Timestamp.class), -1));
+                    } else {
+                        proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(Date.class), 1));
+                        proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(Timestamp.class), 1));
+                    }
                     proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(BigDecimal.class)));
-                    proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(Long.class), -1));
+                    proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(Long.class)));
                     break;
                 case AVG:
                     proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(BigDecimal.class), 1));
@@ -185,7 +199,7 @@ public class QuickFixProcessor implements IQuickFixProcessor {
             return ((QualifiedName) selectedNode).getName().getFullyQualifiedName();
         } else {
             String fullyQualifiedName = ((Name) selectedNode).getFullyQualifiedName();
-            return fullyQualifiedName.substring(fullyQualifiedName.lastIndexOf('.') + 1);
+            return fullyQualifiedName.substring(fullyQualifiedName.lastIndexOf('.') + 1); //$NON-NLS-1$
         }
     }
 
@@ -198,11 +212,10 @@ public class QuickFixProcessor implements IQuickFixProcessor {
             return ((QualifiedName) selectedNode).getQualifier().getFullyQualifiedName();
         }
         String fullyQualifiedName = ((Name) selectedNode).getFullyQualifiedName();
-        int sep = fullyQualifiedName.lastIndexOf('.');
+        int sep = fullyQualifiedName.lastIndexOf('.'); //$NON-NLS-1$
         if (sep > 0) {
             return fullyQualifiedName.substring(0, sep);
         }
-        // TODO クラス名取得方法検討
         ASTNode parent = selectedNode.getParent();
         if (parent instanceof Name) {
             return getSelectedTypeName((Name) parent);

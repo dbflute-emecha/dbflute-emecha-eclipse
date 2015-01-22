@@ -172,7 +172,7 @@ public class DerivedFieldPropertyProposal implements IJavaCompletionProposal {
      * @see org.eclipse.jface.text.contentassist.ICompletionProposal#getDisplayString()
      */
     public String getDisplayString() {
-        return Messages.QUICK_FIX_DERIVED_FIELD_PROPERTY + " : " + this._fieldInfo.getPropertyTypeName(); //$NON-NLS-2$
+        return Messages.QUICK_FIX_DERIVED_FIELD_PROPERTY + " : " + this._fieldInfo.getPropertyTypeName(); //$NON-NLS-1$
     }
 
     /**

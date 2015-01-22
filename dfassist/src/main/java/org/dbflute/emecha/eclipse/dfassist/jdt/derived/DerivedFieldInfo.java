@@ -16,11 +16,13 @@
 package org.dbflute.emecha.eclipse.dfassist.jdt.derived;
 
 public final class DerivedFieldInfo {
-    private static final String LINE_SEPARATER = System.getProperty("line.separator", "\n");
-    private static final String ALIAS_PREFIX = "ALIAS_";
-    private static final String SPLIT_REGEX = "_|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-z])(?=[A-Z])|(?<=[A-Za-z][0-9])(?=[A-Z])";
+    private static final String LINE_SEPARATER = System.getProperty("line.separator", "\n"); //$NON-NLS-1$ //$NON-NLS-2$
+    private static final String ALIAS_PREFIX = "ALIAS_"; //$NON-NLS-1$
+    private static final String SPLIT_REGEX = "_|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-z])(?=[A-Z])|(?<=[A-Za-z][0-9])(?=[A-Z])"; //$NON-NLS-1$
     private String _targetTypeName;
     private Class<?> _propertyType;
+    private String _propertyTypeName;
+    private String _propertyTypeSimpleName;
     private String _constantFieldName;
     private String _propertyName;
     private String _columnName;
@@ -34,15 +36,28 @@ public final class DerivedFieldInfo {
     }
 
     public String getPropertyTypeFullPackageName() {
-        return _propertyType.getName();
+        return _propertyType != null ? _propertyType.getName() : _propertyTypeName;
     }
 
     public String getPropertyTypeName() {
-        return _propertyType.getSimpleName();
+        return _propertyType != null ? _propertyType.getSimpleName() : _propertyTypeSimpleName;
     }
 
     public void setPropertyType(Class<?> type) {
         _propertyType = type;
+        this._propertyTypeName = null;
+        this._propertyTypeSimpleName = null;
+    }
+
+    public void setPropertyType(String propertyTypeName) {
+        if (propertyTypeName != null) {
+            this._propertyTypeName = propertyTypeName;
+            this._propertyTypeSimpleName = propertyTypeName.substring(propertyTypeName.lastIndexOf(".") + 1);
+        } else {
+            this._propertyTypeName = null;
+            this._propertyTypeSimpleName = null;
+        }
+        _propertyType = null;
     }
 
     public String getConstantFieldName() {
@@ -88,13 +103,13 @@ public final class DerivedFieldInfo {
      */
     protected String getConstantFieldSource() {
         StringBuilder disp = new StringBuilder();
-        disp.append("/** ").append(this.getColumnName()).append(": Derived Referrer Alias. */").append(LINE_SEPARATER);
+        disp.append("/** ").append(this.getColumnName()).append(": Derived Referrer Alias. */").append(LINE_SEPARATER); //$NON-NLS-1$ //$NON-NLS-2$
 
-        disp.append("public static final String ");
+        disp.append("public static final String "); //$NON-NLS-1$
         disp.append(this.getConstantFieldName());
-        disp.append(" = \"");
+        disp.append(" = \""); //$NON-NLS-1$
         disp.append(this.getColumnName());
-        disp.append("\";");
+        disp.append("\";"); //$NON-NLS-1$
         return disp.toString();
     }
 
@@ -104,11 +119,11 @@ public final class DerivedFieldInfo {
      */
     protected String getPropertyFieldSource() {
         StringBuilder disp = new StringBuilder();
-        disp.append("/** ").append(this.getColumnName()).append(": (Derived Referrer) */").append(LINE_SEPARATER);
+        disp.append("/** ").append(this.getColumnName()).append(": (Derived Referrer) */").append(LINE_SEPARATER); //$NON-NLS-1$ //$NON-NLS-2$
 
-        disp.append("protected ");
+        disp.append("protected "); //$NON-NLS-1$
         disp.append(this.getPropertyTypeName());
-        disp.append(" _").append(this.getPropertyName()).append(";");
+        disp.append(" _").append(this.getPropertyName()).append(";"); //$NON-NLS-1$ //$NON-NLS-2$
         return disp.toString();
     }
 
@@ -118,19 +133,19 @@ public final class DerivedFieldInfo {
      */
     protected String getGetterMethodSource() {
         StringBuilder disp = new StringBuilder();
-        disp.append("/**").append(LINE_SEPARATER);
-        disp.append(" * [get] ").append(this.getColumnName()).append(": (Derived Referrer)").append(LINE_SEPARATER);
-        disp.append(" * @return The value of the column '").append(this.getColumnName()).append("'. (NullAllowed)").append(LINE_SEPARATER);
-        disp.append(" */").append(LINE_SEPARATER);
+        disp.append("/**").append(LINE_SEPARATER); //$NON-NLS-1$
+        disp.append(" * [get] ").append(this.getColumnName()).append(": (Derived Referrer)").append(LINE_SEPARATER); //$NON-NLS-1$ //$NON-NLS-2$
+        disp.append(" * @return The value of the column '").append(this.getColumnName()).append("'. (NullAllowed)").append(LINE_SEPARATER); //$NON-NLS-1$ //$NON-NLS-2$
+        disp.append(" */").append(LINE_SEPARATER); //$NON-NLS-1$
 
-        disp.append("public ");
+        disp.append("public "); //$NON-NLS-1$
         disp.append(this.getPropertyTypeName());
-        disp.append(" get");
+        disp.append(" get"); //$NON-NLS-1$
         disp.append(String.valueOf(this.getPropertyName().charAt(0)).toUpperCase());
         disp.append(this.getPropertyName().substring(1));
-        disp.append("() {").append(LINE_SEPARATER);
-        disp.append("    return _").append(this.getPropertyName());
-        disp.append(";").append(LINE_SEPARATER).append("}");
+        disp.append("() {").append(LINE_SEPARATER); //$NON-NLS-1$
+        disp.append("    return _").append(this.getPropertyName()); //$NON-NLS-1$
+        disp.append(";").append(LINE_SEPARATER).append("}"); //$NON-NLS-1$ //$NON-NLS-2$
         return disp.toString();
     }
 
@@ -140,21 +155,21 @@ public final class DerivedFieldInfo {
      */
     protected String getSetterMethodSource() {
         StringBuilder disp = new StringBuilder();
-        disp.append("/**").append(LINE_SEPARATER);
-        disp.append(" * [set] ").append(this.getColumnName()).append(": (Derived Referrer)").append(LINE_SEPARATER);
-        disp.append(" * @param ").append(this.getPropertyName()).append(" The value of the column '").append(this.getColumnName())
-                .append("'. (NullAllowed)").append(LINE_SEPARATER);
-        disp.append(" */").append(LINE_SEPARATER);
+        disp.append("/**").append(LINE_SEPARATER); //$NON-NLS-1$
+        disp.append(" * [set] ").append(this.getColumnName()).append(": (Derived Referrer)").append(LINE_SEPARATER); //$NON-NLS-1$ //$NON-NLS-2$
+        disp.append(" * @param ").append(this.getPropertyName()).append(" The value of the column '").append(this.getColumnName()) //$NON-NLS-1$ //$NON-NLS-2$
+                .append("'. (NullAllowed)").append(LINE_SEPARATER); //$NON-NLS-1$
+        disp.append(" */").append(LINE_SEPARATER); //$NON-NLS-1$
 
-        disp.append("public void set");
+        disp.append("public void set"); //$NON-NLS-1$
         disp.append(String.valueOf(this.getPropertyName().charAt(0)).toUpperCase());
         disp.append(this.getPropertyName().substring(1));
-        disp.append("(");
+        disp.append("("); //$NON-NLS-1$
         disp.append(this.getPropertyTypeName());
-        disp.append(" ").append(this.getPropertyName()).append(") {").append(LINE_SEPARATER);
-        disp.append("    _").append(this.getPropertyName());
-        disp.append(" = ").append(this.getPropertyName()).append(";").append(LINE_SEPARATER);
-        disp.append("}");
+        disp.append(" ").append(this.getPropertyName()).append(") {").append(LINE_SEPARATER); //$NON-NLS-1$ //$NON-NLS-2$
+        disp.append("    _").append(this.getPropertyName()); //$NON-NLS-1$
+        disp.append(" = ").append(this.getPropertyName()).append(";").append(LINE_SEPARATER); //$NON-NLS-1$ //$NON-NLS-2$
+        disp.append("}"); //$NON-NLS-1$
         return disp.toString();
     }
 
@@ -162,6 +177,17 @@ public final class DerivedFieldInfo {
         DerivedFieldInfo info = new DerivedFieldInfo();
         info._targetTypeName = this._targetTypeName;
         info._propertyType = propertyType;
+        info._constantFieldName = this._constantFieldName;
+        info._propertyName = this._propertyName;
+        info._columnName = this._columnName;
+        return info;
+    }
+
+    public DerivedFieldInfo copy(String propertyTypeName) {
+        DerivedFieldInfo info = new DerivedFieldInfo();
+        info._targetTypeName = this._targetTypeName;
+        info._propertyTypeName = propertyTypeName;
+        info._propertyTypeSimpleName = propertyTypeName.substring(propertyTypeName.lastIndexOf(".") + 1);
         info._constantFieldName = this._constantFieldName;
         info._propertyName = this._propertyName;
         info._columnName = this._columnName;
