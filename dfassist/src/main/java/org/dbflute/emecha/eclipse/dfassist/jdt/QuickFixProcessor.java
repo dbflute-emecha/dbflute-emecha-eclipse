@@ -115,11 +115,6 @@ public class QuickFixProcessor implements IQuickFixProcessor {
         if (selectedNode == null) {
             return new ArrayList<IJavaCompletionProposal>();
         }
-        boolean haslocalDate = false;
-        try {
-            IType localDateType = context.getCompilationUnit().getJavaProject().findType("java.time.LocalDate");
-            haslocalDate = localDateType != null;
-        } catch (JavaModelException e) {}
         List<IJavaCompletionProposal> proposals = new ArrayList<IJavaCompletionProposal>();
         switch (selectedNode.getNodeType()) {
         case ASTNode.SIMPLE_NAME:
@@ -146,7 +141,7 @@ public class QuickFixProcessor implements IQuickFixProcessor {
                 case MAX:
                 case MIN:
                     proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(Integer.class), 2));
-                    if (haslocalDate) {
+                    if (hasLocalDate(context)) {
                         proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy("java.time.LocalDate"), 1)); //$NON-NLS-1$
                         proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy("java.time.LocalDateTime"), 1)); //$NON-NLS-1$
                         proposals.add(new DerivedFieldPropertyProposal(context, fieldInfo.copy(Date.class), -1));
@@ -177,6 +172,15 @@ public class QuickFixProcessor implements IQuickFixProcessor {
             break;
         }
         return proposals;
+    }
+
+    private boolean hasLocalDate(IInvocationContext context) {
+        boolean haslocalDate = false;
+        try {
+            IType localDateType = context.getCompilationUnit().getJavaProject().findType("java.time.LocalDate");
+            haslocalDate = localDateType != null;
+        } catch (JavaModelException e) {}
+        return haslocalDate;
     }
 
     protected DerivedFieldInfo createDerivedFieldInfo(IInvocationContext _context, IProblemLocation _problem, Name selectedNode) {
