@@ -22,10 +22,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.dbflute.emecha.eclipse.AbstractEMechaPlugin;
+import org.dbflute.emecha.eclipse.log.EmLog;
 import org.dbflute.emecha.eclipse.synchronizer.handler.RefreshHandler;
 import org.dbflute.emecha.eclipse.synchronizer.preferences.PreferenceConstants;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IStartup;
 import org.osgi.framework.BundleContext;
@@ -113,7 +112,7 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
         final String hostname = "localhost";
         try {
             final HttpServer server = doServerStart(serverPort, hostname);
-            info("Synchronizer server was started at Port: " + serverPort);
+            EMSynchronizer.log().info("Synchronizer server was started at Port: " + serverPort);
             getDefault().server = server;
         } catch (IOException e) {
             handleServerStartError(serverPort, hostname, e);
@@ -181,12 +180,12 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
 
     protected void doRetryByQuaternaryPort(String hostname, String title, int retryPort) throws IOException {
         final HttpServer retryServer = doServerStart(retryPort, hostname);
-        info("Synchronizer server was started at " + title + " Port: " + retryPort);
+        EMSynchronizer.log().info("Synchronizer server was started at " + title + " Port: " + retryPort);
         getDefault().server = retryServer;
     }
 
     protected void closeError(int primaryPort, IOException originalEx) {
-        error("Synchronizer server was not started by error. (Port:" + primaryPort + ")");
+        EMSynchronizer.log().error("Synchronizer server was not started by error. (Port:" + primaryPort + ")");
         getDefault().server = null;
     }
 
@@ -209,12 +208,8 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
     // ===================================================================================
     //                                                                        Small Helper
     //                                                                        ============
-    protected void info(String msg) {
-        getLog().log(new Status(IStatus.INFO, PLUGIN_ID, msg));
-    }
-
-    protected void error(String msg) {
-        getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, msg));
+    public static EmLog log() {
+        return getLogger(getDefault());
     }
 
     // ===================================================================================
@@ -226,7 +221,7 @@ public class EMSynchronizer extends AbstractEMechaPlugin implements IStartup {
             synchronizer.serverStop();
             synchronizer.serverStart();
         } catch (InterruptedException e) {
-            synchronizer.getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, "Synchronizer server stop error.", e));
+            EMSynchronizer.log().error("Synchronizer server stop error.", e);
         }
     }
 

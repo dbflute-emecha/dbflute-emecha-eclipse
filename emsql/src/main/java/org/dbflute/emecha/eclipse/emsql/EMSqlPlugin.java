@@ -18,6 +18,7 @@ package org.dbflute.emecha.eclipse.emsql;
 import org.dbflute.emecha.eclipse.AbstractEMechaPlugin;
 import org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences;
 import org.dbflute.emecha.eclipse.emsql.preferences.impl.EMSqlPreferencesImpl;
+import org.dbflute.emecha.eclipse.log.EmLog;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.BundleContext;
@@ -32,6 +33,11 @@ public class EMSqlPlugin extends AbstractEMechaPlugin {
 
     // The shared instance
     public static AbstractEMechaPlugin plugin;
+
+    // shared logger
+    public static EmLog log() {
+        return getLogger(plugin);
+    }
 
     /**
      * The constructor

@@ -37,7 +37,6 @@ import org.dbflute.emecha.eclipse.emsql.template.MySQLSqlTemplateProcessor;
 import org.dbflute.emecha.eclipse.emsql.template.OracleSqlTemplateProcessor;
 import org.dbflute.emecha.eclipse.emsql.template.PostgreSQLSqlTemplateProcessor;
 import org.dbflute.emecha.eclipse.emsql.template.SQLServerSqlTemplateProcessor;
-import org.dbflute.emecha.eclipse.kernel.util.LogUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -677,8 +676,7 @@ public class NewOutSideSqlWizardPage extends NewTypeWizardPage {
                 loadExistsFiles();
             }
         } catch (JavaModelException e) {
-            // TODO: handle exception
-            LogUtil.log(EMSqlPlugin.getDefault(), e);
+            EMSqlPlugin.log().error(e);
         }
     }
 

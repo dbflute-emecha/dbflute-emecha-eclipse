@@ -94,9 +94,9 @@ public abstract class AbstractOpenActionBase implements IObjectActionDelegate {
                         openFileInEditor(file, findType);
                     }
                 } catch (JavaModelException e) {
-                    DfAssistPlugin.log(e);
+                    DfAssistPlugin.log().error(e);
                 } catch (PartInitException e) {
-                    DfAssistPlugin.log(e);
+                    DfAssistPlugin.log().error(e);
                 }
             }
         }
@@ -132,7 +132,7 @@ public abstract class AbstractOpenActionBase implements IObjectActionDelegate {
                 }
             }
         } catch (JavaModelException e) {
-            DfAssistPlugin.log(e);
+            DfAssistPlugin.log().error(e);
         }
         if (rootPath == null)
             return null;

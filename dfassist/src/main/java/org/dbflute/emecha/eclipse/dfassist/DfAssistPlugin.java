@@ -16,8 +16,7 @@
 package org.dbflute.emecha.eclipse.dfassist;
 
 import org.dbflute.emecha.eclipse.AbstractEMechaPlugin;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
+import org.dbflute.emecha.eclipse.log.EmLog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.BundleContext;
 
@@ -29,7 +28,13 @@ public class DfAssistPlugin extends AbstractEMechaPlugin {
     // The plug-in ID
     public static final String PLUGIN_ID = "org.dbflute.emecha.dfassist";
 
+    // The shared instance
     private static AbstractEMechaPlugin plugin;
+
+    // shared logger
+    public static EmLog log() {
+        return getLogger(plugin);
+    }
 
     /**
      *
@@ -73,20 +78,5 @@ public class DfAssistPlugin extends AbstractEMechaPlugin {
      */
     public static ImageDescriptor getImageDescriptor(String path) {
         return imageDescriptorFromPlugin(plugin.getPluginId(), path);
-    }
-
-    public static void log(String message) {
-        IStatus status = new Status(IStatus.INFO, plugin.getBundle().getSymbolicName(), IStatus.INFO, message, null);
-        plugin.getLog().log(status);
-    }
-
-    public static void log(String message, Throwable t) {
-        IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), IStatus.ERROR, message, t);
-        plugin.getLog().log(status);
-    }
-
-    public static void log(Throwable t) {
-        IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), IStatus.ERROR, t.getMessage(), t);
-        plugin.getLog().log(status);
     }
 }

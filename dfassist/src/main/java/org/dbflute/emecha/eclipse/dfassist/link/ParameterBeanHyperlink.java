@@ -49,7 +49,7 @@ public class ParameterBeanHyperlink implements IHyperlink {
         try {
             pmbType = getPmbClassType();
         } catch (JavaModelException e) {
-            DfAssistPlugin.log(e);
+            DfAssistPlugin.log().error(e);
         }
     }
 

@@ -16,6 +16,7 @@
 package org.dbflute.emecha.eclipse.dfeditor;
 
 import org.dbflute.emecha.eclipse.AbstractEMechaPlugin;
+import org.dbflute.emecha.eclipse.log.EmLog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.BundleContext;
 
@@ -29,6 +30,11 @@ public class DFEditorActivator extends AbstractEMechaPlugin {
 
     // The shared instance
     private static AbstractEMechaPlugin plugin;
+
+    // shared logger
+    public static EmLog log() {
+        return getLogger(plugin);
+    }
 
     /**
      * The constructor

@@ -16,6 +16,7 @@
 package org.dbflute.emecha.eclipse.kernel;
 
 import org.dbflute.emecha.eclipse.AbstractEMechaPlugin;
+import org.dbflute.emecha.eclipse.log.EmLog;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -28,6 +29,11 @@ public class EMechaKernelPlugin extends AbstractEMechaPlugin {
 
     // The shared instance
     public static AbstractEMechaPlugin plugin;
+
+    // shared logger
+    public static EmLog log() {
+        return getLogger(plugin);
+    }
 
     /**
      * The constructor

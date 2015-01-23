@@ -24,7 +24,7 @@ import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropReferenceModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.ListModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MapModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.NamedModel;
-import org.dbflute.emecha.eclipse.kernel.util.WorkbenchUtil;
+import org.dbflute.emecha.eclipse.util.WorkbenchUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.DoubleClickEvent;

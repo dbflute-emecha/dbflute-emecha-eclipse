@@ -16,6 +16,7 @@
 package org.dbflute.emecha.eclipse.dfassist.command;
 
 import org.dbflute.emecha.eclipse.dfassist.wizard.NewConcreteClassWizard;
+import org.dbflute.emecha.eclipse.util.WorkbenchUtil;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -26,11 +27,6 @@ import org.eclipse.jdt.internal.core.CompilationUnit;
 import org.eclipse.jdt.internal.core.SourceType;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.part.FileEditorInput;
@@ -60,14 +56,14 @@ public class NewConcreteWizardCommand extends AbstractHandler implements IHandle
             if (firstElement instanceof IFile) {
                 NewConcreteClassWizard wizard = new NewConcreteClassWizard();
                 wizard.init(PlatformUI.getWorkbench(), (StructuredSelection) selection);
-                this.getWorkbench(wizard);
+                WorkbenchUtil.startWizard(wizard);
                 return true;
             }
             if (firstElement instanceof FileEditorInput) {
                 final IFile file = ((FileEditorInput) firstElement).getFile();
                 NewConcreteClassWizard wizard = new NewConcreteClassWizard();
                 wizard.init(PlatformUI.getWorkbench(), new StructuredSelection(file));
-                this.getWorkbench(wizard);
+                WorkbenchUtil.startWizard(wizard);
                 return true;
             }
             if (firstElement instanceof CompilationUnit) {
@@ -76,7 +72,7 @@ public class NewConcreteWizardCommand extends AbstractHandler implements IHandle
                     final IFile file = javaElement.getJavaProject().getProject().getWorkspace().getRoot().getFile(javaElement.getPath());
                     NewConcreteClassWizard wizard = new NewConcreteClassWizard();
                     wizard.init(PlatformUI.getWorkbench(), new StructuredSelection(file));
-                    this.getWorkbench(wizard);
+                    WorkbenchUtil.startWizard(wizard);
                     return true;
                 }
             }
@@ -87,7 +83,7 @@ public class NewConcreteWizardCommand extends AbstractHandler implements IHandle
                             primaryElement.getJavaProject().getProject().getWorkspace().getRoot().getFile(primaryElement.getPath());
                     NewConcreteClassWizard wizard = new NewConcreteClassWizard();
                     wizard.init(PlatformUI.getWorkbench(), new StructuredSelection(file));
-                    this.getWorkbench(wizard);
+                    WorkbenchUtil.startWizard(wizard);
                     return true;
                 }
             }
@@ -95,39 +91,4 @@ public class NewConcreteWizardCommand extends AbstractHandler implements IHandle
         return false;
     }
 
-    /**
-     * getWorkbench
-     *
-     * @param wizard
-     */
-    private int getWorkbench(NewConcreteClassWizard wizard) {
-        WizardDialog dialog = new WizardDialog(getShell(), wizard);
-        return dialog.open();
-    }
-
-    /**
-     * getShell
-     *
-     * @return
-     */
-    private Shell getShell() {
-        IWorkbenchWindow window = getWorkbenchWindow();
-        Shell shell = window != null ? window.getShell() : new Shell(Display.getDefault());
-        return shell;
-    }
-
-    /**
-     * getWorkbenchWindow
-     *
-     * @return
-     */
-    private IWorkbenchWindow getWorkbenchWindow() {
-        IWorkbench workbench = PlatformUI.getWorkbench();
-        IWorkbenchWindow result = workbench.getActiveWorkbenchWindow();
-        if (result == null && 0 < workbench.getWorkbenchWindowCount()) {
-            IWorkbenchWindow[] ws = workbench.getWorkbenchWindows();
-            result = ws[0];
-        }
-        return result;
-    }
 }

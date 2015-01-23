@@ -62,7 +62,7 @@ public class NewConcreteClassWizard extends Wizard implements INewWizard {
                 try {
                     wizardPage.createType(monitor);
                 } catch (CoreException e) {
-                    DfAssistPlugin.log(e);
+                    DfAssistPlugin.log().error(e);
                 } finally {
                     monitor.done();
                 }
@@ -72,7 +72,7 @@ public class NewConcreteClassWizard extends Wizard implements INewWizard {
             try {
                 JavaUI.openInEditor(this.wizardPage.getCreatedType());
             } catch (Exception e) {
-                DfAssistPlugin.log(e);
+                DfAssistPlugin.log().error(e);
                 return false;
             }
         }
@@ -88,10 +88,10 @@ public class NewConcreteClassWizard extends Wizard implements INewWizard {
             IRunnableWithProgress op = new WorkspaceModifyDelegatingOperation(runnable);
             PlatformUI.getWorkbench().getProgressService().runInUI(getContainer(), op, ResourcesPlugin.getWorkspace().getRoot());
         } catch (InterruptedException e) {
-            DfAssistPlugin.log(e);
+            DfAssistPlugin.log().error(e);
             return false;
         } catch (InvocationTargetException e) {
-            DfAssistPlugin.log(e);
+            DfAssistPlugin.log().error(e);
             return false;
         }
         return true;

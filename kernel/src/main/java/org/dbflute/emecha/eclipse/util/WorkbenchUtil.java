@@ -13,8 +13,9 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.eclipse.kernel.util;
+package org.dbflute.emecha.eclipse.util;
 
+import org.dbflute.emecha.eclipse.kernel.log.EmLogger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Plugin;
@@ -60,7 +61,7 @@ public class WorkbenchUtil {
         try {
             return IDE.openEditor(activePage, resource, true);
         } catch (PartInitException e) {
-            LogUtil.log(plugin, e);
+            EmLogger.log(plugin, e);
         }
         return null;
     }
@@ -124,7 +125,7 @@ public class WorkbenchUtil {
                 }
             }
         } catch (PartInitException e) {
-            LogUtil.log(plugin, e);
+            EmLogger.log(plugin, e);
         }
         return vp;
     }

@@ -15,9 +15,16 @@
  */
 package org.dbflute.emecha.eclipse;
 
+import org.dbflute.emecha.eclipse.kernel.log.EmLogger;
+import org.dbflute.emecha.eclipse.log.EmLog;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public abstract class AbstractEMechaPlugin extends AbstractUIPlugin {
 
     public abstract String getPluginId();
+
+    protected static EmLog getLogger(Plugin plugin) {
+        return new EmLogger(plugin);
+    }
 }

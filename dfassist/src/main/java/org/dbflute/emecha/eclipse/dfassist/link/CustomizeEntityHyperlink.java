@@ -49,7 +49,7 @@ public class CustomizeEntityHyperlink implements IHyperlink {
         try {
             entityType = getEntityClassType();
         } catch (JavaModelException e) {
-            DfAssistPlugin.log(e);
+            DfAssistPlugin.log().error(e);
         }
     }
 

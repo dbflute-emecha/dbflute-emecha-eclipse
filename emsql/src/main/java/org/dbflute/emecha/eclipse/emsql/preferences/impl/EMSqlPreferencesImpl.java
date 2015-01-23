@@ -20,7 +20,6 @@ import java.io.IOException;
 import org.dbflute.emecha.eclipse.emsql.EMSqlPlugin;
 import org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferenceStore;
 import org.dbflute.emecha.eclipse.emsql.preferences.EMSqlPreferences;
-import org.dbflute.emecha.eclipse.kernel.util.LogUtil;
 import org.eclipse.core.resources.IProject;
 
 /**
@@ -136,7 +135,7 @@ public class EMSqlPreferencesImpl implements EMSqlPreferences {
         try {
             preferenceStore.save();
         } catch (IOException e) {
-            LogUtil.log(EMSqlPlugin.getDefault(), e);
+            EMSqlPlugin.log().error(e);
         }
     }
 

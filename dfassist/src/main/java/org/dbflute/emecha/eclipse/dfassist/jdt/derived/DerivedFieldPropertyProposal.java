@@ -107,9 +107,9 @@ public class DerivedFieldPropertyProposal implements IJavaCompletionProposal {
                 ateditor.selectAndReveal(propertyFieldSourceRange.getOffset() + 10, 0);
             }
         } catch (JavaModelException e) {
-            DfAssistPlugin.log("Editor open error.", e); //$NON-NLS-1$
+            DfAssistPlugin.log().error("Editor open error.", e); //$NON-NLS-1$
         } catch (PartInitException e) {
-            DfAssistPlugin.log("Editor open error.", e); //$NON-NLS-1$
+            DfAssistPlugin.log().error("Editor open error.", e); //$NON-NLS-1$
         }
     }
 

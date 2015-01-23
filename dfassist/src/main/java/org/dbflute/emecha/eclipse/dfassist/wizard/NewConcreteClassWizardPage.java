@@ -77,7 +77,7 @@ public class NewConcreteClassWizardPage extends NewClassWizardPage {
                     setSuperClass(superClassName, true);
                 }
             } catch (Exception e) {
-                DfAssistPlugin.log(e);
+                DfAssistPlugin.log().error(e);
             }
         }
         setAddComments(true, true);
@@ -167,7 +167,7 @@ public class NewConcreteClassWizardPage extends NewClassWizardPage {
             if (closeable != null)
                 closeable.close();
         } catch (IOException e) {
-            DfAssistPlugin.log(e);
+            DfAssistPlugin.log().error(e);
         }
     }
 

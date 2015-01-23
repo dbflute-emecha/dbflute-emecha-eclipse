@@ -18,7 +18,6 @@ package org.dbflute.emecha.eclipse.emsql.wizard;
 import java.lang.reflect.InvocationTargetException;
 
 import org.dbflute.emecha.eclipse.emsql.EMSqlPlugin;
-import org.dbflute.emecha.eclipse.kernel.util.LogUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -74,7 +73,7 @@ public class NewOutSideSqlWizard extends Wizard implements INewWizard {
                     monitor.beginTask("Create SQL file. File name is " + mainPage.getSQLFileName() + ".", 5);
                     createFile = mainPage.createSQLFile(new SubProgressMonitor(monitor, 5));
                 } catch (Exception e) {
-                    LogUtil.log(EMSqlPlugin.getDefault(), e);
+                    EMSqlPlugin.log().error(e);
                     throw new InvocationTargetException(e);
                 } finally {
                     monitor.done();
@@ -93,14 +92,14 @@ public class NewOutSideSqlWizard extends Wizard implements INewWizard {
                             }
                         }
                     } catch (PartInitException e) {
-                        LogUtil.log(EMSqlPlugin.getDefault(), e);
+                        EMSqlPlugin.log().error(e);
                     }
 
                 }
                 return true;
             }
         } catch (Exception e) {
-            LogUtil.log(EMSqlPlugin.getDefault(), e);
+            EMSqlPlugin.log().error(e);
         }
         return false;
     }
@@ -115,10 +114,10 @@ public class NewOutSideSqlWizard extends Wizard implements INewWizard {
         try {
             PlatformUI.getWorkbench().getProgressService().runInUI(getContainer(), op, ResourcesPlugin.getWorkspace().getRoot());
         } catch (InvocationTargetException e) {
-            LogUtil.log(EMSqlPlugin.getDefault(), e);
+            EMSqlPlugin.log().error(e);
             return false;
         } catch (InterruptedException e) {
-            LogUtil.log(EMSqlPlugin.getDefault(), e);
+            EMSqlPlugin.log().error(e);
             return false;
         }
         return true;

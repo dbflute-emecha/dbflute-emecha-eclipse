@@ -80,7 +80,7 @@ public class SqlFileHyperlink implements IHyperlink {
                 sqlFile = getSqlResource(element, packageName, typeQualifiedName);
             }
         } catch (CoreException e) {
-            DfAssistPlugin.log(e);
+            DfAssistPlugin.log().error(e);
         }
     }
 
@@ -108,7 +108,7 @@ public class SqlFileHyperlink implements IHyperlink {
 
             sqlFile = getSqlResource(parentElement, packageName, typeQualifiedName);
         } catch (CoreException e) {
-            DfAssistPlugin.log(e);
+            DfAssistPlugin.log().error(e);
         }
     }
 
