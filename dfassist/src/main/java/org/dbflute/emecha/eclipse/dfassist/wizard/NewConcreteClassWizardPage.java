@@ -125,6 +125,10 @@ public class NewConcreteClassWizardPage extends NewClassWizardPage {
             // Java 7 compliance level.
             return 4; // AST.JLS4;
         }
+        if ("1.8".equals(option)) {
+            // Java 8 compliance level.
+            return 8; // AST.JLS8;
+        }
         // Default return is Java 5 compliance level.
         return 3; //AST.JLS3;
     }
