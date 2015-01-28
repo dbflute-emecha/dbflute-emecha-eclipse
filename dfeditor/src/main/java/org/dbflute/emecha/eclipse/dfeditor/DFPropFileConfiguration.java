@@ -15,12 +15,18 @@
  */
 package org.dbflute.emecha.eclipse.dfeditor;
 
+import org.dbflute.emecha.eclipse.dfeditor.action.DFPropCommentLineAutoEditStrategy;
 import org.dbflute.emecha.eclipse.dfeditor.action.DFPropDoubleClickStrategy;
+import org.dbflute.emecha.eclipse.dfeditor.action.DFPropEnclosedAutoEditStrategy;
+import org.dbflute.emecha.eclipse.dfeditor.action.DFPropEnclosedCommentAutoEditStrategy;
+import org.dbflute.emecha.eclipse.dfeditor.action.DFPropIndentLineAutoEditStrategy;
+import org.dbflute.emecha.eclipse.dfeditor.action.DFPropTabSpaceAutoEditStrategy;
 import org.dbflute.emecha.eclipse.dfeditor.scanner.BsDFPropScanner;
 import org.dbflute.emecha.eclipse.dfeditor.scanner.DFPropCommentScanner;
 import org.dbflute.emecha.eclipse.dfeditor.scanner.DefaultTokenScanner;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.DefaultTextHover;
+import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextDoubleClickStrategy;
 import org.eclipse.jface.text.ITextHover;
@@ -135,5 +141,23 @@ public class DFPropFileConfiguration extends TextSourceViewerConfiguration imple
                 return annotation instanceof MarkerAnnotation;
             }
         };
+    }
+
+    /**
+     * Get Auto Edit Strategies.
+     * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getAutoEditStrategies(org.eclipse.jface.text.source.ISourceViewer, java.lang.String)
+     */
+    @Override
+    public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer, String contentType) {
+        if (IDocument.DEFAULT_CONTENT_TYPE.equals(contentType)) {
+            return new IAutoEditStrategy[]{new DFPropIndentLineAutoEditStrategy(), new DFPropEnclosedAutoEditStrategy(), new DFPropTabSpaceAutoEditStrategy()};
+        }
+        if (DFP_PARTITIONING.equals(contentType)) {
+            return new IAutoEditStrategy[]{new DFPropEnclosedCommentAutoEditStrategy(), new DFPropTabSpaceAutoEditStrategy()};
+        }
+        if (DFP_COMMENT.equals(contentType)) {
+            return new IAutoEditStrategy[]{new DFPropCommentLineAutoEditStrategy(), new DFPropTabSpaceAutoEditStrategy()};
+        }
+        return super.getAutoEditStrategies(sourceViewer, contentType);
     }
 }
