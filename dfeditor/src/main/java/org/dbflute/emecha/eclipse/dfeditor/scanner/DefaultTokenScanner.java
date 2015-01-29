@@ -21,6 +21,7 @@ import java.util.List;
 import org.dbflute.emecha.eclipse.dfeditor.DfColor;
 import org.dbflute.emecha.eclipse.dfeditor.DfColorManager;
 import org.dbflute.emecha.eclipse.dfeditor.rule.CombinedWordRule;
+import org.dbflute.emecha.eclipse.dfeditor.rule.CombinedWordRule.DfTagWordDetector;
 import org.dbflute.emecha.eclipse.dfeditor.rule.WhitespaceDetector;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.rules.IRule;
@@ -69,11 +70,22 @@ public class DefaultTokenScanner extends BsDFPropScanner {
         containMacher.addWord("contain:", getToken(DfColor.LIKE_SEARCH_MARK));
         wordRule.addWordMatcher(containMacher);
 
-        CombinedWordRule.WordMatcher sqlMacher = new CombinedWordRule.WordMatcher();
-        sqlMacher.addWord("sql:", getToken(DfColor.LIKE_SEARCH_MARK));
-        wordRule.addWordMatcher(sqlMacher);
-
         rules.add(wordRule);
+
+        CombinedWordRule dollWordRule = new CombinedWordRule(new DfTagWordDetector() {
+            @Override
+            public boolean isWordStart(char c) {
+                if (c == '$') {
+                    return true;
+                }
+                return false;
+            }
+        });
+        CombinedWordRule.WordMatcher sqlMacher = new CombinedWordRule.WordMatcher();
+        sqlMacher.addWord("$sql:", getToken(DfColor.ALIAS_MARK));
+        dollWordRule.addWordMatcher(sqlMacher);
+
+        rules.add(dollWordRule);
 
         return rules;
     }
