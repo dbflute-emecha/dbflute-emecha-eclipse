@@ -2,7 +2,7 @@
 <feature
       id="org.dbflute.emecha.feature"
       label="DBFlute EMecha"
-      version="0.6.0.qualifier"
+      version="0.6.1.qualifier"
       provider-name="DBFlute.org"
       plugin="org.dbflute.emecha">
 
