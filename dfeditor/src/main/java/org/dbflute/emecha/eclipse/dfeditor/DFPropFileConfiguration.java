@@ -61,7 +61,7 @@ public class DFPropFileConfiguration extends TextSourceViewerConfiguration imple
      * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getConfiguredContentTypes(org.eclipse.jface.text.source.ISourceViewer)
      */
     public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
-        return new String[] { IDocument.DEFAULT_CONTENT_TYPE, DFP_PARTITIONING, DFP_COMMENT };
+        return new String[] { IDocument.DEFAULT_CONTENT_TYPE, DFP_PARTITIONING, DFP_COMMENT, DFP_LITERAL};
     }
 
     /**
@@ -101,6 +101,10 @@ public class DFPropFileConfiguration extends TextSourceViewerConfiguration imple
         dr = new DefaultDamagerRepairer(getDefaultScanner());
         reconciler.setDamager(dr, DFP_PARTITIONING);
         reconciler.setRepairer(dr, DFP_PARTITIONING);
+
+        dr = new DefaultDamagerRepairer(getDefaultScanner());
+        reconciler.setDamager(dr, DFP_LITERAL);
+        reconciler.setRepairer(dr, DFP_LITERAL);
 
         dr = new DefaultDamagerRepairer(getDefaultScanner());
         reconciler.setDamager(dr, IDocument.DEFAULT_CONTENT_TYPE);

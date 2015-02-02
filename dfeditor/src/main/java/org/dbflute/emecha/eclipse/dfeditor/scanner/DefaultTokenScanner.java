@@ -22,10 +22,10 @@ import org.dbflute.emecha.eclipse.dfeditor.DfColor;
 import org.dbflute.emecha.eclipse.dfeditor.DfColorManager;
 import org.dbflute.emecha.eclipse.dfeditor.rule.CombinedWordRule;
 import org.dbflute.emecha.eclipse.dfeditor.rule.CombinedWordRule.DfTagWordDetector;
+import org.dbflute.emecha.eclipse.dfeditor.rule.SingleLineSiegeRule;
 import org.dbflute.emecha.eclipse.dfeditor.rule.WhitespaceDetector;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.rules.IRule;
-import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.WhitespaceRule;
 
 public class DefaultTokenScanner extends BsDFPropScanner {
@@ -40,10 +40,10 @@ public class DefaultTokenScanner extends BsDFPropScanner {
         List<IRule> rules = new ArrayList<IRule>();
         rules.add(new WhitespaceRule(new WhitespaceDetector()));
 
-        rules.add(new SingleLineRule("$$", "$$", getToken(DfColor.ALIAS_MARK)));
-        rules.add(new SingleLineRule("/*", "*/", getToken(DfColor.SQL)));
-        rules.add(new SingleLineRule("\"", "\"", getToken(DfColor.VALIABLE)));
-        rules.add(new SingleLineRule("'", "'", getToken(DfColor.VALIABLE)));
+        rules.add(new SingleLineSiegeRule("$$", "$$", getToken(DfColor.ALIAS_MARK)));
+        rules.add(new SingleLineSiegeRule("/*", "*/", getToken(DfColor.SQL)));
+        rules.add(new SingleLineSiegeRule("\"", "\"", getToken(DfColor.VALIABLE)));
+        rules.add(new SingleLineSiegeRule("'", "'", getToken(DfColor.VALIABLE)));
 
         CombinedWordRule wordRule = new CombinedWordRule();
         CombinedWordRule.WordMatcher mapMacher = new CombinedWordRule.WordMatcher();

@@ -24,7 +24,7 @@ import org.eclipse.ui.editors.text.FileDocumentProvider;
 
 public class DFPropDocumentProvider extends FileDocumentProvider implements DFPropPartitions {
 
-    private static final String[] LEGAL_CONTENT_TYPES = new String[] { DFP_PARTITIONING, DFP_COMMENT };
+    private static final String[] LEGAL_CONTENT_TYPES = new String[] { DFP_PARTITIONING, DFP_COMMENT, DFP_LITERAL };
 
     public DFPropDocumentProvider() {
         super();

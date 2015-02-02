@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dbflute.emecha.eclipse.dfeditor.DFPropPartitions;
+import org.dbflute.emecha.eclipse.dfeditor.rule.SingleLineSiegeRule;
 import org.eclipse.jface.text.rules.EndOfLineRule;
 import org.eclipse.jface.text.rules.IPredicateRule;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.RuleBasedPartitionScanner;
-import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.Token;
 
 /**
@@ -35,12 +35,13 @@ public class DFPropPartitionScanner extends RuleBasedPartitionScanner implements
 
         IToken dfpComment = new Token(DFP_COMMENT);
         IToken tagPartition = new Token(DFP_PARTITIONING);
+        IToken literalPartition = new Token(DFP_LITERAL);
 
         List<IPredicateRule> rules = new ArrayList<IPredicateRule>();
 
-        rules.add(new SingleLineRule("/*", "*/", tagPartition));
-        rules.add(new SingleLineRule("\"", "\"", tagPartition));
-        rules.add(new SingleLineRule("'", "'", tagPartition));
+        rules.add(new SingleLineSiegeRule("/*", "*/", tagPartition));
+        rules.add(new SingleLineSiegeRule("\"", "\"", literalPartition));
+        rules.add(new SingleLineSiegeRule("'", "'", literalPartition));
 
         rules.add(new EndOfLineRule("#", dfpComment));
 
