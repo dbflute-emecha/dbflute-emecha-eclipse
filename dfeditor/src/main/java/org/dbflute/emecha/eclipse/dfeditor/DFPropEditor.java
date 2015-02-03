@@ -427,6 +427,10 @@ public class DFPropEditor extends TextEditor {
         if ("diffmap".equals(extension)) {
             return true;
         }
+        int underline = name.indexOf('_');
+        if (underline > 0 && name.substring(0, underline).endsWith("Map")) {
+            return true;
+        }
         return false;
     }
 
