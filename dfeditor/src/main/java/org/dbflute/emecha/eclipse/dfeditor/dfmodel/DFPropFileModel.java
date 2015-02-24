@@ -21,8 +21,10 @@ package org.dbflute.emecha.eclipse.dfeditor.dfmodel;
 public class DFPropFileModel extends AbstractModel implements NamedModel {
 
     protected String _fileName;
+    private String _path;
     protected int _length = 0;
     protected boolean _missingHierarchy = false;
+    private boolean _references = false;
 
     public DFPropFileModel() {
         super("DFPropFile");
@@ -37,6 +39,23 @@ public class DFPropFileModel extends AbstractModel implements NamedModel {
      */
     public String getNameText() {
         return _fileName;
+    }
+
+    /**
+     * Get file path.
+     * @return file path
+     */
+    @Override
+    public String getFilePath() {
+        return _path;
+    }
+
+    /**
+     * Set file path.
+     * @param path file path
+     */
+    public void setFilePath(String path) {
+        this._path = path;
     }
 
     public void setLength(int length) {
@@ -56,6 +75,23 @@ public class DFPropFileModel extends AbstractModel implements NamedModel {
 
     public void setMissingHierarchy(boolean status) {
         _missingHierarchy = status;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel#isReferences()
+     */
+    @Override
+    public boolean isReferences() {
+        return _references;
+    }
+
+    /**
+     * 参照モードを設定する。
+     * @param references 参照モード
+     */
+    public void setReferences(boolean references) {
+        this._references = references;
     }
 
     @Override

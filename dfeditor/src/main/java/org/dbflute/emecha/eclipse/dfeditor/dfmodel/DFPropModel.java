@@ -50,4 +50,15 @@ public interface DFPropModel {
      */
     int getLineNumber();
 
+    /**
+     * Whether or not a reference model.
+     * @return true is references.
+     */
+    boolean isReferences();
+
+    /**
+     * Get file path.
+     * @return file path
+     */
+    String getFilePath();
 }

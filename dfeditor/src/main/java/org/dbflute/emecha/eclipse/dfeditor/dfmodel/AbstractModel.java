@@ -16,6 +16,7 @@
 package org.dbflute.emecha.eclipse.dfeditor.dfmodel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -44,9 +45,21 @@ public abstract class AbstractModel implements DFPropModel {
         return _parent;
     }
 
+    /**
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel#getFilePath()
+     */
+    @Override
+    public String getFilePath() {
+        return getParent().getFilePath();
+    }
+
     public void addChild(AbstractModel child) {
         _child.add(child);
         child.setParent(this);
+    }
+
+    public void replaceChild(DFPropModel[] child) {
+        _child = Arrays.asList(child);
     }
 
     /**
@@ -94,5 +107,14 @@ public abstract class AbstractModel implements DFPropModel {
 
     protected String getToStringSuffix() {
         return "[/" + _stateName + ":" + getLength() + "]";
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel#isReferences()
+     */
+    @Override
+    public boolean isReferences() {
+        return getParent().isReferences();
     }
 }

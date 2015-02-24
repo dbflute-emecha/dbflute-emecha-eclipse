@@ -20,11 +20,17 @@ import java.util.List;
 
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropFileModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropReferenceModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.ListModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MapModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.NamedModel;
+import org.dbflute.emecha.eclipse.kernel.util.WorkbenchUtil;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -34,6 +40,10 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 
 /**
@@ -72,6 +82,7 @@ public class DFPropOutlinePage extends ContentOutlinePage {
         viewer.setContentProvider(getContentProvider());
         viewer.setLabelProvider(getLabelProvider());
         viewer.addSelectionChangedListener(getSelectionChangedListener());
+        viewer.addDoubleClickListener(getDoubleClickListener());
         viewer.setAutoExpandLevel(2);
         viewer.setInput(input);
     }
@@ -80,6 +91,9 @@ public class DFPropOutlinePage extends ContentOutlinePage {
         return new ISelectionChangedListener() {
             public void selectionChanged(SelectionChangedEvent event) {
                 Object firstElement = ((TreeSelection) event.getSelection()).getFirstElement();
+                if (firstElement instanceof DFPropModel && ((DFPropModel) firstElement).isReferences()) {
+                    return;
+                }
                 if (firstElement instanceof DFPropFileModel) {
                     // nothing
                 } else if (firstElement instanceof MapModel) {
@@ -88,6 +102,41 @@ public class DFPropOutlinePage extends ContentOutlinePage {
                 } else if (firstElement instanceof NamedModel) {
                     NamedModel namedModel = (NamedModel) firstElement;
                     editor.selectAndReveal(namedModel.getOffset(), namedModel.getNameText().length());
+                }
+            }
+        };
+    }
+
+    private IDoubleClickListener getDoubleClickListener() {
+        return new IDoubleClickListener() {
+            @Override
+            public void doubleClick(DoubleClickEvent event) {
+                Object firstElement = ((TreeSelection) event.getSelection()).getFirstElement();
+                if (!(firstElement instanceof DFPropModel)) {
+                    return;
+                }
+                DFPropModel model = (DFPropModel) firstElement;
+                if (!model.isReferences() || model.getFilePath() == null) {
+                    return;
+                }
+
+                // 参照先のファイルを開く
+                IEditorInput editorInput = editor.getEditorInput();
+                if (editorInput instanceof FileEditorInput) {
+                    IProject project = ((FileEditorInput) editorInput).getFile().getProject();
+                    IFile filePath = project.getFile(model.getFilePath());
+                    if (filePath.exists()) {
+                        IEditorPart refEditor = WorkbenchUtil.openResource(DFEditorActivator.getDefault(), filePath);
+                        if (refEditor instanceof ITextEditor) {
+                            if (model instanceof MapModel) {
+                                MapModel mapModel = (MapModel) model;
+                                ((ITextEditor) refEditor).selectAndReveal(mapModel.getOffset(), mapModel.getStartBrace().length());
+                            } else if (model instanceof NamedModel) {
+                                NamedModel namedModel = (NamedModel) model;
+                                ((ITextEditor) refEditor).selectAndReveal(namedModel.getOffset(), namedModel.getNameText().length());
+                            }
+                        }
+                    }
                 }
             }
         };
@@ -227,7 +276,7 @@ public class DFPropOutlinePage extends ContentOutlinePage {
              */
             @Override
             public Image getImage(Object element) {
-                if (element instanceof DFPropFileModel) {
+                if (element instanceof DFPropFileModel || element instanceof DFPropReferenceModel) {
                     return DFEditorActivator.getImageDescriptor("icons/dfeditor2.gif").createImage();
                 }
                 if (element instanceof MapModel) {

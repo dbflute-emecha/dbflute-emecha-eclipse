@@ -30,14 +30,18 @@ import org.dbflute.emecha.eclipse.dfeditor.dfmodel.CommentModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropFileModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropModelParser;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.DFPropReferenceModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.FoldingModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MapEntryModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MapModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MultiLineCommentModel;
+import org.dbflute.emecha.eclipse.dfeditor.dfmodel.NamedModel;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewerExtension2;
@@ -59,7 +63,9 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 public class DFPropEditor extends TextEditor {
@@ -278,12 +284,97 @@ public class DFPropEditor extends TextEditor {
      * @return Map Property Model Object.
      */
     protected DFPropFileModel createDFModel() {
-        IDocument document = getDocumentProvider().getDocument(getEditorInput());
-        String name = getEditorInput().getName();
+        IEditorInput input = getEditorInput();
+        IDocument document = getDocumentProvider().getDocument(input);
         String source = document.get();
         DFPropFileModel propModel = new DFPropModelParser().parse(source);
+        String name = input.getName();
         propModel.setFileName(name);
+        if (input instanceof IFileEditorInput) {
+            IFile file = ((IFileEditorInput) input).getFile();
+            propModel.setFilePath(file.getProjectRelativePath().toString());
+        }
+
+        if (canSplitMapFile()) {
+            loadReferenceModel(propModel);
+        }
         return propModel;
+    }
+
+    private static final String[] SPLIT_MAP_FILE = {"additionalForeignKeyMap.dfprop"};
+    protected boolean canSplitMapFile() {
+        IEditorInput input = getEditorInput();
+        if (input instanceof IFileEditorInput) {
+            String name = input.getName();
+            for (String valid : SPLIT_MAP_FILE) {
+                if (valid.equals(name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    protected void loadReferenceModel(DFPropFileModel master) {
+        for (DFPropModel topEntry : master.getChild()) {
+            if (topEntry instanceof MapModel) {
+                for (DFPropModel entry : topEntry.getChild()) {
+                    if (entry instanceof MapEntryModel && "$$split$$".equals(((MapEntryModel) entry).getNameText())) {
+                        replaceToReference((MapEntryModel) entry);
+                    }
+                }
+            }
+        }
+    }
+
+    private void replaceToReference(MapEntryModel entry) {
+        for (DFPropModel child : entry.getChild()) {
+            if (child instanceof MapModel) {
+                boolean update = false;
+                DFPropModel[] elements = child.getChild();
+                for (int i = 0; i < elements.length; i++) {
+                    DFPropModel element = elements[i];
+                    if (element instanceof NamedModel) {
+                        try {
+                            IFile refFile = getReferencesFile((NamedModel) element);
+                            if (refFile.exists()) {
+                                String source = getReferencesSource(refFile);
+                                DFPropFileModel propModel = new DFPropModelParser().parse(source);
+                                propModel.setFileName(refFile.getName());
+                                propModel.setFilePath(refFile.getProjectRelativePath().toString());
+                                propModel.setReferences(true);
+                                elements[i] = new DFPropReferenceModel((NamedModel) element, propModel);
+                                update = true;
+                            }
+                        } catch (CoreException e) {
+                        }
+                    }
+                }
+                if (update) {
+                    ((MapModel) child).replaceChild(elements);
+                }
+            }
+        }
+    }
+
+    protected IFile getReferencesFile(NamedModel element) {
+        IFile file = ((IFileEditorInput) getEditorInput()).getFile();
+        IProject project = file.getProject();
+        IPath projectRelativePath = file.getProjectRelativePath();
+        String fileExtension = projectRelativePath.getFileExtension();
+        IPath prefix = projectRelativePath.removeLastSegments(1);
+        String nameSegment = projectRelativePath.removeFileExtension().lastSegment();
+        IPath referencesPath = prefix.append(nameSegment + "_" +  element.getNameText()).addFileExtension(fileExtension);
+        IFile refFile = project.getFile(referencesPath.toString());
+        return refFile;
+    }
+
+    private String getReferencesSource(IFile refFile) throws CoreException {
+        FileEditorInput input = new FileEditorInput(refFile);
+        FileDocumentProvider provider = new FileDocumentProvider();
+        provider.connect(input);
+        IDocument document = provider.getDocument(input);
+        return document.get();
     }
 
     /**
@@ -375,6 +466,7 @@ public class DFPropEditor extends TextEditor {
                 if (child instanceof MapModel) {
                     if (existsMap) {
                         createExistsMapMarker(file, (MapModel) child);
+                        continue;
                     }
                     checkDuplicateKeys(file, child);
                     existsMap = true;
@@ -440,14 +532,18 @@ public class DFPropEditor extends TextEditor {
      * @param dfmodel DFProp Models.
      */
     private void checkDuplicateKeys(IResource resource, DFPropModel dfmodel) {
+        if (dfmodel.isReferences()) {
+            return;
+        }
+
         if (dfmodel instanceof BlockModel && ((BlockModel) dfmodel).isMissingEndBrace()) {
             createMissingBraceMarker(resource, (BlockModel) dfmodel);
         }
         Set<String> keyNames = new HashSet<String>();
         List<DFPropModel> cache = new ArrayList<DFPropModel>();
         for (DFPropModel element : dfmodel.getChild()) {
-            if (element instanceof MapEntryModel) {
-                MapEntryModel entry = (MapEntryModel) element;
+            if (element instanceof NamedModel) {
+                NamedModel entry = (NamedModel) element;
                 if (keyNames.contains(entry.getNameText())) {
                     createDuplicateKeyMarker(resource, entry);
                 } else {
@@ -455,7 +551,7 @@ public class DFPropEditor extends TextEditor {
                 }
             }
             if (dfmodel instanceof MapModel) {
-                if (element instanceof MultiLineCommentModel || element instanceof CommentModel || element instanceof MapEntryModel) {
+                if (element instanceof MultiLineCommentModel || element instanceof CommentModel || element instanceof NamedModel) {
                     if (cache.size() > 0) {
                         DFPropModel first = cache.get(0);
                         DFPropModel last = cache.get(cache.size() - 1);
@@ -548,7 +644,7 @@ public class DFPropEditor extends TextEditor {
      * @param resource Marker target resource.
      * @param model Map Entry model.
      */
-    private void createDuplicateKeyMarker(IResource resource, MapEntryModel model) {
+    private void createDuplicateKeyMarker(IResource resource, NamedModel model) {
         try {
             IMarker marker = resource.createMarker(PROBLEM_MARKER_KEY);
             Map<String, Object> attribute = new HashMap<String, Object>();
