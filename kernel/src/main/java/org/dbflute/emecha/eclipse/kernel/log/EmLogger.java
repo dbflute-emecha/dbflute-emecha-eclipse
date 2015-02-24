@@ -15,18 +15,22 @@
  */
 package org.dbflute.emecha.eclipse.kernel.log;
 
+import org.dbflute.emecha.eclipse.kernel.EMechaKernelPlugin;
 import org.dbflute.emecha.eclipse.log.EmLog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 
 /**
- * EMecha Logger
+ * EMecha Logger.
+ * Print out debug log when logger has JVM parameter <code>-Dorg.dbflute.emecha.debug=true</code>
  * @author schatten
  */
 public final class EmLogger implements EmLog {
 
     private Plugin plugin;
+
+    private static final boolean debugMode = Boolean.getBoolean(EMechaKernelPlugin.PLUGIN_ID + ".debug");
 
     public EmLogger(Plugin plugin) {
         this.plugin = plugin;
@@ -41,8 +45,7 @@ public final class EmLogger implements EmLog {
     }
 
     public static boolean isDebug() {
-        // TODO debug mode handling
-        return true;
+        return debugMode;
     }
 
     /* (非 Javadoc)
