@@ -146,7 +146,7 @@
       <action
             id="org.dbflute.emecha.assist.OpenParameterBeanAction"
             class="org.dbflute.emecha.eclipse.dfassist.action.OpenParameterBeanAction"
-            menubarPath="org.seasar.dbflute.emecha.eclipse.plugin.menu/additions2"
+            menubarPath="org.dbflute.emecha.menu/additions2"
             enablesFor="1"
             label="%openParameterBean.label">
       </action>
