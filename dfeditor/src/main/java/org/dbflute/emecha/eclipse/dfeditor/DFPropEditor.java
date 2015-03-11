@@ -412,9 +412,15 @@ public class DFPropEditor extends TextEditor {
     private Map<Annotation, Position> applyFolding(ProjectionAnnotationModel annotationModel, DFPropModel dfmodel,
             Map<Integer, ProjectionAnnotation> annotationsMap) {
         Map<Annotation, Position> retMap = new HashMap<Annotation, Position>();
+        if (dfmodel instanceof DFPropReferenceModel) {
+            return retMap;
+        }
 
         DFPropModel[] child = dfmodel.getChild();
         for (DFPropModel model : child) {
+            if (model instanceof DFPropReferenceModel) {
+                continue;
+            }
             if (model instanceof FoldingModel) {
                 FoldingModel foldingModel = (FoldingModel) model;
                 if (foldingModel.canFolding()) {
