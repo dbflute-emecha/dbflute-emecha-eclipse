@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EMSynchronizer
+Bundle-Name: DBFlute EMecha EMSynchronizer
 Bundle-SymbolicName: org.dbflute.emecha.synchronizer;singleton:=true
-Bundle-Version: 0.6.1.qualifier
+Bundle-Version: 0.6.2.qualifier
 Bundle-Activator: org.dbflute.emecha.eclipse.synchronizer.EMSynchronizer
-Bundle-Vendor: Seasar DBFlute
+Bundle-Vendor: DBFlute.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
