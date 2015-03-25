@@ -20,24 +20,25 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.emecha.eclipse.dfeditor.DfColor;
-import org.dbflute.emecha.eclipse.dfeditor.DfColorManager;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.jface.text.rules.BufferedRuleBasedScanner;
 import org.eclipse.jface.text.rules.IPartitionTokenScanner;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.Token;
+import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 
 // TODO
 public abstract class BsDFPropScanner extends BufferedRuleBasedScanner implements IPartitionTokenScanner {
 
-    private DfColorManager colorManager;
-    @SuppressWarnings("unused")
+    private ISharedTextColors colorManager;
     private IPreferenceStore preferenceStore;
 
-    public BsDFPropScanner(DfColorManager manager, IPreferenceStore store) {
+    public BsDFPropScanner(ISharedTextColors manager, IPreferenceStore store) {
         super();
         this.colorManager = manager;
         this.preferenceStore = store;
@@ -45,7 +46,9 @@ public abstract class BsDFPropScanner extends BufferedRuleBasedScanner implement
     }
 
     public void initialize() {
-        // TODO Editor Color & decorate Setting
+        if (_tokenMap.size() > 0) {
+            _tokenMap = new HashMap<DfColor, Token>();
+        }
         initializeRules();
     }
 
@@ -94,9 +97,25 @@ public abstract class BsDFPropScanner extends BufferedRuleBasedScanner implement
     }
 
     private TextAttribute createTextAttribute(DfColor fontManager) {
-        Color fore = colorManager.getColor(fontManager.getForeground());
-        Color back = fontManager.getBackground() == null ? null : colorManager.getColor(fontManager.getBackground());
-        int style = fontManager.getStyle();
+        String foreground = preferenceStore.getString(fontManager.getForegroundKey());
+        RGB foreColor;
+        if (IPreferenceStore.STRING_DEFAULT_DEFAULT.equals(foreground)) {
+            foreColor = fontManager.getForeground();
+        } else {
+            foreColor = StringConverter.asRGB(foreground, fontManager.getForeground());
+        }
+        Color fore = colorManager.getColor(foreColor);
+
+        String background = preferenceStore.getString(fontManager.getBackgroundKey());
+        RGB backRGB = null;
+        if (IPreferenceStore.STRING_DEFAULT_DEFAULT.equals(foreground)) {
+            backRGB = fontManager.getBackground();
+        } else {
+            backRGB = StringConverter.asRGB( background, fontManager.getBackground());
+        }
+        Color back = colorManager.getColor(backRGB);
+
+        int style = preferenceStore.getInt(fontManager.getStyleKey());
         return new TextAttribute(fore, back, style);
     }
 

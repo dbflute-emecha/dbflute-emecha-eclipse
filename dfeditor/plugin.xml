@@ -97,13 +97,14 @@
           <super type="org.eclipse.core.resources.textmarker"/>
           <persistent value="true"/>
     </extension>
-<!--
+
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            name="DFProp Configuration"
+            name="DFEditor"
+            category="org.dbflute.emecha.EMechaBasePreferencePage"
             class="org.dbflute.emecha.eclipse.dfeditor.preferences.DFPropPreferencePage"
-            id="org.seaser.dbflute.emecha.dfeditor.preferences.DFPropPreferencePage">
+            id="org.dbflute.emecha.dfeditor.preferences.DFPropPreferencePage">
       </page>
    </extension>
    <extension
@@ -112,5 +113,5 @@
             class="org.dbflute.emecha.eclipse.dfeditor.preferences.PreferenceInitializer">
       </initializer>
    </extension>
--->
+
 </plugin>

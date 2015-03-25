@@ -35,9 +35,9 @@ import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.jface.text.source.Annotation;
+import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.ui.editors.text.TextSourceViewerConfiguration;
-import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.MarkerAnnotation;
 
 /**
@@ -49,17 +49,11 @@ public class DFPropFileConfiguration extends TextSourceViewerConfiguration imple
 
     private BsDFPropScanner commentScanner;
     private BsDFPropScanner defaultScanner;
-    private DfColorManager colorManager;
+    private ISharedTextColors colorManager;
 
-    public DFPropFileConfiguration(DfColorManager colorManager, IPreferenceStore preferenceStore) {
+    public DFPropFileConfiguration(ISharedTextColors colorManager, IPreferenceStore preferenceStore) {
         super(preferenceStore);
         this.colorManager = colorManager;
-        if (preferenceStore != null) {
-            // XXX TAG WHIDTH SETTING
-            preferenceStore.setValue(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_TAB_WIDTH, 4);
-            preferenceStore.setValue("errorIndicationInVerticalRuler", true);
-            preferenceStore.setValue("warningIndicationInVerticalRuler", true);
-        }
     }
 
     /**
@@ -159,5 +153,15 @@ public class DFPropFileConfiguration extends TextSourceViewerConfiguration imple
             return new IAutoEditStrategy[]{new DFPropCommentLineAutoEditStrategy(), new DFPropTabSpaceAutoEditStrategy()};
         }
         return super.getAutoEditStrategies(sourceViewer, contentType);
+    }
+
+    public void updatePreferences() {
+        if (defaultScanner != null) {
+            defaultScanner.initialize();
+        }
+        if (commentScanner != null) {
+            commentScanner.initialize();
+        }
+
     }
 }

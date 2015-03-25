@@ -36,6 +36,7 @@ import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MapEntryModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MapModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.MultiLineCommentModel;
 import org.dbflute.emecha.eclipse.dfeditor.dfmodel.NamedModel;
+import org.dbflute.emecha.eclipse.dfeditor.nls.Messages;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -43,11 +44,13 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewerExtension2;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.DefaultCharacterPairMatcher;
+import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.MatchingCharacterPainter;
@@ -56,6 +59,8 @@ import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -68,11 +73,10 @@ import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
-public class DFPropEditor extends TextEditor {
+public class DFPropEditor extends TextEditor implements IPropertyChangeListener {
 
     private static final String TOGGLE_COMMENT_ACTION = "ToggleCommentAction";
     private static final String PROBLEM_MARKER_KEY = DFEditorActivator.PLUGIN_ID + ".DFPropProblemMarker";
-    private DfColorManager colorManager;
     private DFPropOutlinePage outlinePage;
     private ProjectionSupport projectionSupport;
     private DFPropFileModel dfPropModel;
@@ -88,14 +92,15 @@ public class DFPropEditor extends TextEditor {
      * @see org.eclipse.ui.editors.text.TextEditor#dispose()
      */
     public void dispose() {
-        super.dispose();
-        colorManager.dispose();
         if (outlinePage != null) {
             outlinePage.dispose();
         }
+        IPreferenceStore preferenceStore = DFEditorActivator.getDefault().getPreferenceStore();
+        preferenceStore.removePropertyChangeListener(this);
         outlinePage = null;
         dfPropModel = null;
         projectionSupport = null;
+        super.dispose();
     }
 
     /**
@@ -104,11 +109,24 @@ public class DFPropEditor extends TextEditor {
      */
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-        this.colorManager = new DfColorManager();
-        setSourceViewerConfiguration(new DFPropFileConfiguration(colorManager, DFEditorActivator.getDefault().getPreferenceStore()));
+        ISharedTextColors colors = getSharedColors();
+        IPreferenceStore preferenceStore = DFEditorActivator.getDefault().getPreferenceStore();
+        DFPropFileConfiguration configuration = new DFPropFileConfiguration(colors, preferenceStore);
+        setSourceViewerConfiguration(configuration);
+
+        preferenceStore.addPropertyChangeListener(this);
 
         super.init(site, input);
 
+    }
+    @Override
+    public void propertyChange(PropertyChangeEvent event) {
+        SourceViewerConfiguration configuration = getSourceViewerConfiguration();
+        if (configuration instanceof DFPropFileConfiguration) {
+            ((DFPropFileConfiguration) configuration).updatePreferences();
+            getSourceViewer().configure(configuration);
+            getSourceViewer().invalidateTextPresentation();
+        }
     }
 
     /**
@@ -196,7 +214,7 @@ public class DFPropEditor extends TextEditor {
      * Extended to support the toggle comment.
      */
     protected void createToggleCommentAction() {
-        ResourceBundle bundle = ResourceBundle.getBundle(DFEditorActivator.class.getPackage().getName() + ".messages");
+        ResourceBundle bundle = ResourceBundle.getBundle(Messages.BUNDLE_NAME);
         ToggleCommentAction action = toggleCommentActionFactory.create(bundle, "ToggleComment.", this);
         action.setActionDefinitionId(DFEditorActivator.PLUGIN_ID + "." + TOGGLE_COMMENT_ACTION);
         setAction(TOGGLE_COMMENT_ACTION, action);

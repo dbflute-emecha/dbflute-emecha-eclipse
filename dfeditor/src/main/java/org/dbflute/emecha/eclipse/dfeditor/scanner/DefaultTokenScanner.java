@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dbflute.emecha.eclipse.dfeditor.DfColor;
-import org.dbflute.emecha.eclipse.dfeditor.DfColorManager;
 import org.dbflute.emecha.eclipse.dfeditor.rule.CombinedWordRule;
 import org.dbflute.emecha.eclipse.dfeditor.rule.CombinedWordRule.DfTagWordDetector;
 import org.dbflute.emecha.eclipse.dfeditor.rule.SingleLineSiegeRule;
@@ -27,10 +26,11 @@ import org.dbflute.emecha.eclipse.dfeditor.rule.WhitespaceDetector;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.WhitespaceRule;
+import org.eclipse.jface.text.source.ISharedTextColors;
 
 public class DefaultTokenScanner extends BsDFPropScanner {
 
-    public DefaultTokenScanner(DfColorManager manager, IPreferenceStore store) {
+    public DefaultTokenScanner(ISharedTextColors manager, IPreferenceStore store) {
         super(manager, store);
         setDefaultReturnToken(getToken(DfColor.DEFAULT));
     }

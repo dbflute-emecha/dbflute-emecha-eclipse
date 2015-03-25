@@ -16,30 +16,34 @@
 package org.dbflute.emecha.eclipse.dfeditor.preferences;
 
 import org.dbflute.emecha.eclipse.dfeditor.DFEditorActivator;
-import org.eclipse.jface.preference.*;
-import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.dbflute.emecha.eclipse.dfeditor.DfColor;
+import org.dbflute.emecha.eclipse.dfeditor.nls.Messages;
+import org.eclipse.jface.preference.ColorFieldEditor;
+import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
  * This class represents a preference page that
- * is contributed to the Preferences dialog. By 
+ * is contributed to the Preferences dialog. By
  * subclassing <samp>FieldEditorPreferencePage</samp>, we
  * can use the field support built into JFace that allows
- * us to create a page that is small and knows how to 
+ * us to create a page that is small and knows how to
  * save, restore and apply itself.
  * <p>
  * This page is used to modify preferences only. They
  * are stored in the preference store that belongs to
  * the main plug-in class. That way, preferences can
  * be accessed directly via the preference store.
+ *
+ * @author schatten
  */
-
 public class DFPropPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
     public DFPropPreferencePage() {
         super(GRID);
         setPreferenceStore(DFEditorActivator.getDefault().getPreferenceStore());
-        setDescription("A demonstration of a preference page implementation");
+        setDescription(Messages.DFPropPreferencePage_description);
     }
 
     /**
@@ -49,12 +53,14 @@ public class DFPropPreferencePage extends FieldEditorPreferencePage implements I
      * restore itself.
      */
     public void createFieldEditors() {
-        addField(new DirectoryFieldEditor(PreferenceConstants.P_PATH, "&Directory preference:", getFieldEditorParent()));
-        addField(new BooleanFieldEditor(PreferenceConstants.P_BOOLEAN, "&An example of a boolean preference", getFieldEditorParent()));
 
-        addField(new RadioGroupFieldEditor(PreferenceConstants.P_CHOICE, "An example of a multiple-choice preference", 1, new String[][] {
-                { "&Choice 1", "choice1" }, { "C&hoice 2", "choice2" } }, getFieldEditorParent()));
-        addField(new StringFieldEditor(PreferenceConstants.P_STRING, "A &text preference:", getFieldEditorParent()));
+        addField(new ColorFieldEditor(DfColor.LINE_COMMENT.getForegroundKey(), Messages.DFPropPreferencePage_CommentStyle, getFieldEditorParent()));
+        addField(new ColorFieldEditor(DfColor.FIXED_LITERAL_MARK.getForegroundKey(), Messages.DFPropPreferencePage_LiteralMarkStyle, getFieldEditorParent()));
+        addField(new ColorFieldEditor(DfColor.LIKE_SEARCH_MARK.getForegroundKey(), Messages.DFPropPreferencePage_SearchMarkStyle, getFieldEditorParent()));
+        addField(new ColorFieldEditor(DfColor.ALIAS_MARK.getForegroundKey(), Messages.DFPropPreferencePage_AliasMarkStyle, getFieldEditorParent()));
+        addField(new ColorFieldEditor(DfColor.VALIABLE.getForegroundKey(), Messages.DFPropPreferencePage_ValiableStyle, getFieldEditorParent()));
+        addField(new ColorFieldEditor(DfColor.SQL.getForegroundKey(), Messages.DFPropPreferencePage_SQLCommentStyle, getFieldEditorParent()));
+
     }
 
     /* (non-Javadoc)

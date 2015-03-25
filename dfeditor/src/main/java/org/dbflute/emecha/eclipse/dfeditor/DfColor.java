@@ -20,21 +20,29 @@ import org.eclipse.swt.graphics.RGB;
 
 public enum DfColor {
 
-    DEFAULT(new RGB(0, 0, 0)), LINE_COMMENT(new RGB(0, 128, 0)), LIKE_SEARCH_MARK(new RGB(0, 0, 255)), VALIABLE(new RGB(100, 100, 255)),
+    DEFAULT(null, "default"),
+    LINE_COMMENT(new RGB(0, 128, 0), "lineComment"),
+    LIKE_SEARCH_MARK(new RGB(0, 0, 255), "likeSearchMark"),
+    VALIABLE(new RGB(100, 100, 255), "valiable"),
     //FixedLiteralMark
-    FIXED_LITERAL_MARK(new RGB(128, 0, 128), SWT.BOLD), SQL(new RGB(0, 128, 128)), ALIAS_MARK(new RGB(0, 0, 255));
+    FIXED_LITERAL_MARK(new RGB(128, 0, 128), "fixedLiteralMark", SWT.BOLD),
+    SQL(new RGB(0, 128, 128), "sql"),
+    ALIAS_MARK(new RGB(0, 0, 255), "aliasMark");
 
     private RGB _foreground;
     private RGB _background = null;
+    private String _key;
     private int _style = SWT.NORMAL;
 
-    private DfColor(RGB foreground) {
+    private DfColor(RGB foreground, String key) {
         this._foreground = foreground;
+        this._key = key;
     }
 
-    private DfColor(RGB foreground, int style) {
+    private DfColor(RGB foreground, String key, int style) {
         this._foreground = foreground;
         this._style = style;
+        this._key = key;
     }
 
     public RGB getForeground() {
@@ -59,5 +67,17 @@ public enum DfColor {
 
     public void setStyle(int _style) {
         this._style = _style;
+    }
+
+    public String getForegroundKey() {
+        return "dfeditor.color." + _key + ".foreground";
+    }
+
+    public String getBackgroundKey() {
+        return "dfeditor.color." + _key + ".background";
+    }
+
+    public String getStyleKey() {
+        return "dfeditor.color." + _key + ".style";
     }
 }
