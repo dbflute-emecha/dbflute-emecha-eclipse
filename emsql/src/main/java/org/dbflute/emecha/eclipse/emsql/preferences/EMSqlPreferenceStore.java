@@ -42,9 +42,6 @@ public class EMSqlPreferenceStore extends ScopedPreferenceStore {
     }
 
     public Preferences getPreferenceChildNode(String keyName) {
-        // For befor 3.4
-        //        IEclipsePreferences[] preferenceNodes = this.getPreferenceNodes(false);
-        //        IEclipsePreferences projectPreferences = preferenceNodes[0];
         IEclipsePreferences projectPreferences = _localStoreContext.getNode(_localNodeQualifier);
         return projectPreferences.node(keyName);
     }
