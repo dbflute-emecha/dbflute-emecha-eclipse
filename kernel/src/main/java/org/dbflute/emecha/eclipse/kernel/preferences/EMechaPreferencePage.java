@@ -15,11 +15,16 @@
  */
 package org.dbflute.emecha.eclipse.kernel.preferences;
 
+import org.dbflute.emecha.eclipse.kernel.EMechaKernelPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.IWorkbenchPropertyPage;
@@ -61,8 +66,26 @@ public class EMechaPreferencePage extends PreferencePage implements IWorkbenchPr
      */
     @Override
     protected Control createContents(Composite parent) {
-        setTitle("This is blank page. Please select submenu.");
+        setTitle("DBFlute EMecha");
         Composite composite = new Composite(parent, SWT.NONE);
+
+        GridLayout layout = new GridLayout();
+        layout.numColumns = 3;
+        composite.setLayout(layout);
+
+        Label label = new Label(composite, SWT.NONE);
+        label.setFont(JFaceResources.getDialogFont());
+        label.setText("version");
+        label.setLayoutData(new GridData(GridData.BEGINNING, GridData.CENTER, false, false, 1, 1));
+
+        label = new Label(composite, SWT.NONE);
+        label.setText(":");
+        label.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, false, false, 1, 1));
+
+        label = new Label(composite, SWT.NONE);
+        label.setText(EMechaKernelPlugin.getDefault().getBundle().getVersion().toString());
+        label.setLayoutData(new GridData(GridData.BEGINNING, GridData.CENTER, false, false, 1, 1));
+
         return composite;
     }
 
