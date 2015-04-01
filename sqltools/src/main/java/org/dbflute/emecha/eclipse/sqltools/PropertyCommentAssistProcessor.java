@@ -121,8 +121,8 @@ public class PropertyCommentAssistProcessor extends OutsideSqlAssistProcessorBas
         }
     }
 
-    private static final String[] ENTITY_PROPERTY_TYPES = { "String", "Integer", "Long", "Date", "BigDecimal", "Timestamp", "Time" };
-    private static final String[] PARAMETER_PROPERTY_TYPES = { "String", "Integer", "Long", "Date", "BigDecimal", "Timestamp", "Time",
+    private static final String[] ENTITY_PROPERTY_TYPES = { "String", "Integer", "Long", "BigDecimal", "LocalDate", "LocalDateTime", "LocalTime", "Date", "Timestamp", "Time" };
+    private static final String[] PARAMETER_PROPERTY_TYPES = { "String", "Integer", "Long", "BigDecimal", "LocalDate", "LocalDateTime", "LocalTime", "Date", "Timestamp", "Time",
             "List<T>", "Map<K,V>" };
 
     private void addPropertyMarkProposal(List<ICompletionProposal> list, String prefix, String suffix, int offset, boolean delimSpace) {
