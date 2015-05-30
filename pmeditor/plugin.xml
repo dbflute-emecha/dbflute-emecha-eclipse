@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="PMEditor"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            class="org.dbflute.emecha.eclipse.pmeditor.PMEditor"
+            id="org.dbflute.emecha.pmeditor.PMEditor"
+            >
+            <contentTypeBinding
+                  contentTypeId="org.dbflute.emecha.pmeditor.dfpm">
+            </contentTypeBinding>
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+         <content-type
+               id="dfpm"
+               name="DBFlute Parameter Comment Template File"
+               default-charset="UTF-8"
+               file-extensions="dfpm,dfmail"
+               >
+         </content-type>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.documentProviders">
+      <provider
+            class="org.dbflute.emecha.eclipse.pmeditor.PMDocumentProvider"
+            extensions="dfpm,dfmail"
+            id="org.dbflute.emecha.pmeditor.documentProviders">
+      </provider>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+         <initializer
+               class="org.dbflute.emecha.eclipse.pmeditor.preferences.PreferenceInitializer">
+         </initializer>
+   </extension>
+
+</plugin>
