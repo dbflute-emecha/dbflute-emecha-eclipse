@@ -15,10 +15,11 @@
  */
 package org.dbflute.emecha.eclipse.dfeditor;
 
+import org.dbflute.emecha.eclipse.text.TextAttributeDefinition;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 
-public enum DfColor {
+public enum DfColor implements TextAttributeDefinition {
 
     DEFAULT(null, "default"),
     LINE_COMMENT(new RGB(0, 128, 0), "lineComment"),
@@ -45,6 +46,11 @@ public enum DfColor {
         this._key = key;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.dbflute.emecha.eclipse.text.TextAttributeDefinition#getForeground()
+     */
+    @Override
     public RGB getForeground() {
         return _foreground;
     }
@@ -53,6 +59,11 @@ public enum DfColor {
         this._foreground = _foreground;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.dbflute.emecha.eclipse.text.TextAttributeDefinition#getBackground()
+     */
+    @Override
     public RGB getBackground() {
         return _background;
     }
@@ -61,6 +72,11 @@ public enum DfColor {
         this._background = _background;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.dbflute.emecha.eclipse.text.TextAttributeDefinition#getStyle()
+     */
+    @Override
     public int getStyle() {
         return _style;
     }
@@ -69,14 +85,29 @@ public enum DfColor {
         this._style = _style;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.dbflute.emecha.eclipse.text.TextAttributeDefinition#getForegroundKey()
+     */
+    @Override
     public String getForegroundKey() {
         return "dfeditor.color." + _key + ".foreground";
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.dbflute.emecha.eclipse.text.TextAttributeDefinition#getBackgroundKey()
+     */
+    @Override
     public String getBackgroundKey() {
         return "dfeditor.color." + _key + ".background";
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.dbflute.emecha.eclipse.text.TextAttributeDefinition#getStyleKey()
+     */
+    @Override
     public String getStyleKey() {
         return "dfeditor.color." + _key + ".style";
     }

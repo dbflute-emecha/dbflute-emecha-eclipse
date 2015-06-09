@@ -16,3 +16,6 @@ Require-Bundle: org.eclipse.ui,
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: org.dbflute.emecha.eclipse.dfeditor,
+ org.dbflute.emecha.eclipse.dfeditor.rule,
+ org.dbflute.emecha.eclipse.dfeditor.scanner

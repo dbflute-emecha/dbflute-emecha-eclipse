@@ -28,6 +28,7 @@ public class DFPropCommentScanner extends BsDFPropScanner {
 
     public DFPropCommentScanner(ISharedTextColors manager, IPreferenceStore store) {
         super(manager, store);
+        initialize();
     }
 
     @Override

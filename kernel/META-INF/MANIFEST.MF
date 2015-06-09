@@ -8,9 +8,11 @@ Bundle-Vendor: DBFlute.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.ui.ide
+ org.eclipse.ui.ide,
+ org.eclipse.jface.text
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.dbflute.emecha.eclipse,
  org.dbflute.emecha.eclipse.log,
+ org.dbflute.emecha.eclipse.text,
  org.dbflute.emecha.eclipse.util

@@ -17,6 +17,7 @@ package org.dbflute.emecha.eclipse.dfeditor.preferences;
 
 import org.dbflute.emecha.eclipse.dfeditor.DFEditorActivator;
 import org.dbflute.emecha.eclipse.dfeditor.DfColor;
+import org.dbflute.emecha.eclipse.text.TextAttributeDefinition;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.StringConverter;
@@ -41,7 +42,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
         store.setValue("errorIndicationInVerticalRuler", true);
         store.setValue("warningIndicationInVerticalRuler", true);
 
-        for (DfColor color : DfColor.values()) {
+        for (TextAttributeDefinition color : DfColor.values()) {
             String foreground;
             if (color.getForeground() != null) {
                 foreground = StringConverter.asString(color.getForeground());

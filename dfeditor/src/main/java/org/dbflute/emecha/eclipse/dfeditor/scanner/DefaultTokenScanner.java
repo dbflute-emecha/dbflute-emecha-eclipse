@@ -33,6 +33,7 @@ public class DefaultTokenScanner extends BsDFPropScanner {
     public DefaultTokenScanner(ISharedTextColors manager, IPreferenceStore store) {
         super(manager, store);
         setDefaultReturnToken(getToken(DfColor.DEFAULT));
+        initialize();
     }
 
     @Override

@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.dbflute.emecha.eclipse.dfeditor.DfColor;
+import org.dbflute.emecha.eclipse.text.TextAttributeDefinition;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.jface.text.IDocument;
@@ -32,7 +32,10 @@ import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 
-// TODO
+/**
+ * Base Scanner
+ * @author schatten
+ */
 public abstract class BsDFPropScanner extends BufferedRuleBasedScanner implements IPartitionTokenScanner {
 
     private ISharedTextColors colorManager;
@@ -42,12 +45,11 @@ public abstract class BsDFPropScanner extends BufferedRuleBasedScanner implement
         super();
         this.colorManager = manager;
         this.preferenceStore = store;
-        initialize();
     }
 
     public void initialize() {
         if (_tokenMap.size() > 0) {
-            _tokenMap = new HashMap<DfColor, Token>();
+            _tokenMap = new HashMap<TextAttributeDefinition, Token>();
         }
         initializeRules();
     }
@@ -85,9 +87,9 @@ public abstract class BsDFPropScanner extends BufferedRuleBasedScanner implement
 
     }
 
-    private Map<DfColor, Token> _tokenMap = new HashMap<DfColor, Token>();
+    private Map<TextAttributeDefinition, Token> _tokenMap = new HashMap<TextAttributeDefinition, Token>();
 
-    protected Token getToken(DfColor colorType) {
+    protected Token getToken(TextAttributeDefinition colorType) {
         Token token = _tokenMap.get(colorType);
         if (token == null) {
             token = new Token(createTextAttribute(colorType));
@@ -96,7 +98,7 @@ public abstract class BsDFPropScanner extends BufferedRuleBasedScanner implement
         return token;
     }
 
-    private TextAttribute createTextAttribute(DfColor fontManager) {
+    private TextAttribute createTextAttribute(TextAttributeDefinition fontManager) {
         String foreground = preferenceStore.getString(fontManager.getForegroundKey());
         RGB foreColor;
         if (IPreferenceStore.STRING_DEFAULT_DEFAULT.equals(foreground)) {
