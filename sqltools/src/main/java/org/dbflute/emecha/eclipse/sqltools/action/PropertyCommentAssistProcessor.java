@@ -13,10 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.eclipse.sqltools;
+package org.dbflute.emecha.eclipse.sqltools.action;
 
 import java.util.List;
 
+import org.dbflute.emecha.eclipse.sqltools.SQLAssistPlugin;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;

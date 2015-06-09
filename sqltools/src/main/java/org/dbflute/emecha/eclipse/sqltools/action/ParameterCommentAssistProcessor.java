@@ -13,11 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.eclipse.sqltools;
+package org.dbflute.emecha.eclipse.sqltools.action;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dbflute.emecha.eclipse.sqltools.SQLAssistPlugin;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
@@ -46,15 +47,25 @@ public class ParameterCommentAssistProcessor extends OutsideSqlAssistProcessorBa
     }
 
     private Image icon;
+    protected Image getIcon() {
+        return icon;
+    }
+    protected void setIcon(Image icon) {
+        this.icon = icon;
+    }
+
+    protected List<ParameterCommentProposal> getProposals() {
+        return proposals;
+    }
 
     public ParameterCommentAssistProcessor(OutsideSqlAssistProcessorBase... processor) {
         super(processor);
-        icon = SQLAssistPlugin.getImageDescriptor("icons/listmark-note.gif").createImage();
+        setIcon(SQLAssistPlugin.getImageDescriptor("icons/listmark-note.gif").createImage());
     }
 
     /**
      * {@inheritDoc}
-     * @see org.dbflute.emecha.eclipse.sqltools.OutsideSqlAssistProcessorBase#appendCompletionProposal(java.util.List, org.eclipse.jface.text.ITextViewer, int)
+     * @see org.dbflute.emecha.eclipse.sqltools.action.OutsideSqlAssistProcessorBase#appendCompletionProposal(java.util.List, org.eclipse.jface.text.ITextViewer, int)
      */
     @Override
     protected void appendCompletionProposal(List<ICompletionProposal> list, ITextViewer viewer, int offset) {
@@ -79,7 +90,7 @@ public class ParameterCommentAssistProcessor extends OutsideSqlAssistProcessorBa
             }
             String target = line.substring(start, end);
 
-            for (ParameterCommentProposal proposal : proposals) {
+            for (ParameterCommentProposal proposal : getProposals()) {
                 if (!proposal.getPropertyMark().startsWith(markPrefix)) {
                     continue;
                 }
@@ -87,7 +98,7 @@ public class ParameterCommentAssistProcessor extends OutsideSqlAssistProcessorBa
 
                 IContextInformation contextInformation = null;
                 String additionalProposalInfo = proposal.getAdditionalProposalInfo();
-                list.add(new CompletionProposal(replacementString, markOffset, target.length(), proposal.getCursorPositionOffset(), icon,
+                list.add(new CompletionProposal(replacementString, markOffset, target.length(), proposal.getCursorPositionOffset(), getIcon(),
                         proposal.getDisplayString(), contextInformation, additionalProposalInfo));
             }
 

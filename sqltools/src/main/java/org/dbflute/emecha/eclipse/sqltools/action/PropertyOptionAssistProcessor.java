@@ -13,11 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.eclipse.sqltools;
+package org.dbflute.emecha.eclipse.sqltools.action;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dbflute.emecha.eclipse.sqltools.SQLAssistPlugin;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
@@ -54,9 +55,13 @@ public class PropertyOptionAssistProcessor extends OutsideSqlAssistProcessorBase
         proposals.add(new CommentProposal());
     }
 
+    public List<OutsideSqlProposal> getProposals() {
+        return proposals;
+    }
+
     /**
      * {@inheritDoc}
-     * @see org.dbflute.emecha.eclipse.sqltools.OutsideSqlAssistProcessorBase#appendCompletionProposal(java.util.List, org.eclipse.jface.text.ITextViewer, int)
+     * @see org.dbflute.emecha.eclipse.sqltools.action.OutsideSqlAssistProcessorBase#appendCompletionProposal(java.util.List, org.eclipse.jface.text.ITextViewer, int)
      */
     @Override
     protected void appendCompletionProposal(List<ICompletionProposal> list, ITextViewer viewer, int offset) {
@@ -80,7 +85,7 @@ public class PropertyOptionAssistProcessor extends OutsideSqlAssistProcessorBase
             int replacementLength = optionPrefix.length();
 
             Image icon = SQLAssistPlugin.getImageDescriptor("icons/listmark-rest.gif").createImage();
-            for (OutsideSqlProposal proposal : proposals) {
+            for (OutsideSqlProposal proposal : getProposals()) {
                 if (!proposal.getPropertyMark().startsWith(optionPrefix)) {
                     continue;
                 }

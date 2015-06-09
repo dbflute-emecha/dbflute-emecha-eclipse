@@ -15,6 +15,10 @@
  */
 package org.dbflute.emecha.eclipse.sqltools;
 
+import org.dbflute.emecha.eclipse.sqltools.action.AutoCloseCommentStrategy;
+import org.dbflute.emecha.eclipse.sqltools.action.ParameterCommentAssistProcessor;
+import org.dbflute.emecha.eclipse.sqltools.action.PropertyCommentAssistProcessor;
+import org.dbflute.emecha.eclipse.sqltools.action.PropertyOptionAssistProcessor;
 import org.eclipse.datatools.sqltools.sqleditor.SQLEditor;
 import org.eclipse.datatools.sqltools.sqleditor.internal.editor.SQLSourceViewerConfiguration;
 import org.eclipse.jface.text.IAutoEditStrategy;
