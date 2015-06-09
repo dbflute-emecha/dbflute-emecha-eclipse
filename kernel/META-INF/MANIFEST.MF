@@ -15,4 +15,5 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.dbflute.emecha.eclipse,
  org.dbflute.emecha.eclipse.log,
  org.dbflute.emecha.eclipse.text,
+ org.dbflute.emecha.eclipse.text.scanner,
  org.dbflute.emecha.eclipse.util

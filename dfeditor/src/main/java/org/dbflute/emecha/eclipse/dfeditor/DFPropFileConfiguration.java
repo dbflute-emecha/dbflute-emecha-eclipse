@@ -21,9 +21,9 @@ import org.dbflute.emecha.eclipse.dfeditor.action.DFPropEnclosedAutoEditStrategy
 import org.dbflute.emecha.eclipse.dfeditor.action.DFPropEnclosedCommentAutoEditStrategy;
 import org.dbflute.emecha.eclipse.dfeditor.action.DFPropIndentLineAutoEditStrategy;
 import org.dbflute.emecha.eclipse.dfeditor.action.DFPropTabSpaceAutoEditStrategy;
-import org.dbflute.emecha.eclipse.dfeditor.scanner.BsDFPropScanner;
 import org.dbflute.emecha.eclipse.dfeditor.scanner.DFPropCommentScanner;
 import org.dbflute.emecha.eclipse.dfeditor.scanner.DefaultTokenScanner;
+import org.dbflute.emecha.eclipse.text.scanner.EmRuleBasedScanner;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.DefaultTextHover;
 import org.eclipse.jface.text.IAutoEditStrategy;
@@ -47,8 +47,8 @@ public class DFPropFileConfiguration extends TextSourceViewerConfiguration imple
 
     private DFPropDoubleClickStrategy doubleClickStrategy;
 
-    private BsDFPropScanner commentScanner;
-    private BsDFPropScanner defaultScanner;
+    private EmRuleBasedScanner commentScanner;
+    private EmRuleBasedScanner defaultScanner;
     private ISharedTextColors colorManager;
 
     public DFPropFileConfiguration(ISharedTextColors colorManager, IPreferenceStore preferenceStore) {

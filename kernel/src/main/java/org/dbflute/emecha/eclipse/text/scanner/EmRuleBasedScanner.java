@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.eclipse.dfeditor.scanner;
+package org.dbflute.emecha.eclipse.text.scanner;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,12 +36,12 @@ import org.eclipse.swt.graphics.RGB;
  * Base Scanner
  * @author schatten
  */
-public abstract class BsDFPropScanner extends BufferedRuleBasedScanner implements IPartitionTokenScanner {
+public abstract class EmRuleBasedScanner extends BufferedRuleBasedScanner implements IPartitionTokenScanner {
 
     private ISharedTextColors colorManager;
     private IPreferenceStore preferenceStore;
 
-    public BsDFPropScanner(ISharedTextColors manager, IPreferenceStore store) {
+    public EmRuleBasedScanner(ISharedTextColors manager, IPreferenceStore store) {
         super();
         this.colorManager = manager;
         this.preferenceStore = store;

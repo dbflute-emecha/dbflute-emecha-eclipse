@@ -23,12 +23,13 @@ import org.dbflute.emecha.eclipse.dfeditor.rule.CombinedWordRule;
 import org.dbflute.emecha.eclipse.dfeditor.rule.CombinedWordRule.DfTagWordDetector;
 import org.dbflute.emecha.eclipse.dfeditor.rule.SingleLineSiegeRule;
 import org.dbflute.emecha.eclipse.dfeditor.rule.WhitespaceDetector;
+import org.dbflute.emecha.eclipse.text.scanner.EmRuleBasedScanner;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.WhitespaceRule;
 import org.eclipse.jface.text.source.ISharedTextColors;
 
-public class DefaultTokenScanner extends BsDFPropScanner {
+public class DefaultTokenScanner extends EmRuleBasedScanner {
 
     public DefaultTokenScanner(ISharedTextColors manager, IPreferenceStore store) {
         super(manager, store);

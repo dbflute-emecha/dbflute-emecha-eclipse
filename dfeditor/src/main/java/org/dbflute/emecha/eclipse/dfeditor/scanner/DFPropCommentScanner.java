@@ -19,12 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dbflute.emecha.eclipse.dfeditor.DfColor;
+import org.dbflute.emecha.eclipse.text.scanner.EmRuleBasedScanner;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.rules.EndOfLineRule;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.source.ISharedTextColors;
 
-public class DFPropCommentScanner extends BsDFPropScanner {
+public class DFPropCommentScanner extends EmRuleBasedScanner {
 
     public DFPropCommentScanner(ISharedTextColors manager, IPreferenceStore store) {
         super(manager, store);
