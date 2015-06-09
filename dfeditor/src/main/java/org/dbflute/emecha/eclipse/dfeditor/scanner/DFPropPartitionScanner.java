@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dbflute.emecha.eclipse.dfeditor.DFPropPartitions;
-import org.dbflute.emecha.eclipse.dfeditor.rule.SingleLineSiegeRule;
+import org.dbflute.emecha.eclipse.text.rule.SingleLineSiegeRule;
 import org.eclipse.jface.text.rules.EndOfLineRule;
 import org.eclipse.jface.text.rules.IPredicateRule;
 import org.eclipse.jface.text.rules.IToken;

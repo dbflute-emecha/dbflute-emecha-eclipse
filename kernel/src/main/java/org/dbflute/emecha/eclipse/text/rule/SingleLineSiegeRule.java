@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.dbflute.emecha.eclipse.dfeditor.rule;
+package org.dbflute.emecha.eclipse.text.rule;
 
 import java.util.Arrays;
 import java.util.Comparator;

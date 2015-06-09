@@ -19,10 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dbflute.emecha.eclipse.dfeditor.DfColor;
-import org.dbflute.emecha.eclipse.dfeditor.rule.CombinedWordRule;
-import org.dbflute.emecha.eclipse.dfeditor.rule.CombinedWordRule.DfTagWordDetector;
-import org.dbflute.emecha.eclipse.dfeditor.rule.SingleLineSiegeRule;
-import org.dbflute.emecha.eclipse.dfeditor.rule.WhitespaceDetector;
+import org.dbflute.emecha.eclipse.text.rule.CombinedWordRule;
+import org.dbflute.emecha.eclipse.text.rule.SingleLineSiegeRule;
+import org.dbflute.emecha.eclipse.text.rule.WhitespaceDetector;
+import org.dbflute.emecha.eclipse.text.rule.CombinedWordRule.DfTagWordDetector;
 import org.dbflute.emecha.eclipse.text.scanner.EmRuleBasedScanner;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.rules.IRule;
