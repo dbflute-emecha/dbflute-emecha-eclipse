@@ -21,6 +21,8 @@ import java.util.List;
 import org.dbflute.emecha.eclipse.pmeditor.PMPartitions;
 import org.dbflute.emecha.eclipse.pmeditor.PmColorDef;
 import org.dbflute.emecha.eclipse.text.TextAttributeDefinition;
+import org.dbflute.emecha.eclipse.text.rule.CombinedWordRule;
+import org.dbflute.emecha.eclipse.text.rule.CombinedWordRule.WordMatcher;
 import org.dbflute.emecha.eclipse.text.rule.SingleLineSiegeRule;
 import org.dbflute.emecha.eclipse.text.scanner.EmRuleBasedScanner;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -36,7 +38,6 @@ import org.eclipse.jface.text.source.ISharedTextColors;
  * @author schatten
  */
 public class PMBodyScanner extends EmRuleBasedScanner implements PMPartitions {
-    private static final String LF = "\n";
     private String sepText;
     private int separatePosition = -1;
 
@@ -63,7 +64,15 @@ public class PMBodyScanner extends EmRuleBasedScanner implements PMPartitions {
 
         rules.add(new EndOfLineRule("--", new Token(PmColorDef.PROPERTY_COMMENT)));
         rules.add(new EndOfLineRule(this.sepText, new Token(PmColorDef.SEPARATOR)));
-        rules.add(new SingleLineSiegeRule("/*", "*/", getToken(PmColorDef.PARAMETER_COMMENT)));
+        rules.add(new SingleLineSiegeRule("/*", "*/", new Token(PmColorDef.PARAMETER_COMMENT)));
+
+        CombinedWordRule wordRule = new CombinedWordRule();
+        WordMatcher matcher = new WordMatcher();
+        matcher.addWord("subject:", new Token(PmColorDef.META_MARK));
+        matcher.addWord("option:", new Token(PmColorDef.META_MARK));
+        matcher.addWord("comment:", new Token(PmColorDef.META_MARK));
+        wordRule.addWordMatcher(matcher);
+        rules.add(wordRule);
 
         return rules;
     }
