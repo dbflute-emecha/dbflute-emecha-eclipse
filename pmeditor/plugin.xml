@@ -8,6 +8,7 @@
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             class="org.dbflute.emecha.eclipse.pmeditor.PMEditor"
             id="org.dbflute.emecha.pmeditor.PMEditor"
+            icon="icons/dfpm.gif"
             >
             <contentTypeBinding
                   contentTypeId="org.dbflute.emecha.pmeditor.dfpm">
