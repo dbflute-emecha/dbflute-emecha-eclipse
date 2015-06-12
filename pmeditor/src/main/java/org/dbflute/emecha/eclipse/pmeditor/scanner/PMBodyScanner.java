@@ -77,27 +77,9 @@ public class PMBodyScanner extends EmRuleBasedScanner implements PMPartitions {
         if (document != null) {
             String doc = document.get();
             if (doc != null) {
-                int leng = this.sepText.length();
-                separatePosition = doc.indexOf(this.sepText);
-                if (separatePosition > 0) {
-                    separatePosition = doc.indexOf(LF + this.sepText);
-                    if (separatePosition >= 0 && doc.length() > separatePosition + leng + 1) {
-                        char charAt = doc.charAt(separatePosition + leng + 1);
-                        if (charAt == '\r' || charAt == '\n') {
-                            separatePosition += leng + 2;
-                        } else {
-                            separatePosition = -1;
-                        }
-                    }
-                } else if (separatePosition == 0 && doc.length() > leng) {
-                    char charAt = doc.charAt(separatePosition + leng);
-                    if (charAt == '\r' || charAt == '\n') {
-                        separatePosition += leng + 1;
-                    } else {
-                        separatePosition = -1;
-                    }
-                } else {
-                    separatePosition = -1;
+                separatePosition = ScannerUtils.indexOf(doc, this.sepText);
+                if (separatePosition >= 0) {
+                    separatePosition += this.sepText.length();
                 }
             }
         }

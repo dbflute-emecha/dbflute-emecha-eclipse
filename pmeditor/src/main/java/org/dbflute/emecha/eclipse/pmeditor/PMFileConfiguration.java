@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.dbflute.emecha.eclipse.pmeditor.scanner.PMBodyScanner;
 import org.dbflute.emecha.eclipse.pmeditor.scanner.PMCommentScanner;
+import org.dbflute.emecha.eclipse.pmeditor.scanner.ScannerUtils;
 import org.dbflute.emecha.eclipse.sqltools.action.AutoCloseCommentStrategy;
 import org.dbflute.emecha.eclipse.sqltools.action.ParameterCommentAssistProcessor;
 import org.dbflute.emecha.eclipse.text.scanner.EmRuleBasedScanner;
@@ -50,16 +51,66 @@ import org.eclipse.ui.texteditor.MarkerAnnotation;
  */
 public class PMFileConfiguration extends TextSourceViewerConfiguration implements PMPartitions {
 
+    protected static class PmHeaderDamagerRepairer extends DefaultDamagerRepairer {
+        public PmHeaderDamagerRepairer(ITokenScanner scanner, String separator) {
+            super(scanner);
+            this.separator = separator;
+        }
+
+        private String separator;
+        private int _lastSep = -1;
+        protected int getLastSep() {
+            return _lastSep;
+        }
+
+        protected void setLastSep(int lastSep) {
+            this._lastSep = lastSep;
+        }
+
+        @Override
+        public IRegion getDamageRegion(ITypedRegion partition, DocumentEvent e, boolean documentPartitioningChanged) {
+            int sep = ScannerUtils.indexOf(fDocument.get(), separator);
+            int sepLength = separator.length() + 1;
+            IRegion retReg = null;
+            if (!documentPartitioningChanged || e.getOffset() < sep + sepLength) {
+                IRegion damageRegion = super.getDamageRegion(partition, e, documentPartitioningChanged);
+                int lastSep = getLastSep();
+                if (lastSep == sep) {
+                    if (sep >= damageRegion.getOffset()) {
+                        int end = Math.max(sep + sepLength, damageRegion.getOffset() + damageRegion.getLength());
+                        retReg = new Region(damageRegion.getOffset(), end - damageRegion.getOffset());
+                    } else {
+                        retReg = damageRegion;
+                    }
+                } else if (lastSep <= 0 || sep <= 0) {
+                    int end = Math.max(Math.max(lastSep + sepLength, sep + sepLength), damageRegion.getOffset() + damageRegion.getLength());
+                    retReg = new Region(0, end);
+                } else {
+                    int start = Math.min(Math.min(lastSep, sep), damageRegion.getOffset());
+                    int end = Math.max(Math.max(lastSep + sepLength, sep + sepLength), damageRegion.getOffset() + damageRegion.getLength());
+                    retReg = new Region(start, end - start);
+                }
+            }
+            if (e.getText() != null && e.getText().length() != 0) {
+                setLastSep(sep);
+            }
+            if (retReg != null) {
+                int start = Math.min(retReg.getOffset(), partition.getOffset());
+                int end = Math.max(retReg.getOffset() + retReg.getLength(), partition.getOffset() + partition.getLength());
+                return new Region(start, end - start);
+            }
+            return partition;
+        }
+    }
+
     private ISharedTextColors colors;
     private EmRuleBasedScanner pmCommentScanner;
     private EmRuleBasedScanner defaultScanner;
-    private String separator;
     private static ParameterCommentAssistProcessor parameterCommentAssistProcessor;
 
     public PMFileConfiguration(ISharedTextColors colors, IPreferenceStore preferenceStore) {
         super(preferenceStore);
         this.colors = colors;
-        this.separator = DEFAULT_SEPARATOR_TEXT;
     }
 
     /**
@@ -97,51 +148,9 @@ public class PMFileConfiguration extends TextSourceViewerConfiguration implement
         DefaultDamagerRepairer bodyDr = new DefaultDamagerRepairer(getPmCommentScanner());
         reconciler.setDamager(bodyDr, PM_PARAMETER);
         reconciler.setRepairer(bodyDr, PM_PARAMETER);
-        DefaultDamagerRepairer baseDr = new DefaultDamagerRepairer(getDefaultScanner()) {
-            @Override
-            public IRegion getDamageRegion(ITypedRegion partition, DocumentEvent e, boolean documentPartitioningChanged) {
-                int sep = fDocument.get().indexOf(separator);
-                IRegion retReg = null;
-                if (!documentPartitioningChanged) {
-                    IRegion damageRegion = super.getDamageRegion(partition, e, documentPartitioningChanged);
-                    int lastSep = getLastSep();
-                    int sepLength = separator.length() + 1;
-                    if (lastSep == sep) {
-                        if (sep >= damageRegion.getOffset()) {
-                            int end = Math.max(sep + sepLength, damageRegion.getOffset() + damageRegion.getLength());
-                            retReg = new Region(damageRegion.getOffset(), end - damageRegion.getOffset());
-                        } else {
-                            retReg = damageRegion;
-                        }
-                    } else if (lastSep <= 0 || sep <= 0) {
-                        int end = Math.max(Math.max(lastSep + sepLength, sep + sepLength), damageRegion.getOffset() + damageRegion.getLength());
-                        retReg = new Region(0, end);
-                    } else {
-                        int start = Math.min(Math.min(lastSep, sep), damageRegion.getOffset());
-                        int end = Math.max(Math.max(lastSep + sepLength, sep + sepLength), damageRegion.getOffset() + damageRegion.getLength());
-                        retReg = new Region(start, end - start);
-                    }
-                }
-                setLastSep(sep);
-                if (retReg != null) {
-                    int start = Math.min(retReg.getOffset(), partition.getOffset());
-                    int end = Math.max(retReg.getOffset() + retReg.getLength(), partition.getOffset() + partition.getLength());
-                    return new Region(start, end - start);
-                }
-                return partition;
-            }
-        };
-        reconciler.setDamager(baseDr, IDocument.DEFAULT_CONTENT_TYPE);
-        reconciler.setRepairer(baseDr, IDocument.DEFAULT_CONTENT_TYPE);
+        reconciler.setDamager(new PmHeaderDamagerRepairer(getDefaultScanner(), DEFAULT_SEPARATOR_TEXT), IDocument.DEFAULT_CONTENT_TYPE);
+        reconciler.setRepairer(new PmHeaderDamagerRepairer(getDefaultScanner(),DEFAULT_SEPARATOR_TEXT), IDocument.DEFAULT_CONTENT_TYPE);
         return reconciler;
-    }
-    private int _lastSep = -1;
-    public int getLastSep() {
-        return _lastSep;
-    }
-
-    public void setLastSep(int lastSep) {
-        this._lastSep = lastSep;
     }
 
     /**
