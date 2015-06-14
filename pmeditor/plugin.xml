@@ -34,6 +34,15 @@
       </provider>
    </extension>
    <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="PMEditor"
+            category="org.dbflute.emecha.EMechaBasePreferencePage"
+            class="org.dbflute.emecha.eclipse.pmeditor.preferences.PmPreferencePage"
+            id="org.dbflute.emecha.pmeditor.preferences.PmPreferencePage">
+      </page>
+   </extension>
+   <extension
          point="org.eclipse.core.runtime.preferences">
          <initializer
                class="org.dbflute.emecha.eclipse.pmeditor.preferences.PreferenceInitializer">
