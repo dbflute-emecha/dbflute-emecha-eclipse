@@ -145,9 +145,9 @@ public class PMFileConfiguration extends TextSourceViewerConfiguration implement
         PresentationReconciler reconciler = new PresentationReconciler();
         reconciler.setDocumentPartitioning(getConfiguredDocumentPartitioning(sourceViewer));
 
-        DefaultDamagerRepairer bodyDr = new DefaultDamagerRepairer(getPmCommentScanner());
-        reconciler.setDamager(bodyDr, PM_PARAMETER);
-        reconciler.setRepairer(bodyDr, PM_PARAMETER);
+        reconciler.setDamager(new PmHeaderDamagerRepairer(getPmCommentScanner(), DEFAULT_SEPARATOR_TEXT), PM_PARAMETER);
+        reconciler.setRepairer(new PmHeaderDamagerRepairer(getPmCommentScanner(),DEFAULT_SEPARATOR_TEXT), PM_PARAMETER);
+
         reconciler.setDamager(new PmHeaderDamagerRepairer(getDefaultScanner(), DEFAULT_SEPARATOR_TEXT), IDocument.DEFAULT_CONTENT_TYPE);
         reconciler.setRepairer(new PmHeaderDamagerRepairer(getDefaultScanner(),DEFAULT_SEPARATOR_TEXT), IDocument.DEFAULT_CONTENT_TYPE);
         return reconciler;

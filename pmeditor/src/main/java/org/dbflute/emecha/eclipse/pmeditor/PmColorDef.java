@@ -30,7 +30,8 @@ public enum PmColorDef implements TextAttributeDefinition {
     PARAMETER_COMMENT(new RGB(0, 128, 0), "parameterComment"),
     PROPERTY_COMMENT(new RGB(128, 128, 255), "propertyComment"),
     SEPARATOR(new RGB(0, 0, 255), "separator", SWT.BOLD),
-    META_MARK(new RGB(0, 0, 200), "metaMark", SWT.BOLD | SWT.ITALIC);
+    META_MARK(new RGB(0, 0, 200), "metaMark", SWT.BOLD | SWT.ITALIC),
+    TITLE_META(new RGB(128, 0, 128), "titleMark", SWT.BOLD | SWT.ITALIC);
 
     private RGB _foreground;
     private RGB _background = null;

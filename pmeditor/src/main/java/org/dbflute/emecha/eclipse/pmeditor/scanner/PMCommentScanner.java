@@ -20,21 +20,19 @@ import java.util.List;
 
 import org.dbflute.emecha.eclipse.pmeditor.PmColorDef;
 import org.dbflute.emecha.eclipse.text.rule.SingleLineSiegeRule;
-import org.dbflute.emecha.eclipse.text.scanner.EmRuleBasedScanner;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.rules.IRule;
+import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.source.ISharedTextColors;
 
 /**
  * Parameter Comment Scanner
  * @author schatten
  */
-public class PMCommentScanner extends EmRuleBasedScanner {
+public class PMCommentScanner extends PMBodyScanner {
 
     public PMCommentScanner(ISharedTextColors manager, IPreferenceStore store) {
         super(manager, store);
-        setDefaultReturnToken(getToken(PmColorDef.PARAMETER_COMMENT));
-        initialize();
     }
 
     /**
@@ -44,7 +42,8 @@ public class PMCommentScanner extends EmRuleBasedScanner {
     @Override
     protected List<IRule> createRules() {
         List<IRule> rules = new ArrayList<IRule>();
-        rules.add(new SingleLineSiegeRule("/*", "*/", getToken(PmColorDef.PARAMETER_COMMENT)));
+        rules.add(new SingleLineSiegeRule("/*", "*/", new Token(PmColorDef.PARAMETER_COMMENT)));
+        rules.add(new SingleLineSiegeRule("[", "]", new Token(PmColorDef.TITLE_META)));
         return rules;
     }
 

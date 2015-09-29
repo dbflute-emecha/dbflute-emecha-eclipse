@@ -25,6 +25,7 @@ public class Messages extends NLS {
     public static final String BUNDLE_NAME = "org.dbflute.emecha.eclipse.pmeditor.nls.messages"; //$NON-NLS-1$
     public static String PmPreferencePage_description;
     public static String PmPreferencePage_HeaderStyle;
+    public static String PmPreferencePage_TitleStyle;
     public static String PmPreferencePage_MetaMarkStyle;
     public static String PmPreferencePage_PropertyCommentStyle;
     public static String PmPreferencePage_SeparatorStyle;

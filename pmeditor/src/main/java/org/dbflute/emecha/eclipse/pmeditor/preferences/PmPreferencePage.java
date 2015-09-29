@@ -41,6 +41,7 @@ public class PmPreferencePage extends FieldEditorPreferencePage implements IWork
     @Override
     protected void createFieldEditors() {
         addField(new ColorFieldEditor(PmColorDef.HEADER.getForegroundKey(), Messages.PmPreferencePage_HeaderStyle, getFieldEditorParent()));
+        addField(new ColorFieldEditor(PmColorDef.TITLE_META.getForegroundKey(), Messages.PmPreferencePage_TitleStyle, getFieldEditorParent()));
         addField(new ColorFieldEditor(PmColorDef.META_MARK.getForegroundKey(), Messages.PmPreferencePage_MetaMarkStyle, getFieldEditorParent()));
         addField(new ColorFieldEditor(PmColorDef.PROPERTY_COMMENT.getForegroundKey(), Messages.PmPreferencePage_PropertyCommentStyle, getFieldEditorParent()));
         addField(new ColorFieldEditor(PmColorDef.SEPARATOR.getForegroundKey(), Messages.PmPreferencePage_SeparatorStyle, getFieldEditorParent()));
