@@ -6,6 +6,9 @@ Archive Download For dropins : [downlad page](https://github.com/dbflute-emecha/
  * ダウンロードページよりDBFlute-EMecha.zipを取得し、Eclipseのdropinsフォルダに解凍してください。  
    Please download DBFlute-EMecha.zip and unpackaging in directory of Eclipse dropins.
 
+or
+Update Site : https://dbflute-emecha.github.io/eclipse-updates
+
 -----------
 ### Environment ###
 
@@ -15,3 +18,8 @@ JRE 7 or later
   * Eclipse Java Development Tools (JDT)
   * Data Tools Platform (DTP)
 
+-----------
+### Usage ###
+
+* Document Site : 
+   https://dbflute-emecha.github.io/eclipse-doc/
